@@ -36,7 +36,7 @@
 	pending = !sh -c 'git lol $(git config branch.$(git name-rev --name-only HEAD).remote)/$(git rev-parse --abbrev-ref --symbolic-full-name $(git config branch.$(git name-rev --name-only HEAD).merge))..HEAD'
 
 [push]
-	default = simple
+	default = matching
 
 [user]
 	email = millerd@wpi.edu
