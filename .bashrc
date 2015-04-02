@@ -50,6 +50,8 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
+alias cl='clear'
+alias claer='clear'
 alias df='df -h'
 alias du='du -h'
 alias e=$EDITOR
@@ -82,10 +84,28 @@ function dotfiles(){
 (
   cd ~/.dotfiles
   git pull
-  ./install.py --no-install
+  ./install.sh
   source ~/.bashrc
 )
 }
+
+. ~/.ros_config
+
+##12-catkin_make
+function roscompile(){
+( 
+  cd $ROS_WORKSPACE
+  pwd
+  catkin_make
+)
+}
+
+function roscheck(){
+(
+  printenv | grep ROS
+)
+}
+
 
 ##50-colors.bashrc
 

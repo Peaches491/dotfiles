@@ -1,0 +1,8 @@
+export ROS_WORKSPACE_TMP=/home/peaches/indigo_ws/
+
+
+echo Initializing ROS workspace: $ROS_WORKSPACE_TMP
+
+. $ROS_WORKSPACE_TMP/devel/setup.bash
+export ROS_WORKSPACE=$ROS_WORKSPACE_TMP
+unset ROS_WORKSPACE_TMP
