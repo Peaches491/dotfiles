@@ -40,7 +40,7 @@ X_SYMBOL="✗"
 CHECK_SYMBOL="✓"
 
 ##05-programs
-export EDITOR='emacs -nw'
+export EDITOR='nano'
 export PAGER=less
 
 ##10-aliases
@@ -54,12 +54,13 @@ alias df='df -h'
 alias du='du -h'
 alias e=$EDITOR
 alias egrep='egrep --color=always'
-alias emacs='emacs -nw'		# make emacs only run in the terminal
+alias emacs='emacs -nw'		# make emacs o#nly run in the terminal
 alias fgrep='fgrep --color=always'
 alias g='git'
 alias grep='grep --color=always'
 alias grep-rec='find . -type f -print0 | xargs -0 grep'
 alias killbg='kill $(jobs -p)'		# kill all background tasks
+alias la='ls -al'
 alias l='ls -F'
 alias less='less -R'
 alias ll='l -Al'

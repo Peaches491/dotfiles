@@ -39,8 +39,8 @@
 	default = simple
 
 [user]
-	email = mwills@wpi.edu
-	name = Mitchell Wills
+	email = millerd@wpi.edu
+	name = Daniel Miller
 
 [http]
 	sslVerify = true
