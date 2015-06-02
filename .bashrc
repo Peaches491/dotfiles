@@ -96,7 +96,7 @@ function roscompile(){
 ( 
   cd $ROS_WORKSPACE
   pwd
-  catkin_make
+  catkin_make -j -l8
 )
 }
 
@@ -333,3 +333,12 @@ function maketar() { tar cvzf "${1%%/}.tar.gz"  "${1%%/}/"; }
 
 # Create a ZIP archive of a file or folder.
 function makezip() { zip -r "${1%%/}.zip" "$1" ; }
+
+# Add ccache to PATH
+export PATH=/usr/lib/ccache:$PATH
+export VLR_ROOT=/home/daniel/
+
+# Fix auto-complete with sudo prefix
+if [ "$PS1" ]; then
+  complete -cf sudo
+fi
