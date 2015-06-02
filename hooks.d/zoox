@@ -1,0 +1,25 @@
+# Add ccache to PATH
+export PATH=/usr/lib/ccache:$PATH
+export VLR_ROOT=/home/daniel/
+
+
+# Override roscompile for threading
+function roscompile(){
+(
+  cd $ROS_WORKSPACE
+  pwd
+  catkin_make -j -l8
+)
+}
+
+
+# pull down tests
+##12-catkin_make
+function zoox-download-tests(){
+(
+  cd $ROS_WORKSPACE
+  pwd
+  catkin_make download_test_data
+)
+}
+
