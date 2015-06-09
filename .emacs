@@ -19,7 +19,7 @@
 
 (show-paren-mode 1)
 
-(add-hook 'after-init-hook #'global-flycheck-mode)
+;; (add-hook 'after-init-hook #'global-flycheck-mode)
 
 (setq-default show-trailing-whitespace t)
 
@@ -32,10 +32,13 @@
 (global-set-key (kbd "<f7>") 'flyspell-buffer)
 
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
+(add-to-list 'auto-mode-alist '("\\.launch\\'" . nxml-mode))
 
 (global-set-key (kbd "C-x |") 'split-window-horizontally)
 (global-set-key (kbd "C-x _") 'split-window-vertically)
 (global-set-key (kbd "C-x &") 'delete-window)
+
+(global-set-key (kbd "C-S-e") 'ignore)
 
 (global-font-lock-mode 1)
 
@@ -46,4 +49,3 @@
                          ("melpa" . "http://melpa.milkbox.net/packages/")))
 (package-initialize)
 
-(load-theme 'wombat t)

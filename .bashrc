@@ -40,7 +40,7 @@ X_SYMBOL="✗"
 CHECK_SYMBOL="✓"
 
 ##05-programs
-export EDITOR='nano'
+export EDITOR='emacs'
 export PAGER=less
 
 ##10-aliases
@@ -55,11 +55,11 @@ alias claer='clear'
 alias df='df -h'
 alias du='du -h'
 alias e=$EDITOR
-alias egrep='egrep --color=always'
+alias egrep='egrep --color=auto'
 alias emacs='emacs -nw'		# make emacs o#nly run in the terminal
-alias fgrep='fgrep --color=always'
+alias fgrep='fgrep --color=auto'
 alias g='git'
-alias grep='grep --color=always'
+alias grep='grep --color=auto'
 alias grep-rec='find . -type f -print0 | xargs -0 grep'
 alias killbg='kill $(jobs -p)'		# kill all background tasks
 alias la='ls -al'
@@ -69,7 +69,7 @@ alias ll='l -Al'
 alias lll='ll -a'
 alias llll='lll -i'
 alias lr='ll -R'		# Recursive ls
-alias ls='ls --color=always -h'
+alias ls='ls --color=auto -h'
 alias mkdir='mkdir -p'		# recursive directory make
 alias rmtmp='rm -f *~;rm -f .*~'		# delete all file ending in ~ in the current directory
 alias tree='tree -Chsu'		# Nice alternative to recursive ls
@@ -305,7 +305,6 @@ fi
 
 
 ##90-archives.bashrc
-
 function extract()      # Handy Extract Program
 {
     if [ -f $1 ] ; then
@@ -328,16 +327,25 @@ function extract()      # Handy Extract Program
     fi
 }
 
+
 # Creates an archive (*.tar.gz) from given directory.
 function maketar() { tar cvzf "${1%%/}.tar.gz"  "${1%%/}/"; }
 
+
 # Create a ZIP archive of a file or folder.
 function makezip() { zip -r "${1%%/}.zip" "$1" ; }
+
 
 # Fix auto-complete with sudo prefix
 if [ "$PS1" ]; then
   complete -cf sudo
 fi
+
+
+
+# Add Git's autocompleteion
+source ~/git-completion.bash
+
 
 
 # Run scripts from script hook directories

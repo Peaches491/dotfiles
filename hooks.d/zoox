@@ -4,11 +4,21 @@ export VLR_ROOT=/home/daniel/
 
 
 # Override roscompile for threading
-function roscompile(){
+function zoox-compile(){
 (
   cd $ROS_WORKSPACE
   pwd
   catkin_make -j -l8
+)
+}
+
+
+# Override roscompile for threading
+function zoox-compile-tests(){
+(
+  cd $ROS_WORKSPACE
+  pwd
+  catkin_make tests -j -l8
 )
 }
 
