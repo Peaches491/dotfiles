@@ -40,7 +40,7 @@ X_SYMBOL="✗"
 CHECK_SYMBOL="✓"
 
 ##05-programs
-export EDITOR='emacs'
+export EDITOR='vim'
 export PAGER=less
 
 ##10-aliases
@@ -56,7 +56,6 @@ alias df='df -h'
 alias du='du -h'
 alias e=$EDITOR
 alias egrep='egrep --color=auto'
-alias emacs='emacs -nw'		# make emacs o#nly run in the terminal
 alias fgrep='fgrep --color=auto'
 alias g='git'
 alias grep='grep --color=auto'
