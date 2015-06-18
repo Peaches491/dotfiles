@@ -1,0 +1,25 @@
+[user]
+    name = Daniel Miller
+    email = daniel@zoox.com
+[github]
+    user = Peaches491
+[core]
+    autocrlf = input
+    excludesfile = ~/.dotfiles/git/gitignore
+[color]
+    ui = true
+[alias]
+    co = checkout
+    dt = difftool --dir-diff
+    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+    st = status
+[push]
+    default = simple
+[diff]
+    tool = meld
+[merge]
+    tool = kdiff3
+#[branch]
+#    autosetuprebase = always
+#[pull]
+#    rebase = true

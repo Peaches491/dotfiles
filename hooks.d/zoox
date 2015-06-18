@@ -24,7 +24,6 @@ function zoox-compile-tests(){
 
 
 # pull down tests
-##12-catkin_make
 function zoox-download-tests(){
 (
   cd $ROS_WORKSPACE
