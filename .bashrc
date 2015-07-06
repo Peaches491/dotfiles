@@ -277,7 +277,10 @@ function prompt_command() {
 	else
 		EXIT_CODE="${bash_prompt_bold_white}${bash_prompt_background_red}!!! Exited: $EXIT_STATUS !!!"
 	fi
-	PS1="\n$JOBS\n${bash_prompt_yellow}\u${bash_prompt_normal}@\h ${bash_prompt_blue}[\w${DIR_STACK}${bash_prompt_blue}]$SCM ${bash_prompt_bold_red}\t $EXIT_CODE${bash_prompt_normal}\n ${bash_prompt_normal}\$ "
+	PS1="\n${bash_prompt_yellow}\u${bash_prompt_normal}@\h ${bash_prompt_blue}[\w${DIR_STACK}${bash_prompt_blue}]$SCM ${bash_prompt_bold_red}\t $EXIT_CODE${bash_prompt_normal}\n ${bash_prompt_normal}\$ "
+	if [[ $JOBS -ne 0 ]]; then
+	PS1="\n$JOBS$PS1 "
+	fi
 	# set title bar
 	case "$TERM" in
 		xterm*|rxvt*)
