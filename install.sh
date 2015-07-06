@@ -7,7 +7,7 @@ function link() {
    local link_file="$2"
 
    rm -rf "$link_file"
-   ln -sf "$source_file" "$link_file"
+   ln -si "$source_file" "$link_file"
 }
 
 (
@@ -15,17 +15,21 @@ function link() {
 sudo apt-get install build-essential cmake python-dev
 
 ################################################################################
+# Update repository
+################################################################################
+
+echo "Clone all submodules? y/n "
+read year
+if (( "$year" == "y" )) || (( "$year" == "Y")); then
+  git submodule update --init --recursive
+fi
+
+################################################################################
 # Set current directory
 ################################################################################
 
 ROOT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 cd $ROOT_DIR
-
-################################################################################
-# Update repository
-################################################################################
-
-git submodule update --init --recursive
 
 ################################################################################
 # Create required directories
@@ -42,15 +46,15 @@ mkdir -p ~/GitHub ~/include ~/.config
 #link ~/dotfiles/sh/function.sh ~/.function
 #link ~/dotfiles/sh/variables.sh ~/.variables
 #link ~/dotfiles/sh/commonrc.sh ~/.commonrc
-#link ~/dotfiles/sh/bashrc.bash ~/.bashrc
-#link ~/dotfiles/sh/zshrc.zsh ~/.zshrc
 #link ~/dotfiles/dircolors/solarized/dircolors.256dark ~/.dircolors
+link $ROOT_DIR/shell/.bashrc ~/.bashrc
+link $ROOT_DIR/shell/zshrc.zsh ~/.zshrc
 link $ROOT_DIR/tmux.conf ~/.tmux.conf
 
 # Git
-link ~/dotfiles/sh/git-completion.sh ~/.git-completion.sh
-link ~/dotfiles/git/gitconfig ~/.gitconfig
-link ~/dotfiles/git/gitignore ~/.gitignore
+link $ROOT_DIR/git-completion.sh ~/.git-completion.sh
+link $ROOT_DIR/git/gitconfig ~/.gitconfig
+link $ROOT_DIR/git/gitignore ~/.gitignore
     
 wget -O ~/git-completion.bash https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash
    
@@ -60,14 +64,14 @@ wget -O ~/git-completion.bash https://raw.githubusercontent.com/git/git/master/c
   ./install.sh --clang-completer --omnisharp-completer
 )
 
-ln -s -b $ROOT_DIR/.bashrc ~/.bashrc
-ln -s -b $ROOT_DIR/git/gitconfig ~/.gitconfig
-ln -s -b $ROOT_DIR/.dircolors ~/.dircolors
-ln -s -b $ROOT_DIR/.ros_config ~/.ros_config
-ln -s -b $ROOT_DIR/.emacs ~/.emacs
-ln -s -b $ROOT_DIR/vim/vimrc ~/.vimrc
-ln -s -b $ROOT_DIR/vim ~/.vim
-ln -s -b $ROOT_DIR/vim/ycm_extra_conf.py ~/.ycm_extra_conf.py
+ln -s -i $ROOT_DIR/.bashrc ~/.bashrc
+ln -s -i $ROOT_DIR/git/gitconfig ~/.gitconfig
+ln -s -i $ROOT_DIR/.dircolors ~/.dircolors
+ln -s -i $ROOT_DIR/.ros_config ~/.ros_config
+ln -s -i $ROOT_DIR/.emacs ~/.emacs
+ln -s -i $ROOT_DIR/vim/vimrc ~/.vimrc
+ln -s -i $ROOT_DIR/vim ~/.vim
+ln -s -i $ROOT_DIR/vim/ycm_extra_conf.py ~/.ycm_extra_conf.py
  
 )
 
