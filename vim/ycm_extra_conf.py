@@ -1,4 +1,4 @@
-mport os
+import os
 import ycm_core
 
 flags = [

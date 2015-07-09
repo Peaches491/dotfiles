@@ -1,3 +1,6 @@
+[core]
+   excludesfile = ~/.gitignore
+
 [color]
 	status = auto
 	diff = auto

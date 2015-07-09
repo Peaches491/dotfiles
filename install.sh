@@ -7,7 +7,7 @@ function link() {
    local link_file="$2"
 
    rm -rf "$link_file"
-   ln -si "$source_file" "$link_file"
+   ln -sf "$source_file" "$link_file"
 }
 
 (
@@ -18,11 +18,7 @@ sudo apt-get install build-essential cmake python-dev
 # Update repository
 ################################################################################
 
-echo "Clone all submodules? y/n "
-read year
-if (( "$year" == "y" )) || (( "$year" == "Y")); then
-  git submodule update --init --recursive
-fi
+git submodule update --init --recursive
 
 ################################################################################
 # Set current directory
@@ -42,37 +38,60 @@ mkdir -p ~/GitHub ~/include ~/.config
 ################################################################################
 
 # Shell
-#link ~/dotfiles/sh/alias.sh ~/.alias
-#link ~/dotfiles/sh/function.sh ~/.function
-#link ~/dotfiles/sh/variables.sh ~/.variables
-#link ~/dotfiles/sh/commonrc.sh ~/.commonrc
-#link ~/dotfiles/dircolors/solarized/dircolors.256dark ~/.dircolors
-link $ROOT_DIR/shell/.bashrc ~/.bashrc
+link $ROOT_DIR/shell/bashrc ~/.bashrc
 link $ROOT_DIR/shell/zshrc.zsh ~/.zshrc
 link $ROOT_DIR/tmux.conf ~/.tmux.conf
+link $ROOT_DIR/.dircolors ~/.dircolors
+link $ROOT_DIR/.ros_config ~/.ros_config
+link $ROOT_DIR/themes ~/.themes
+link $ROOT_DIR/shell/commonrc.sh ~/.commonrc
+link $ROOT_DIR/shell/xinitrc.sh ~/.xinitrc
+link $ROOT_DIR/shell/alias.sh ~/.alias
+#link $ROOT_DIR/shell/function.sh ~/.function
+#link $ROOT_DIR/shell/variables.sh ~/.variables
+#link $ROOT_DIR/dircolors/solarized/dircolors.256dark ~/.dircolors
 
 # Git
-link $ROOT_DIR/git-completion.sh ~/.git-completion.sh
+link $ROOT_DIR/git/git-completion.sh ~/.git-completion.sh
 link $ROOT_DIR/git/gitconfig ~/.gitconfig
 link $ROOT_DIR/git/gitignore ~/.gitignore
-    
-wget -O ~/git-completion.bash https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash
-   
+
+# Vim
+link $ROOT_DIR/vim ~/.vim
+link $ROOT_DIR/vim/vimrc ~/.vimrc
+link $ROOT_DIR/vim/ycm_extra_conf.py ~/.ycm_extra_conf.py
+
+# Emacs
+link $ROOT_DIR/.emacs ~/.emacs
+ 
 # YouCompleteMe
+echo "Recompile YouCompleteMe? y/n "
+read recomp
+if [ "$recomp" == "y" ] || [ "$recomp" == "Y" ]; then
 (
   cd ./vim/bundle/YouCompleteMe
   ./install.sh --clang-completer --omnisharp-completer
 )
+fi
 
-ln -s -i $ROOT_DIR/.bashrc ~/.bashrc
-ln -s -i $ROOT_DIR/git/gitconfig ~/.gitconfig
-ln -s -i $ROOT_DIR/.dircolors ~/.dircolors
-ln -s -i $ROOT_DIR/.ros_config ~/.ros_config
-ln -s -i $ROOT_DIR/.emacs ~/.emacs
-ln -s -i $ROOT_DIR/vim/vimrc ~/.vimrc
-ln -s -i $ROOT_DIR/vim ~/.vim
-ln -s -i $ROOT_DIR/vim/ycm_extra_conf.py ~/.ycm_extra_conf.py
- 
+
+# YouCompleteMe
+echo "Reinstall Vundle Bundles? y/n "
+read bundleinstall
+if [ "$bundleinstall" == "y" ] || [ "$bundleinstall" == "Y" ]; then
+(
+  vim +BundleInstall +qall
+)
+fi
+
+# Powerline Fontconfig
+(
+mkdir -p ~/.fonts/
+. themes/powerline-fonts/install.sh
+sudo fc-cache -vf ~/.fonts/
+)
+
 )
 
 source ~/.bashrc
+
