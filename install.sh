@@ -79,7 +79,7 @@ echo "Recompile YouCompleteMe? y/n "
 read recomp
 if [ "$recomp" == "y" ] || [ "$recomp" == "Y" ]; then
 (
-  cd ./vim/bundle/YouCompleteMe
+  cd ~/.bundle/YouCompleteMe
   ./install.sh --clang-completer --omnisharp-completer
 )
 fi
