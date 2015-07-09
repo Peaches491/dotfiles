@@ -1,24 +1,12 @@
-[submodule "YouCompleteMe"]
-	path = YouCompleteMe
-	url = git@github.com:Valloric/YouCompleteMe.git
-[submodule "vim/bundle/YouCompleteMe"]
-	path = vim/bundle/YouCompleteMe
-	url = git@github.com:Valloric/YouCompleteMe.git
-[submodule "vim/bundle/vim-hybrid"]
-	path = vim/bundle/vim-hybrid
-	url = git@github.com:w0ng/vim-hybrid.git
 [submodule "themes/solarized"]
 	path = themes/solarized
 	url = git@github.com:altercation/solarized.git
 [submodule "themes/gnome-terminal-colors-solarized"]
 	path = themes/gnome-terminal-colors-solarized
 	url = git@github.com:Anthony25/gnome-terminal-colors-solarized.git
-[submodule "vim/bundle/Vundle.vim.git"]
-	path = vim/bundle/Vundle.vim.git
-	url = https://github.com/gmarik/Vundle.vim.git
-[submodule "vim/bundle/Vundle.vim"]
-	path = vim/bundle/Vundle.vim
-	url = https://github.com/gmarik/Vundle.vim.git
 [submodule "themes/Powerline-fonts"]
 	path = themes/powerline-fonts
 	url = git@github.com:powerline/fonts.git
+[submodule "vim/bundle/Vundle.vim"]
+	path = vim/bundle/Vundle.vim
+	url = https://github.com/gmarik/Vundle.vim.git

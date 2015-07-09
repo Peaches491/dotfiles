@@ -31,7 +31,7 @@ cd $ROOT_DIR
 # Create required directories
 ################################################################################
 
-mkdir -p ~/GitHub ~/include ~/.config
+mkdir -p ~/GitHub ~/include ~/.config ~/.bundles
 
 ################################################################################
 # Link config files in home folder
@@ -64,16 +64,6 @@ link $ROOT_DIR/vim/ycm_extra_conf.py ~/.ycm_extra_conf.py
 # Emacs
 link $ROOT_DIR/.emacs ~/.emacs
  
-# YouCompleteMe
-echo "Recompile YouCompleteMe? y/n "
-read recomp
-if [ "$recomp" == "y" ] || [ "$recomp" == "Y" ]; then
-(
-  cd ./vim/bundle/YouCompleteMe
-  ./install.sh --clang-completer --omnisharp-completer
-)
-fi
-
 
 # YouCompleteMe
 echo "Reinstall Vundle Bundles? y/n "
@@ -81,6 +71,16 @@ read bundleinstall
 if [ "$bundleinstall" == "y" ] || [ "$bundleinstall" == "Y" ]; then
 (
   vim +BundleInstall +qall
+)
+fi
+
+# YouCompleteMe
+echo "Recompile YouCompleteMe? y/n "
+read recomp
+if [ "$recomp" == "y" ] || [ "$recomp" == "Y" ]; then
+(
+  cd ./vim/bundle/YouCompleteMe
+  ./install.sh --clang-completer --omnisharp-completer
 )
 fi
 
