@@ -58,6 +58,7 @@ link $ROOT_DIR/git/gitignore ~/.gitignore
 
 # Vim
 link $ROOT_DIR/vim ~/.vim
+link $ROOT_DIR/vim ~/.ideavim
 link $ROOT_DIR/vim/vimrc ~/.vimrc
 link $ROOT_DIR/vim/ycm_extra_conf.py ~/.ycm_extra_conf.py
 
@@ -79,7 +80,7 @@ echo "Recompile YouCompleteMe? y/n "
 read recomp
 if [ "$recomp" == "y" ] || [ "$recomp" == "Y" ]; then
 (
-  cd ~/.bundle/YouCompleteMe
+  cd ~/.bundles/YouCompleteMe
   ./install.sh --clang-completer --omnisharp-completer
 )
 fi

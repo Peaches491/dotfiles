@@ -56,6 +56,10 @@ let g:airline_powerline_fonts = 1
 
 Bundle 'Valloric/YouCompleteMe'
 
+Plugin 'alvan/vim-closetag'
+" filenames like *.xml, *.html, *.xhtml, ...
+let g:closetag_filenames = "*.html,*.xhtml,*.phtml"
+
 Plugin 'taketwo/vim-ros'
 let g:ycm_semantic_triggers = {
 \   'roslaunch' : ['="', '$(', '/'],
@@ -163,7 +167,7 @@ set sidescrolloff=10             " Keep min of 'n' columns right/left cursor.
 set smartcase                    " Searches are case-sensitive if caps used.
 set smarttab                     " Tabs and backspaces at the start of a line indent the line one level.
 set smartindent                  " Maintains most indentation and adds extra level when nesting.
-set softtabstop=3                " See spaces as tabs.
+set softtabstop=2                " See spaces as tabs.
 set splitright splitbelow        " Open splits below and to the right.
 set synmaxcol=2000               " Only matches syntax on first 'n' columns of each line.
 set tabstop=3                    " <Tab> move three characters.
