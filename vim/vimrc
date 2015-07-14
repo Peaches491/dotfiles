@@ -5,6 +5,17 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+" tab navigation like firefox
+nnoremap <C-p> :bprevious<CR>
+nnoremap <C-n> :bnext<CR>
+nnoremap <C-w> :bdelete<CR>
+inoremap <C-p> <Esc>:bprevious<CR>i
+inoremap <C-n> <Esc>:bnext<CR>i
+inoremap <C-w> <Esc>:bdelete<CR>i
+
+" Disable Ctrl+B
+nnoremap <C-b> <Nop>
+
 nnoremap <CR> G
 
 set splitbelow
@@ -66,9 +77,13 @@ let g:airline_enable_syntastic  = 1
 " let g:airline_readonly_symbol   = '⭤'
 " let g:airline_linecolumn_prefix = '⭡'
 
+let g:airline#extensions#tabline#enabled = 1
 
+Plugin 'tpope/vim-fugitive'
 
 Bundle 'Valloric/YouCompleteMe'
+nnoremap <C-g> :YcmCompleter GoTo<CR>
+inoremap <C-g> <Esc>:YcmCompleter GoTo<CR>i
 
 Plugin 'alvan/vim-closetag'
 " filenames like *.xml, *.html, *.xhtml, ...
@@ -79,6 +94,21 @@ let g:ycm_semantic_triggers = {
 \   'roslaunch' : ['="', '$(', '/'],
 \   'rosmsg,rossrv,rosaction' : ['re!^', '/'],
 \ }
+
+Plugin 'airblade/vim-gitgutter'
+
+Plugin 'bling/vim-bufferline'
+
+Bundle 'edkolev/tmuxline.vim'
+let g:tmuxline_preset = {
+      \'a'    : '#S',
+      \'c'    : '#(whoami)',
+      \'win'  : ['#I', '#W'],
+      \'cwin' : ['#I', '#W', '#F'],
+      \'y'    : ['%R', '%a', '%Y'],
+      \'z'    : '#H'}
+
+Bundle 'scrooloose/nerdtree' 
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -164,7 +194,7 @@ set hlsearch                     " Highlight all search matches.
 set ignorecase                   " Ignore case in regular expressions.
 set incsearch                    " Immediately highlight search matches.
 set laststatus=2                 " Show status line even where there is only one window.
-set lazyredraw                   " Redraw faster.
+"set lazyredraw                   " Redraw faster.
 set linespace=0                  " Adjust relative line height.
 set mouse=a
 set modeline                     " Check for a modeline.
@@ -176,6 +206,7 @@ set noswapfile                   " Don't use swap files.
 set number                       " Display line numbers.
 set relativenumber               " Use relative line numbering
 set scrolloff=5                  " Keep min of 'n' lines above/below cursor.
+set shellcmdflag=-ic             " Execute shell commands with bashrc aliases
 set shellslash                   " Use forward slashes regardless of OS.
 set shiftwidth=3                 " >> and << shift 3 spaces.
 set showcmd                      " Show partial commands in the status line.
@@ -198,5 +229,5 @@ set wildmenu                     " Tab completion navigable menu is enabled.
 set wildmode=list:longest,full   " Tab completion lists matches, then opens wildmenu on next <Tab>.
 set wrapscan                     " Searching wraps to start of file when end is reached.
 
-:highlight LineNr cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
+highlight LineNr cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
 

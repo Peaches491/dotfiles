@@ -8,7 +8,7 @@ export PAGER=less
 #####################
 # Cross-shell aliases
 #####################
-
+alias sudo='sudo '
 alias -- -='cd -'		# go to the previous directory
 alias ~='cd'
 alias ..='cd ..'

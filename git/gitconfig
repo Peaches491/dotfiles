@@ -1,5 +1,5 @@
 [core]
-   excludesfile = ~/.gitignore
+	excludesfile = /home/daniel/.gitignore
 
 [color]
 	status = auto
@@ -29,6 +29,9 @@
 	lola = log --graph --pretty=simple --abbrev-commit --date=relative --all
 	# based on https://github.com/mahiro/git-stuff/blob/master/bin/git-log-graph-dump
 	lolaa = !sh -c 'git lola $(git fsck --unreachable --no-reflogs 2>/dev/null | sed -n \"s/^\\w\\w* commit //p\")'
+
+   # from http://stackoverflow.com/questions/2363197/can-i-get-a-list-of-files-marked-assume-unchanged
+   ignored = !git ls-files -v | grep "^[[:lower:]]"
 
 	# from https://git.wiki.kernel.org/index.php/Aliases
 	serve = !git daemon --reuseaddr --verbose  --base-path=. --export-all ./.git

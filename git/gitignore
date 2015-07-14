@@ -38,7 +38,11 @@
 ehthumbs.db
 Thumbs.db
 
+
+*.user
+
+
 # ROS Tempory Ignores #
 #######################
-*.rviz
+#*.rviz
 
