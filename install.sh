@@ -47,7 +47,8 @@ link $ROOT_DIR/shell/commonrc.sh ~/.commonrc
 link $ROOT_DIR/shell/xinitrc.sh ~/.xinitrc
 link $ROOT_DIR/shell/alias.sh ~/.alias
 link $ROOT_DIR/shell/dircolors ~/.dircolors
-#link $ROOT_DIR/shell/function.sh ~/.function
+link $ROOT_DIR/shell/function.sh ~/.function
+link $ROOT_DIR/shell/colors.sh ~/.colors
 #link $ROOT_DIR/shell/variables.sh ~/.variables
 #link $ROOT_DIR/dircolors/solarized/dircolors.256dark ~/.dircolors
 

@@ -42,8 +42,13 @@ export ANDROID_HOME=/usr/local/opt/android-sdk
 export ANDROID_SDK_HOME=/usr/local/opt/android-sdk
 
 [ -f ~/.alias ] && . ~/.alias
+[ -f ~/.colors ] && . ~/.colors
 [ -f ~/.function ] && . ~/.function
 [ -f ~/.variables ] && . ~/.variables
+[ -f ~/.local.bashrc ] && . ~/.local.bashrc
+
+# Load functions listed in hooks.d
+run_scripts ~/.dotfiles/hooks.d
 
 
 ###############################################################################
@@ -54,7 +59,6 @@ export HISTFILE=~/.history
 export SAVEHIST=1000
 export HISTSIZE=1000
 export HISTFILESIZE=2000
-
 
 
 ###############################################################################
@@ -115,21 +119,31 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH
 # fg_black, fg_red, fg_green, fg_yellow, fg_blue, fg_magenta, fg_cyan, fg_white,
 # reset_color, SH_name, SH_host, SH_pwd, SH_date, SH_time, SH_priv
 
-PS1_lbrace="${fg_white}[${reset_color}"
-PS1_rbrace="${fg_white}]${reset_color}"
-PS1_vbar="${fg_white}|${reset_color}"
+SH_name=$'\u'
+SH_host=$'\H'
+SH_pwd=$'\w'
+SH_date=$'`date +"%m-%y-%d"`'
+SH_time=$'\D{}'
+SH_priv=$'\$'
+
+PS1_lbrace="${fg_blue}[${reset_color}"
+PS1_rbrace="${fg_blue}]${reset_color}"
+PS1_vbar="${fg_green}|${reset_color}"
 PS1_at="${fg_white}@${reset_color}"
 PS1_rangle="${fg_white}>${reset_color}"
-PS1_name="${fg_blue}${SH_name}${reset_color}"
-PS1_host="${fg_magenta}${SH_host}${reset_color}"
-PS1_time="${fg_magenta}${SH_time}${reset_color}"
-PS1_date="${fg_blue}${SH_date}${reset_color}"
-PS1_pwd="${fg_magenta}${SH_pwd}${reset_color}"
+PS1_name="${fg_yellow}${SH_name}${reset_color}"
+PS1_host="${fg_white}${SH_host}${reset_color}"
+PS1_time="${fg_orange}${SH_time}${reset_color}"
+PS1_date="${fg_magenta}${SH_date}${reset_color}"
+PS1_pwd="${fg_blue}${SH_pwd}${reset_color}"
 PS1_priv="${fg_white}${SH_priv}${reset_color}"
 
-#export PS1="$PS1_lbrace $PS1_name $PS1_at $PS1_host $PS1_vbar $PS1_date $PS1_at $PS1_time $PS1_rbrace
-#$PS1_lbrace $PS1_pwd $PS1_priv "
+declare -r PROMPT_COMMAND="prompt_command"
 
+#export PS1="$PS1_name$PS1_at$PS1_host $PS1_lbrace$PS1_pwd$PS1_rbrace $PS1_time $PS1_at $PS1_time
+# $PS1_priv "
+
+prompt_command
 
 
 ###############################################################################
@@ -151,6 +165,13 @@ export LC_MEASUREMENT="en_US.UTF-8"
 export LC_IDENTIFICATION="en_US.UTF-8"
 export LC_ALL=
 export CHARSET=UTF-8
+
+
+###############################################################################
+# Source ROS Workspace!
+###############################################################################
+
+[ -f ~/.ros_config ] && . ~/.ros_config
 
 
 ###############################################################################
