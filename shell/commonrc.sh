@@ -138,7 +138,7 @@ PS1_date="${fg_magenta}${SH_date}${reset_color}"
 PS1_pwd="${fg_blue}${SH_pwd}${reset_color}"
 PS1_priv="${fg_white}${SH_priv}${reset_color}"
 
-declare -r PROMPT_COMMAND="prompt_command"
+declare PROMPT_COMMAND="prompt_command"
 
 #export PS1="$PS1_name$PS1_at$PS1_host $PS1_lbrace$PS1_pwd$PS1_rbrace $PS1_time $PS1_at $PS1_time
 # $PS1_priv "

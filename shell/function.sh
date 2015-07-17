@@ -123,7 +123,7 @@ function git_prompt_vars {
 function scm {
   if which git &> /dev/null && [[ -n "$(git rev-parse HEAD 2> /dev/null)" ]]; then
 	git_prompt_vars
-	SCM="${bash_prompt_green} |$SCM_HEAD"
+	SCM="${bash_prompt_green}|$SCM_HEAD"
 	if [[ $SCM_GIT_STAGED_COUNT -gt 0 || $SCM_GIT_UNSTAGED_COUNT -gt 0 || $SCM_GIT_UNTRACKED_COUNT -gt 0 ]]; then
 		SCM="$SCM ${bash_prompt_red}("
 		[[ $SCM_GIT_STAGED_COUNT -gt 0 ]] && SCM="$SCM${bash_prompt_green}+"
@@ -133,7 +133,7 @@ function scm {
 	else
 		SCM="$SCM $SCM_CLEAN_SYMBOL"
 	fi
-	[[ $SCM_GIT_BEHIND -gt 0 ]] && SCM=" $SCM ${bash_prompt_red}$DOWN_ARROW_SYMBOL$SCM_GIT_BEHIND"
+	[[ $SCM_GIT_BEHIND -gt 0 ]] && SCM="$SCM ${bash_prompt_red}$DOWN_ARROW_SYMBOL$SCM_GIT_BEHIND"
 	[[ $SCM_GIT_AHEAD -gt 0 && $SCM_GIT_BEHIND -eq 0 ]] && SCM="$SCM${bash_prompt_cyan}"
 	[[ $SCM_GIT_AHEAD -gt 0 ]] && SCM="$SCM $UP_ARROW_SYMBOL$SCM_GIT_AHEAD"
 	[[ $SCM_GIT_STASH_COUNT -gt 0 ]] && SCM="$SCM ${bash_prompt_yellow}(stash: $SCM_GIT_STASH_COUNT)"
@@ -156,11 +156,17 @@ function prompt_command() {
 	else
 		EXIT_CODE="${bash_prompt_bold_white}${bash_prompt_background_red}!!! Exited: $EXIT_STATUS !!!"
 	fi
-	PS1="\n${bash_prompt_yellow}\u${bash_prompt_normal}@\h ${bash_prompt_blue}[\w${DIR_STACK}${bash_prompt_blue}]$SCM ${bash_prompt_bold_red}\t $EXIT_CODE${bash_prompt_normal}\n ${bash_prompt_normal}\$ "
-	if [[ $JOBS -ne 0 ]]; then
-	PS1="\n$JOBS$PS1 "
+	PS1="\n${bash_prompt_yellow}\u${bash_prompt_normal}@\h ${bash_prompt_blue}[\w${DIR_STACK}${bash_prompt_blue}] ${bash_prompt_bold_red}\t $EXIT_CODE${bash_prompt_normal}\n ${bash_prompt_normal}\$ "
+	
+  if [[ ! -z "$SCM" ]]; then
+	   PS1="\n$SCM$PS1"
 	fi
-	# set title bar
+	
+  if [[ ! -z "$JOBS" ]]; then
+	   PS1="\n$JOBS$PS1"
+	fi
+	
+  # set title bar
 	case "$TERM" in
 		xterm*|rxvt*)
 			PS1="\[\e]0;\u@\h: \w\a\]$PS1"
