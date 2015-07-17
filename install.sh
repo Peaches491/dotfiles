@@ -41,12 +41,12 @@ mkdir -p ~/GitHub ~/include ~/.config ~/.bundles
 link $ROOT_DIR/shell/bashrc ~/.bashrc
 link $ROOT_DIR/shell/zshrc.zsh ~/.zshrc
 link $ROOT_DIR/tmux.conf ~/.tmux.conf
-link $ROOT_DIR/.dircolors ~/.dircolors
 link $ROOT_DIR/.ros_config ~/.ros_config
 link $ROOT_DIR/themes ~/.themes
 link $ROOT_DIR/shell/commonrc.sh ~/.commonrc
 link $ROOT_DIR/shell/xinitrc.sh ~/.xinitrc
 link $ROOT_DIR/shell/alias.sh ~/.alias
+link $ROOT_DIR/shell/dircolors ~/.dircolors
 #link $ROOT_DIR/shell/function.sh ~/.function
 #link $ROOT_DIR/shell/variables.sh ~/.variables
 #link $ROOT_DIR/dircolors/solarized/dircolors.256dark ~/.dircolors

@@ -86,8 +86,9 @@ PATH='.'
 # system bin directories
 [ -d /bin ] && PATH+=:/bin
 [ -d /sbin ] && PATH+=:/sbin
+# CCache compiler locations
+[ -d /usr/lib/ccache ] && PATH+=:/usr/lib/ccache
 export PATH="$OLD_PATH:$PATH"
-
 
 
 ###############################################################################
@@ -126,8 +127,8 @@ PS1_date="${fg_blue}${SH_date}${reset_color}"
 PS1_pwd="${fg_magenta}${SH_pwd}${reset_color}"
 PS1_priv="${fg_white}${SH_priv}${reset_color}"
 
-export PS1="$PS1_lbrace $PS1_name $PS1_at $PS1_host $PS1_vbar $PS1_date $PS1_at $PS1_time $PS1_rbrace
-$PS1_lbrace $PS1_pwd $PS1_priv "
+#export PS1="$PS1_lbrace $PS1_name $PS1_at $PS1_host $PS1_vbar $PS1_date $PS1_at $PS1_time $PS1_rbrace
+#$PS1_lbrace $PS1_pwd $PS1_priv "
 
 
 

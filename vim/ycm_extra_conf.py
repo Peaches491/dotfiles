@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
-import ycm_core
+#import ycm_core
 
 
 #def IsHeaderFile(filename):
@@ -64,7 +64,23 @@ flags = [
     # '-isystem',
     # '/some/path/include',
 ] + getRosIncludeFlags()
- 
+
+
+QtModules = ["QtCLucene", "QtDeclarative", "QtDesignerComponents", "QtHelp", "QtNetwork", "QtScript", "QtSql", "QtTest", "QtUiTools_debug", "QtXml",
+             "QtCore", "QtDesigner", "QtGui", "QtMultimedia", "QtOpenGL", "QtScriptTools", "QtSvg", "QtUiTools", "QtWebKit", "QtXmlPatterns"]
+
+from subprocess import Popen
+from subprocess import PIPE
+qtflags = []
+# TODO just inject the flags I used but not all of them
+for module in QtModules:
+    new_stuff = [x[2:] for x in Popen(['pkg-config', '--silence-errors', '--cflags-only-I', module], stdout=PIPE).communicate()[0].split()]
+    for include in new_stuff:
+        qtflags.append('-isystem')
+        qtflags.append(include)
+
+flags += qtflags
+#print flags
  
 # youcompleteme is calling this function to get flags
 # You can also set database for flags. Check: JSONCompilationDatabase.html in

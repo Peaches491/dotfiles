@@ -17,8 +17,8 @@
 	cp = cherry-pick
 	co = checkout
 	cl = clone
-	df = diff --color-words
-	dc = diff --color-words --cached
+	df = diff 
+	dc = diff --cached
 	ci = commit
 	cia = commit -a
 	ciaa = commit -a --amend
