@@ -66,7 +66,7 @@ Plugin 'gmarik/Vundle.vim'
 
 Plugin 'bling/vim-airline'
 let g:airline_powerline_fonts   = 1
-let g:airline_theme             = 'powerlineish'
+let g:airline_theme             = 'solarized'
 let g:airline_enable_branch     = 1
 let g:airline_enable_syntastic  = 1
 
@@ -229,4 +229,4 @@ set wildmenu                     " Tab completion navigable menu is enabled.
 set wildmode=list:longest,full   " Tab completion lists matches, then opens wildmenu on next <Tab>.
 set wrapscan                     " Searching wraps to start of file when end is reached.
 
-highlight LineNr cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
+highlight LineNr cterm=NONE ctermfg=Grey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE

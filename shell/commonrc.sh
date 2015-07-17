@@ -48,7 +48,7 @@ export ANDROID_SDK_HOME=/usr/local/opt/android-sdk
 [ -f ~/.local.bashrc ] && . ~/.local.bashrc
 
 # Load functions listed in hooks.d
-run_scripts ~/.dotfiles/hooks.d
+run_scripts ~/.dotfiles/shell/hooks.d
 
 
 ###############################################################################
@@ -179,5 +179,5 @@ export CHARSET=UTF-8
 ###############################################################################
 
 if [ ! $TMUX ]; then
-   tmux
+   tmux new-session -A -s main
 fi
