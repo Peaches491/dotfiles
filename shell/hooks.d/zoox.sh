@@ -8,9 +8,9 @@ function zoox-build(){
 (
   cd $ROS_WORKSPACE
   pwd
-  if [ "core" -eq "$1" ]; then
+  if [[ "core" == "$1" ]]; then
     catkin_make -j -l8
-  elif [ "all" -eq "$1" ]; then
+  elif [[ "all" == "$1" ]]; then
     catkin_make all tests -j -l8
   else
     catkin_make $1 -j -l8

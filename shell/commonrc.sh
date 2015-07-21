@@ -178,6 +178,8 @@ export CHARSET=UTF-8
 # Run TMux!
 ###############################################################################
 
+export TERM=screen-256color
+
 if [ ! $TMUX ]; then
    tmux new-session -A -s main
 fi

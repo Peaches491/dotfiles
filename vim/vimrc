@@ -107,6 +107,9 @@ Bundle 'easymotion/vim-easymotion'
 
 Bundle 'altercation/vim-colors-solarized'
 
+Bundle 'majutsushi/tagbar'
+nmap <F8> :TagbarToggle<CR>
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -146,9 +149,11 @@ endif
 " Themes
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax enable
-set t_Co=16
 set background=dark
+set t_Co=256                        " force vim to use 256 colors
+"let g:solarized_termcolors=256      " use solarized 256 fallback
 colorscheme solarized
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Functions

@@ -37,6 +37,7 @@ alias lr='ll -R'		# Recursive ls
 alias ls='ls --color=auto -h'
 alias mkdir='mkdir -p'		# recursive directory make
 alias rmtmp='rm -f *~;rm -f .*~'		# delete all file ending in ~ in the current directory
+alias tmux='tmux -2'
 alias tree='tree -Chsu'		# Nice alternative to recursive ls
 alias webserver='python -m SimpleHTTPServer'		# Simple web server
 alias what=which
