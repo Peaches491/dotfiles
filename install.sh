@@ -38,7 +38,7 @@ mkdir -p ~/GitHub ~/include ~/.config ~/.bundles
 ################################################################################
 
 # Shell
-link $ROOT_DIR/shell/bashrc ~/.bashrc
+link $ROOT_DIR/shell/bashrc.sh ~/.bashrc
 link $ROOT_DIR/shell/zshrc.zsh ~/.zshrc
 link $ROOT_DIR/tmux.conf ~/.tmux.conf
 link $ROOT_DIR/.ros_config ~/.ros_config

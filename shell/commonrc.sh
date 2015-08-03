@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#! /usr/bin/env sh
 
 ###############################################################################
 # Login Actions.
@@ -91,7 +91,7 @@ PATH='.'
 [ -d /bin ] && PATH+=:/bin
 [ -d /sbin ] && PATH+=:/sbin
 # CCache compiler locations
-[ -d /usr/lib/ccache ] && PATH+=:/usr/lib/ccache
+### [ -d /usr/lib/ccache ] && PATH+=:/usr/lib/ccache
 export PATH="$OLD_PATH:$PATH"
 
 
@@ -181,5 +181,5 @@ export CHARSET=UTF-8
 export TERM=screen-256color
 
 if [ ! $TMUX ]; then
-   tmux new-session -A -s main
+   tmux #new-session -A -s main
 fi

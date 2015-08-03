@@ -174,5 +174,6 @@ function prompt_command() {
 		*)
 			;;
 	esac
+  export PS1=$PS1
 }
 
