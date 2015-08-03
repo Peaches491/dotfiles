@@ -54,7 +54,7 @@ mkdir -p ~/GitHub ~/include ~/.config ~/.bundles
 ################################################################################
 
 # Shell
-mklnk $ROOT_DIR/shell/bashrc ~/.bashrc
+mklnk $ROOT_DIR/shell/bashrc.sh ~/.bashrc
 mklnk $ROOT_DIR/shell/zshrc.zsh ~/.zshrc
 mklnk $ROOT_DIR/tmux.conf ~/.tmux.conf
 mklnk $ROOT_DIR/.ros_config ~/.ros_config
