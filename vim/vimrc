@@ -2,23 +2,15 @@ autocmd BufRead,BufNewFile *.launch setfiletype roslaunch
 
 let mapleader=','
 
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
 
 " tab navigation like firefox
 nnoremap <C-p> :bprevious<CR>
 nnoremap <C-n> :bnext<CR>
-"nnoremap <C-w> :bdelete<CR>
 inoremap <C-p> <Esc>:bprevious<CR>i
 inoremap <C-n> <Esc>:bnext<CR>i
-"inoremap <C-w> <Esc>:bdelete<CR>i
 
 " Disable Ctrl+B
 nnoremap <C-b> <Nop>
-
-nnoremap <CR> G
 
 set splitbelow
 set splitright
@@ -178,6 +170,49 @@ filetype indent on   " Check for indent file.
 filetype plugin on   " Allow plugins to be loaded by file type.
 
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Mappings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Normal mode
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Make y behave like all other capitals (yank to end of line).
+
+
+
+nnoremap Y y$
+
+" Use C-hjkl in to change windows.
+nnoremap <C-h> <C-w><Left>
+nnoremap <C-j> <C-w><Down>
+nnoremap <C-k> <C-w><Up>
+nnoremap <C-l> <C-w><Right>
+
+" Toggles for search highlight, line numbers, paste mode, and word wrap.
+nnoremap <silent> <Leader>c :TagbarToggle<CR>
+nnoremap <silent> <Leader>h :set invhlsearch<CR>
+nnoremap <silent> <Leader>n :set invnumber<CR>
+nnoremap <silent> <Leader>p :set invpaste<CR>
+nnoremap <silent> <Leader>w :set invwrap<CR>
+
+" Strip trailing whitespace.
+nnoremap <silent> <leader><Space> :call <SID>StripTrailingWhitespaces()<CR>
+
+" Toggle NERDTree.
+nnoremap <silent> <Leader>t :NERDTreeToggle<CR>
+
+" Insert mode
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Smash Esc.
+inoremap kj <Esc>
+
+" hjkl navigation in insert mode.
+inoremap <C-h> <Left>
+inoremap <C-j> <Down>
+inoremap <C-k> <Up>
+inoremap <C-l> <Right>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Settings
