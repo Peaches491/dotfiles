@@ -107,14 +107,14 @@ read recomp
 if [ "$recomp" == "y" ] || [ "$recomp" == "Y" ]; then
 (
   cd ~/.bundles/YouCompleteMe
-  ./install.sh --clang-completer --omnisharp-completer
+  ./install.sh --clang-completer
 )
 fi
 
 # Powerline Fontconfig
 (
 mkdir -p ~/.fonts/
-./$ROOT_DIR/themes/powerline-fonts/install.sh
+$ROOT_DIR/themes/powerline-fonts/install.sh
 sudo fc-cache -vf ~/.fonts/
 )
 
