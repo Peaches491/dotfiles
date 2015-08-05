@@ -30,9 +30,6 @@ HISTFILESIZE=2000
 HISTIGNORE='l:ll:lll:llll:ls:exit'
 
 
-#disable flow control ^S and ^Q
-stty -ixon
-
 
 ##50-colors.bashrc
 
