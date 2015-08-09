@@ -91,7 +91,7 @@ PATH='.'
 [ -d /bin ] && PATH+=:/bin
 [ -d /sbin ] && PATH+=:/sbin
 # CCache compiler locations
-### [ -d /usr/lib/ccache ] && PATH+=:/usr/lib/ccache
+[ -d /usr/lib/ccache ] && PATH+=:/usr/lib/ccache
 export PATH="$OLD_PATH:$PATH"
 
 
@@ -168,11 +168,13 @@ export CHARSET=UTF-8
 
 
 ###############################################################################
-# Source ROS Workspace!
+# Source command line utils
 ###############################################################################
 
 [ -f ~/.ros_config ] && . ~/.ros_config
 
+export NVM_DIR="/home/daniel/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
 ###############################################################################
 # Run TMux!

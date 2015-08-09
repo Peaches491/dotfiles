@@ -30,9 +30,7 @@ HISTFILESIZE=2000
 HISTIGNORE='l:ll:lll:llll:ls:exit'
 
 
-
 ##50-colors.bashrc
-
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
@@ -58,10 +56,7 @@ s()
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 
-
 # Fix auto-complete with sudo prefix
 if [ "$PS1" ]; then
   complete -cf sudo
 fi
-
-

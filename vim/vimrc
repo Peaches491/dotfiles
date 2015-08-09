@@ -102,6 +102,8 @@ Bundle 'altercation/vim-colors-solarized'
 Bundle 'majutsushi/tagbar'
 nmap <F8> :TagbarToggle<CR>
 
+Bundle 'groenewege/vim-less'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
