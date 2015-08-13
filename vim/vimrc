@@ -5,6 +5,7 @@ let mapleader=','
 
 " tab navigation like firefox
 nnoremap <C-p> :bprevious<CR>
+
 nnoremap <C-n> :bnext<CR>
 inoremap <C-p> <Esc>:bprevious<CR>i
 inoremap <C-n> <Esc>:bnext<CR>i
@@ -181,9 +182,10 @@ filetype plugin on   " Allow plugins to be loaded by file type.
 
 " Make y behave like all other capitals (yank to end of line).
 
-
-
 nnoremap Y y$
+
+nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
+nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
 
 " Use C-hjkl in to change windows.
 nnoremap <C-h> <C-w><Left>

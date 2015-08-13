@@ -36,6 +36,7 @@ alias llll='lll -i'
 alias lr='ll -R'		# Recursive ls
 alias ls='ls --color=auto -h'
 alias mkdir='mkdir -p'		# recursive directory make
+alias o='gnome-open'
 alias rmtmp='rm -f *~;rm -f .*~'		# delete all file ending in ~ in the current directory
 alias tmux='tmux -2'
 alias tree='tree -Chsu'		# Nice alternative to recursive ls

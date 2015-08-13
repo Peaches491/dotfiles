@@ -81,7 +81,7 @@ mklnk $ROOT_DIR/vim/ycm_extra_conf.py ~/.ycm_extra_conf.py
 
 # Configs
 for D in $ROOT_DIR/config/*; do 
-  echo $D | sed 's/.*\(config\/.*\)/\/home\/daniel\/\.\1/g' | xargs $ROOT_DIR/link.py $D
+  echo $D | sed 's/.*\(config\/.*\)/~\/\.\1/g' | xargs $ROOT_DIR/link.py $D
 done
 
 
