@@ -65,7 +65,7 @@ Plugin 'scrooloose/nerdcommenter'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'groenewege/vim-less'
-Plugin 'tpope/vim-commentary'
+" Plugin 'tpope/vim-commentary'
 
 Plugin 'alvan/vim-closetag'
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.twig"
