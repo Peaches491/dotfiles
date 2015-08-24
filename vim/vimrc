@@ -52,28 +52,30 @@ filetype off                  " required
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin('~/.bundles/')
-" set the runtime path to include Vundle and initialize
-
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
 
-Plugin 'bling/vim-airline'
-let g:airline_powerline_fonts   = 1
-let g:airline_theme             = 'solarized'
-let g:airline_enable_branch     = 1
-let g:airline_enable_syntastic  = 1
-
-let g:airline#extensions#tabline#enabled = 1
-
 Plugin 'tpope/vim-fugitive'
-
-Bundle 'Valloric/YouCompleteMe'
-nnoremap <C-g> :YcmCompleter GoTo<CR>
-inoremap <C-g> <Esc>:YcmCompleter GoTo<CR>i
+Plugin 'airblade/vim-gitgutter'
+Plugin 'bling/vim-bufferline'
+Plugin 'Chiel92/vim-autoformat'
+Plugin 'evidens/vim-twig'
+Plugin 'scrooloose/nerdtree' 
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'easymotion/vim-easymotion'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'groenewege/vim-less'
+Plugin 'tpope/vim-commentary'
 
 Plugin 'alvan/vim-closetag'
-" filenames like *.xml, *.html, *.xhtml, ...
-let g:closetag_filenames = "*.html,*.xhtml,*.phtml"
+let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.twig"
+
+Plugin 'majutsushi/tagbar'
+nmap <F8> :TagbarToggle<CR>
+
+Plugin 'Valloric/YouCompleteMe'
+nnoremap <C-g> :YcmCompleter GoTo<CR>
+inoremap <C-g> <Esc>:YcmCompleter GoTo<CR>i
 
 Plugin 'taketwo/vim-ros'
 let g:ycm_semantic_triggers = {
@@ -81,15 +83,7 @@ let g:ycm_semantic_triggers = {
 \   'rosmsg,rossrv,rosaction' : ['re!^', '/'],
 \ }
 
-Plugin 'airblade/vim-gitgutter'
-
-Plugin 'bling/vim-bufferline'
-
-Plugin 'Chiel92/vim-autoformat'
-
-Plugin 'beyondwords/vim-twig'
-
-Bundle 'edkolev/tmuxline.vim'
+Plugin 'edkolev/tmuxline.vim'
 let g:tmuxline_preset = {
       \'a'    : '#S',
       \'c'    : '#(whoami)',
@@ -98,16 +92,12 @@ let g:tmuxline_preset = {
       \'y'    : ['%R', '%a', '%Y'],
       \'z'    : '#H'}
 
-Bundle 'scrooloose/nerdtree' 
-
-Bundle 'easymotion/vim-easymotion'
-
-Bundle 'altercation/vim-colors-solarized'
-
-Bundle 'majutsushi/tagbar'
-nmap <F8> :TagbarToggle<CR>
-
-Bundle 'groenewege/vim-less'
+Plugin 'bling/vim-airline'
+let g:airline_powerline_fonts   = 1
+let g:airline_theme             = 'solarized'
+let g:airline_enable_branch     = 1
+let g:airline_enable_syntastic  = 1
+let g:airline#extensions#tabline#enabled = 1
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -130,6 +120,7 @@ augroup FileTypeAssociation
    autocmd BufNewFile,BufRead *.make set filetype=make
    autocmd BufNewFile,BufRead *.impl set filetype=cpp
    autocmd BufNewFile,BufRead *.inl set filetype=cpp
+   "autocmd BufNewFile,BufRead *.twig set filetype=html
 augroup END
 
 " Resize splits on window resize.
