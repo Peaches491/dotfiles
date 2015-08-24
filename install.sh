@@ -65,6 +65,7 @@ mklnk $ROOT_DIR/shell/alias.sh ~/.alias
 mklnk $ROOT_DIR/shell/dircolors ~/.dircolors
 mklnk $ROOT_DIR/shell/function.sh ~/.function
 mklnk $ROOT_DIR/shell/colors.sh ~/.colors
+mklnk $ROOT_DIR/shell/ssh_config ~/.ssh/config
 #mklnk $ROOT_DIR/shell/variables.sh ~/.variables
 #mklnk $ROOT_DIR/dircolors/solarized/dircolors.256dark ~/.dircolors
 

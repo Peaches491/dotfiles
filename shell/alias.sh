@@ -24,6 +24,7 @@ alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias g='git'
 __git_complete g _git
+alias gg='git grep'
 alias grep='grep --color=auto'
 alias grep-rec='find . -type f -print0 | xargs -0 grep'
 alias killbg='kill $(jobs -p)'		# kill all background tasks

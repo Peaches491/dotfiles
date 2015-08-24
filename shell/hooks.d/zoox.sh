@@ -15,15 +15,12 @@ function zoox-build(){
   if [[ "core" == "$1" ]]; then
     catkin_make $ZOOX_CMAKE_OPTIONS 
     success=$?
-    echo $success
   elif [[ "all" == "$1" ]]; then
     catkin_make all tests $ZOOX_CMAKE_OPTIONS 
     success=$?
-    echo $success
   else
     catkin_make $1 $ZOOX_CMAKE_OPTIONS
     success=$?
-    echo $success
   fi
 
   if [ $success -eq 0 ]; then
@@ -31,6 +28,8 @@ function zoox-build(){
   else
     notify-send "zoox-build" "Build Failed" --icon=/home/daniel/dotfiles/resources/icons/cross_128.png
   fi
+
+  return $success
 )
 }
 

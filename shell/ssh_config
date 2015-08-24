@@ -1,0 +1,6 @@
+Host wopr
+  User daniel
+  HostName 10.42.0.1
+Host webserver
+  User peaches
+  HostName 192.168.1.130
