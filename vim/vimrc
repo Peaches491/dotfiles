@@ -85,6 +85,10 @@ Plugin 'airblade/vim-gitgutter'
 
 Plugin 'bling/vim-bufferline'
 
+Plugin 'Chiel92/vim-autoformat'
+
+Plugin 'beyondwords/vim-twig'
+
 Bundle 'edkolev/tmuxline.vim'
 let g:tmuxline_preset = {
       \'a'    : '#S',
@@ -236,7 +240,7 @@ set incsearch                    " Immediately highlight search matches.
 set laststatus=2                 " Show status line even where there is only one window.
 set lazyredraw                   " Redraw faster.
 set linespace=0                  " Adjust relative line height.
-set mouse=a
+set mouse-=a
 set modeline                     " Check for a modeline.
 set nocompatible                 " No compatibility with vi.
 set nofoldenable                 " Do not open file folded.
