@@ -42,6 +42,7 @@ alias rmtmp='rm -f *~;rm -f .*~'		# delete all file ending in ~ in the current d
 alias tmux='tmux -2'
 alias tml='tmux list-sessions'
 alias tma='tmux attach -t '
+alias tmk='tmux kill-session -t '
 alias tree='tree -Chsu'		# Nice alternative to recursive ls
 alias webserver='python -m SimpleHTTPServer'		# Simple web server
 alias what=which
