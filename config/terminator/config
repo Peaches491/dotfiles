@@ -9,7 +9,7 @@
     use_system_font = False
     cursor_color = "#eee8d5"
     foreground_color = "#eee8d5"
-    font = Ubuntu Mono derivative Powerline 10
+    font = Ubuntu Mono derivative Powerline 14
     background_color = "#002b36"
     scrollback_infinite = True
   [[solarized-dark]]
@@ -18,7 +18,7 @@
     use_system_font = False
     cursor_color = "#eee8d5"
     foreground_color = "#eee8d5"
-    font = Ubuntu Mono derivative Powerline 10
+    font = Ubuntu Mono derivative Powerline 14
     background_color = "#002b36"
     scrollback_infinite = True
   [[solarized-light]]
@@ -27,7 +27,7 @@
     use_system_font = False
     cursor_color = "#002b36"
     foreground_color = "#002b36"
-    font = Ubuntu Mono derivative Powerline 10
+    font = Ubuntu Mono derivative Powerline 14
     background_color = "#eee8d5"
     scrollback_infinite = True
 [layouts]
