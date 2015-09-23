@@ -81,9 +81,11 @@ mklnk $ROOT_DIR/vim/vimrc ~/.vimrc
 mklnk $ROOT_DIR/vim/ycm_extra_conf.py ~/.ycm_extra_conf.py
 
 # Configs
-for D in $ROOT_DIR/config/*; do 
+for D in $ROOT_DIR/config/config/*; do 
   echo $D | sed 's/.*\(config\/.*\)/~\/\.\1/g' | xargs $ROOT_DIR/link.py $D
 done
+
+mklnk $ROOT_DIR/config/Xmodmap ~/.Xmodmap
 
 
 if [ "$1" != "--full-install" ] 

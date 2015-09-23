@@ -69,7 +69,7 @@ Plugin 'groenewege/vim-less'
 " Plugin 'tpope/vim-commentary'
 
 Plugin 'alvan/vim-closetag'
-let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.twig"
+let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.twig,*.launch,*.xml"
 
 Plugin 'majutsushi/tagbar'
 nmap <F8> :TagbarToggle<CR>
@@ -216,12 +216,20 @@ inoremap <C-j> <Down>
 inoremap <C-k> <Up>
 inoremap <C-l> <Right>
 
+" Better tabbing
+nmap <C-Tab> a<C-t><Esc>
+nmap <C-S-Tab> a<C-d><Esc>
+imap <C-Tab> <C-t>
+imap <C-S-Tab> <C-d>
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Settings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set autoindent                   " Turn on ctrl-t and ctrl-d for indenting
 set autowrite                    " Write before executing the 'make' command.
 set background=dark              " Usually prefer dark backgrounds.
 set backspace=indent,eol,start   " Allow <BS> to go over indents, eol, and start of insert.
+set cindent                      " Stricter rules for C files
 set colorcolumn=80               " Highlight the 80th column.
 set cpoptions+=$                 " Show dollar sign at end of text to be changed.
 set cursorline                   " Highlight current line.
