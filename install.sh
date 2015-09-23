@@ -86,6 +86,7 @@ for D in $ROOT_DIR/config/config/*; do
 done
 
 mklnk $ROOT_DIR/config/Xmodmap ~/.Xmodmap
+mklnk $ROOT_DIR/config/i3 ~/.i3
 
 
 if [ "$1" != "--full-install" ] 
