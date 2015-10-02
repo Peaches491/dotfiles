@@ -120,17 +120,17 @@ function git_prompt_vars {
 
 
   if [ -z $SCM_BRANCH ]; then
-	SCM_HEAD="${bash_prompt_green}$SCM_CHANGE"
+    SCM_HEAD="${bash_prompt_green}$SCM_CHANGE"
   else
-	SCM_HEAD="${bash_prompt_green}$SCM_BRANCH"
+    SCM_HEAD="${bash_prompt_green}$SCM_BRANCH"
 	if [ -z $SCM_GIT_UPSTREAM_REMOTE ]; then
-	    SCM_HEAD="$SCM_HEAD${bash_prompt_cyan}(~)"
+    SCM_HEAD="$SCM_HEAD${bash_prompt_cyan}(~)"
 	elif [ "$SCM_GIT_UPSTREAM_BRANCH" == "$SCM_BRANCH" ]; then
-	    SCM_HEAD="$SCM_HEAD${bash_prompt_cyan}($SCM_GIT_UPSTREAM_REMOTE)"
+    SCM_HEAD="$SCM_HEAD${bash_prompt_cyan}($SCM_GIT_UPSTREAM_REMOTE)"
 	else
-	    SCM_HEAD="$SCM_HEAD${bash_prompt_cyan}($SCM_GIT_UPSTREAM_REMOTE/$SCM_GIT_UPSTREAM_BRANCH)"
+    SCM_HEAD="$SCM_HEAD${bash_prompt_cyan}($SCM_GIT_UPSTREAM_REMOTE/$SCM_GIT_UPSTREAM_BRANCH)"
 	fi
-	SCM_HEAD="$SCM_HEAD${bash_prompt_normal}:${bash_prompt_purple}$SCM_CHANGE"
+    SCM_HEAD="$SCM_HEAD${bash_prompt_normal}:${bash_prompt_purple}$SCM_CHANGE"
   fi
 }
 
@@ -158,6 +158,13 @@ function scm {
 
 function prompt_command() {
 	EXIT_STATUS=$?
+
+  if [ "$VIRTUAL_ENV" ]; then
+    VENV_PROMPT="${bash_prompt_green}|${bash_prompt_white}venv ${bash_prompt_blue}$VIRTUAL_ENV${bash_prompt_green}|"
+  else
+    VENV_PROMPT=
+  fi
+
 	scm
 	if [[ "$(dirs | wc -w)" -gt "1" ]]; then
 		DIR_STACK=" ${bash_prompt_bold_cyan}$(dirs | wc -w)"
@@ -171,15 +178,19 @@ function prompt_command() {
 		EXIT_CODE="${bash_prompt_bold_white}${bash_prompt_background_red}!!! Exited: $EXIT_STATUS !!!"
 	fi
 	PS1="\n${bash_prompt_yellow}\u${bash_prompt_normal}@\h ${bash_prompt_blue}[\w${DIR_STACK}${bash_prompt_blue}] ${bash_prompt_bold_red}\t $EXIT_CODE${bash_prompt_normal}\n ${bash_prompt_normal}\$ "
-	
+
+  if [[ ! -z "$VENV_PROMPT" ]]; then
+    PS1="\n$VENV_PROMPT$PS1"
+  fi
+
   if [[ ! -z "$SCM" ]]; then
-	   PS1="\n$SCM$PS1"
+    PS1="\n$SCM$PS1"
 	fi
-	
+
   if [[ ! -z "$JOBS" ]]; then
-	   PS1="\n$JOBS$PS1"
+    PS1="\n$JOBS$PS1"
 	fi
-	
+
   # set title bar
 	case "$TERM" in
 		xterm*|rxvt*)

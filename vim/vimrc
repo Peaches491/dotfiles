@@ -67,6 +67,9 @@ Plugin 'wikitopian/hardmode'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'groenewege/vim-less'
 " Plugin 'tpope/vim-commentary'
+"Plugin 'jtratner/vim-flavored-markdown'
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
 
 Plugin 'alvan/vim-closetag'
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.twig,*.launch,*.xml"
@@ -122,6 +125,7 @@ augroup FileTypeAssociation
    autocmd BufNewFile,BufRead *.impl set filetype=cpp
    autocmd BufNewFile,BufRead *.inl set filetype=cpp
    "autocmd BufNewFile,BufRead *.twig set filetype=html
+
 augroup END
 
 " Resize splits on window resize.
@@ -162,6 +166,20 @@ endfunction
 
 " strip trailing whitespace.
 nnoremap <silent> <leader><Space> :call <SID>StripTrailingWhitespaces()<CR>
+
+
+function! NumberToggle()
+  if(&relativenumber == 1)
+    set number
+    set relativenumber!
+  else
+    set relativenumber
+  endif
+endfunction
+
+" Toggle relative line numbers
+nnoremap <silent> <Leader>n :call NumberToggle()<cr>
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Filetype detection
