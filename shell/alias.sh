@@ -44,6 +44,7 @@ alias tml='tmux list-sessions'
 alias tma='tmux attach -t '
 alias tmk='tmux kill-session -t '
 alias tree='tree -Chsu'		# Nice alternative to recursive ls
+alias watch='watch  --color  '
 alias webserver='python -m SimpleHTTPServer'		# Simple web server
 alias what=which
 alias when=date
