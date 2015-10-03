@@ -209,5 +209,6 @@ function inotifyrun {
   while inotifywait -qre close_write --format "$FORMAT" .
   do
     "$@"
+    echo ""
   done
 }
