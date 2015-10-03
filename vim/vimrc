@@ -70,6 +70,10 @@ Plugin 'groenewege/vim-less'
 "Plugin 'jtratner/vim-flavored-markdown'
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
+Plugin 'nathanaelkane/vim-indent-guides'
+set ts=4 sw=4 et
+let g:indent_guides_start_level = 1
+let g:indent_guides_guide_size = 1
 
 Plugin 'alvan/vim-closetag'
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.twig,*.launch,*.xml"
@@ -296,5 +300,7 @@ silent! set wildignorecase       " Tab completion is case-insensitive.
 set wildmenu                     " Tab completion navigable menu is enabled.
 set wildmode=list:longest,full   " Tab completion lists matches, then opens wildmenu on next <Tab>.
 set wrapscan                     " Searching wraps to start of file when end is reached.
+
+autocmd FileType python setlocal foldmethod=indent smartindent shiftwidth=4 ts=4 et cinwords=if,elif,else,for,while,try,except,finally,def,classlk
 
 highlight LineNr cterm=NONE ctermfg=Grey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
