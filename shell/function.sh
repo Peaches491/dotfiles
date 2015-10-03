@@ -209,5 +209,6 @@ function inotifyrun {
   while inotifywait -qre close_write --format "$FORMAT" --exclude '(/4913|\.sw.)$' .
   do
     "$@"
+    echo ""
   done
 }
