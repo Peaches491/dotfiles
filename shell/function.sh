@@ -165,6 +165,12 @@ function prompt_command() {
     VENV_PROMPT=
   fi
 
+  if [ "$SSH_CONNECTION" ]; then
+    SSH_PROMPT="${bash_prompt_green}|${bash_prompt_white}ssh ${bash_prompt_blue}$SSH_CONNECTION${bash_prompt_green}|"
+  else
+    SSH_PROMPT=
+  fi
+
 	scm
 	if [[ "$(dirs | wc -w)" -gt "1" ]]; then
 		DIR_STACK=" ${bash_prompt_bold_cyan}$(dirs | wc -w)"
@@ -181,6 +187,10 @@ function prompt_command() {
 
   if [[ ! -z "$VENV_PROMPT" ]]; then
     PS1="\n$VENV_PROMPT$PS1"
+  fi
+
+  if [[ ! -z "$SSH_PROMPT" ]]; then
+    PS1="\n$SSH_PROMPT$PS1"
   fi
 
   if [[ ! -z "$SCM" ]]; then
