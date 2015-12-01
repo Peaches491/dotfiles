@@ -111,7 +111,7 @@ read recomp
 if [ "$recomp" == "y" ] || [ "$recomp" == "Y" ]; then
 (
   cd ~/.bundles/YouCompleteMe
-  ./install.sh --clang-completer
+  ./install.py --clang-completer --system-libclang --system-boost
 )
 fi
 

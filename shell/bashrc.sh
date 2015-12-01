@@ -6,6 +6,19 @@
 #esac
 
 if [ -f ~/.commonrc ]; then
+
+   PS1_lbrace="${fg_blue}[${reset_color}"
+   PS1_rbrace="${fg_blue}]${reset_color}"
+   PS1_vbar="${fg_green}|${reset_color}"
+   PS1_at="${fg_white}@${reset_color}"
+   PS1_rangle="${fg_white}>${reset_color}"
+   PS1_name="${fg_yellow}${SH_name}${reset_color}"
+   PS1_host="${fg_white}${SH_host}${reset_color}"
+   PS1_time="${fg_orange}${SH_time}${reset_color}"
+   PS1_date="${fg_magenta}${SH_date}${reset_color}"
+   PS1_pwd="${fg_blue}${SH_pwd}${reset_color}"
+   PS1_priv="${fg_white}${SH_priv}${reset_color}"
+
    source ~/.commonrc
 fi
 
