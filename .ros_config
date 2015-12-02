@@ -1,8 +1,13 @@
 export ROS_WORKSPACE_TMP=/home/daniel/indigo_ws/
 
 
-echo Initializing ROS workspace: $ROS_WORKSPACE_TMP
+echo -n Initializing ROS workspace: $ROS_WORKSPACE_TMP
 
-. $ROS_WORKSPACE_TMP/devel/setup.bash
+if [[ -n "$ZSH_VERSION" ]]; then
+  source $ROS_WORKSPACE_TMP/devel/setup.zsh
+else
+  source $ROS_WORKSPACE_TMP/devel/setup.bash
+fi
+
 export ROS_WORKSPACE=$ROS_WORKSPACE_TMP
 unset ROS_WORKSPACE_TMP

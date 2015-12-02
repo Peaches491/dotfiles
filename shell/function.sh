@@ -90,12 +90,12 @@ run_scripts()
 
 ##85-prompt
 SCM_SYMBOL=$PLUS_MINUS_SYMBOL
-SCM_DIRTY_SYMBOL="${bash_prompt_red}$X_SYMBOL"
-SCM_CLEAN_SYMBOL="${bash_prompt_green}$CHECK_SYMBOL"
+SCM_DIRTY_SYMBOL="${fg_red}$X_SYMBOL"
+SCM_CLEAN_SYMBOL="${fg_green}$CHECK_SYMBOL"
 
 function git_prompt_vars {
-  local status="$(git status -bs --porcelain 2> /dev/null)"
-  local status_first_line="$(head -n1 <<< "${status}")"
+  local stat="$(git status -bs --porcelain 2> /dev/null)"
+  local status_first_line="$(head -n1 <<< "${stat}")"
 
   local ref=$(git symbolic-ref HEAD 2> /dev/null)
   SCM_BRANCH=${ref#refs/heads/}
@@ -114,101 +114,110 @@ function git_prompt_vars {
   [[ "${status_first_line}" =~ ${upstream_re} ]] && SCM_GIT_UPSTREAM_REMOTE="${BASH_REMATCH[1]}" && SCM_GIT_UPSTREAM_BRANCH="${BASH_REMATCH[2]}"
 
   SCM_GIT_STASH_COUNT="$(git stash list 2> /dev/null | wc -l | tr -d ' ')"
-  SCM_GIT_STAGED_COUNT="$(tail -n +2 <<< "${status}" | grep -v ^[[:space:]?]  | wc -l | tr -d ' ')"
-  SCM_GIT_UNSTAGED_COUNT="$(tail -n +2 <<< "${status}" | grep ^.[^[:space:]?]  | wc -l | tr -d ' ')"
-  SCM_GIT_UNTRACKED_COUNT="$(tail -n +2 <<< "${status}" | grep ^??  | wc -l | tr -d ' ')"
+  SCM_GIT_STAGED_COUNT="$(tail -n +2 <<< "${stat}" | grep -v ^[[:space:]?]  | wc -l | tr -d ' ')"
+  SCM_GIT_UNSTAGED_COUNT="$(tail -n +2 <<< "${stat}" | grep ^.[^[:space:]?]  | wc -l | tr -d ' ')"
+  SCM_GIT_UNTRACKED_COUNT="$(tail -n +2 <<< "${stat}" | grep ^??  | wc -l | tr -d ' ')"
 
 
   if [ -z $SCM_BRANCH ]; then
-    SCM_HEAD="${bash_prompt_green}$SCM_CHANGE"
+    SCM_HEAD="${fg_green}$SCM_CHANGE"
   else
-    SCM_HEAD="${bash_prompt_green}$SCM_BRANCH"
+    SCM_HEAD="${fg_green}$SCM_BRANCH"
 	if [ -z $SCM_GIT_UPSTREAM_REMOTE ]; then
-    SCM_HEAD="$SCM_HEAD${bash_prompt_cyan}(~)"
+    SCM_HEAD="$SCM_HEAD${fg_cyan}(~)"
 	elif [ "$SCM_GIT_UPSTREAM_BRANCH" == "$SCM_BRANCH" ]; then
-    SCM_HEAD="$SCM_HEAD${bash_prompt_cyan}($SCM_GIT_UPSTREAM_REMOTE)"
+    SCM_HEAD="$SCM_HEAD${fg_cyan}($SCM_GIT_UPSTREAM_REMOTE)"
 	else
-    SCM_HEAD="$SCM_HEAD${bash_prompt_cyan}($SCM_GIT_UPSTREAM_REMOTE/$SCM_GIT_UPSTREAM_BRANCH)"
+    SCM_HEAD="$SCM_HEAD${fg_cyan}($SCM_GIT_UPSTREAM_REMOTE/$SCM_GIT_UPSTREAM_BRANCH)"
 	fi
-    SCM_HEAD="$SCM_HEAD${bash_prompt_normal}:${bash_prompt_purple}$SCM_CHANGE"
+    SCM_HEAD="$SCM_HEAD${reset_color}:${fg_purple}$SCM_CHANGE"
   fi
 }
 
 function scm {
   if which git &> /dev/null && [[ -n "$(git rev-parse HEAD 2> /dev/null)" ]]; then
 	git_prompt_vars
-	SCM="${bash_prompt_green}|$SCM_HEAD"
+	SCM="${fg_green}|$SCM_HEAD"
 	if [[ $SCM_GIT_STAGED_COUNT -gt 0 || $SCM_GIT_UNSTAGED_COUNT -gt 0 || $SCM_GIT_UNTRACKED_COUNT -gt 0 ]]; then
-		SCM="$SCM ${bash_prompt_red}("
-		[[ $SCM_GIT_STAGED_COUNT -gt 0 ]] && SCM="$SCM${bash_prompt_green}+"
-		[[ $SCM_GIT_UNSTAGED_COUNT -gt 0 ]] && SCM="$SCM${bash_prompt_red}*"
-		[[ $SCM_GIT_UNTRACKED_COUNT -gt 0 ]] && SCM="$SCM${bash_prompt_cyan}?"
-		SCM="$SCM${bash_prompt_red})"
+		SCM="$SCM ${fg_red}("
+		[[ $SCM_GIT_STAGED_COUNT -gt 0 ]] && SCM="$SCM${fg_green}+"
+		[[ $SCM_GIT_UNSTAGED_COUNT -gt 0 ]] && SCM="$SCM${fg_red}*"
+		[[ $SCM_GIT_UNTRACKED_COUNT -gt 0 ]] && SCM="$SCM${fg_cyan}?"
+		SCM="$SCM${fg_red})"
 	else
 		SCM="$SCM $SCM_CLEAN_SYMBOL"
 	fi
-	[[ $SCM_GIT_BEHIND -gt 0 ]] && SCM="$SCM ${bash_prompt_red}$DOWN_ARROW_SYMBOL$SCM_GIT_BEHIND"
-	[[ $SCM_GIT_AHEAD -gt 0 && $SCM_GIT_BEHIND -eq 0 ]] && SCM="$SCM${bash_prompt_cyan}"
+	[[ $SCM_GIT_BEHIND -gt 0 ]] && SCM="$SCM ${fg_red}$DOWN_ARROW_SYMBOL$SCM_GIT_BEHIND"
+	[[ $SCM_GIT_AHEAD -gt 0 && $SCM_GIT_BEHIND -eq 0 ]] && SCM="$SCM${fg_cyan}"
 	[[ $SCM_GIT_AHEAD -gt 0 ]] && SCM="$SCM $UP_ARROW_SYMBOL$SCM_GIT_AHEAD"
-	[[ $SCM_GIT_STASH_COUNT -gt 0 ]] && SCM="$SCM ${bash_prompt_yellow}(stash: $SCM_GIT_STASH_COUNT)"
-	SCM="$SCM${bash_prompt_green}|"
+	[[ $SCM_GIT_STASH_COUNT -gt 0 ]] && SCM="$SCM ${fg_yellow}(stash: $SCM_GIT_STASH_COUNT)"
+	SCM="$SCM${fg_green}|"
   else SCM=""
   fi
 }
 
 function prompt_command() {
-	EXIT_STATUS=$?
+  EXIT_STATUS=$?
+
+  VENV_PROMPT=
+  SSH_PROMPT=
+  JOBS=
+  DIR_STACK=
+  EXIT_CODE=
 
   if [ "$VIRTUAL_ENV" ]; then
-    VENV_PROMPT="${bash_prompt_green}|${bash_prompt_white}venv ${bash_prompt_blue}$VIRTUAL_ENV${bash_prompt_green}|"
-  else
-    VENV_PROMPT=
+    VENV_PROMPT="${fg_green}|${fg_white}venv ${fg_blue}$VIRTUAL_ENV${fg_green}|"
   fi
 
   if [ "$SSH_CONNECTION" ]; then
-    SSH_PROMPT="${bash_prompt_green}|${bash_prompt_white}ssh ${bash_prompt_blue}$SSH_CONNECTION${bash_prompt_green}|"
-  else
-    SSH_PROMPT=
+    SSH_PROMPT="${fg_green}|${fg_white}ssh ${fg_blue}$SSH_CONNECTION${fg_green}|"
   fi
 
-	scm
-	if [[ "$(dirs | wc -w)" -gt "1" ]]; then
-		DIR_STACK=" ${bash_prompt_bold_cyan}$(dirs | wc -w)"
-	else
-		DIR_STACK=
-	fi
-	JOBS="$(jobs -l | perl -pe 's|(.+)Running\s+|\\[\\e[0;32m\\]\1 |g;' -pe 's|(.+)Stopped\s+|\\[\\e[0;31m\\]\1 |g;' -pe 's|(.+)Killed\s+|\\[\\e[0;35m\\]\1 |g;')"
-	if [[ $EXIT_STATUS == 0 ]]; then
-		EXIT_CODE=
-	else
-		EXIT_CODE="${bash_prompt_bold_white}${bash_prompt_background_red}!!! Exited: $EXIT_STATUS !!!"
-	fi
-	PS1="\n${bash_prompt_yellow}\u${bash_prompt_normal}@\h ${bash_prompt_blue}[\w${DIR_STACK}${bash_prompt_blue}] ${bash_prompt_bold_red}\t $EXIT_CODE${bash_prompt_normal}\n ${bash_prompt_normal}\$ "
+  JOBS="$(jobs -l | perl -pe 's|(.+)Running\s+|\\[\\e[0;32m\\]\1 |g;' -pe 's|(.+)Stopped\s+|\\[\\e[0;31m\\]\1 |g;' -pe 's|(.+)Killed\s+|\\[\\e[0;35m\\]\1 |g;')"
+
+  scm
+  if [[ "$(dirs | wc -w)" -gt "1" ]]; then
+    DIR_STACK=" ${fg_cyan}$(dirs | wc -w)"
+  fi
+
+  if [[ $EXIT_STATUS != 0 ]]; then
+    EXIT_CODE="${fg_bold_white}${fg_background_red}!!! Exited: $EXIT_STATUS !!!"
+  fi
+
+  nl="
+"
+  PS1=$nl
+  PS1="$PS1${fg_yellow}${PS1_name}${reset_color}@"
+  PS1="$PS1${PS1_host} ${fg_blue}"
+  PS1="$PS1${PS1_lbrace}${PS1_pwd}${DIR_STACK}${fg_blue}${PS1_rbrace} "
+  PS1="$PS1${fg_bold_red}${PS1_time} "
+  PS1="$PS1$EXIT_CODE${reset_color}$nl"
+  PS1="$PS1 ${reset_color}$PS1_priv "
 
   if [[ ! -z "$VENV_PROMPT" ]]; then
-    PS1="\n$VENV_PROMPT$PS1"
+    PS1="$nl$VENV_PROMPT$PS1"
   fi
 
   if [[ ! -z "$SSH_PROMPT" ]]; then
-    PS1="\n$SSH_PROMPT$PS1"
+    PS1="$nl$SSH_PROMPT$PS1"
   fi
 
   if [[ ! -z "$SCM" ]]; then
-    PS1="\n$SCM$PS1"
-	fi
+    PS1="$nl$SCM$PS1"
+  fi
 
   if [[ ! -z "$JOBS" ]]; then
-    PS1="\n$JOBS$PS1"
-	fi
+    PS1="$nl$JOBS$PS1"
+  fi
 
   # set title bar
-	case "$TERM" in
-		xterm*|rxvt*)
-			PS1="\[\e]0;\u@\h: \w\a\]$PS1"
-			;;
-		*)
-			;;
-	esac
+  case "$TERM" in
+    xterm*|rxvt*)
+      PS1="\[\e]0;\u@\h: \w\a\]$PS1"
+      ;;
+      *)
+    ;;
+  esac
   export PS1=$PS1
 }
 

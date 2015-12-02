@@ -18,12 +18,18 @@ colors && compinit -u && promptinit
 ###############################################################################
 
 if [ -f ~/.commonrc ]; then
+   [ -f ~/.colors ] && . ~/.colors
+
    fg_black="%{$fg[black]%}"
    fg_red="%{$fg[red]%}"
-   fg_green="%{$fg[green]%}"
+   fg_bold_red="%{$fg_bold[red]%}"
+   fg_orange="%{$fg[orange]%}"
    fg_yellow="%{$fg[yellow]%}"
+   fg_green="%{$fg[green]%}"
    fg_blue="%{$fg[blue]%}"
+   fg_bold_blue="%{$fg_bold[blue]%}"
    fg_magenta="%{$fg[magenta]%}"
+   fg_purple="%{$fg[purple]%}"
    fg_cyan="%{$fg[cyan]%}"
    fg_white="%{$fg[white]%}"
    reset_color="%{$reset_color%}"
@@ -33,7 +39,7 @@ if [ -f ~/.commonrc ]; then
    SH_pwd="%~"
    SH_date="%D"
    SH_time="%*"
-   SH_priv="%#"
+   SH_priv="%(!.#.$)"
 
    source ~/.commonrc
 fi

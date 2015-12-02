@@ -6,18 +6,28 @@
 #esac
 
 if [ -f ~/.commonrc ]; then
+   [ -f ~/.colors ] && . ~/.colors
 
-   PS1_lbrace="${fg_blue}[${reset_color}"
-   PS1_rbrace="${fg_blue}]${reset_color}"
-   PS1_vbar="${fg_green}|${reset_color}"
-   PS1_at="${fg_white}@${reset_color}"
-   PS1_rangle="${fg_white}>${reset_color}"
-   PS1_name="${fg_yellow}${SH_name}${reset_color}"
-   PS1_host="${fg_white}${SH_host}${reset_color}"
-   PS1_time="${fg_orange}${SH_time}${reset_color}"
-   PS1_date="${fg_magenta}${SH_date}${reset_color}"
-   PS1_pwd="${fg_blue}${SH_pwd}${reset_color}"
-   PS1_priv="${fg_white}${SH_priv}${reset_color}"
+   fg_black=$bash_black
+   fg_red=$bash_red
+   fg_orange=$bash_orange
+   fg_green=$bash_green
+   fg_yellow=$bash_yellow
+   fg_blue=$bash_blue
+   fg_magenta=$bash_magenta
+   fg_cyan=$bash_cyan
+   fg_white=$bash_white
+   fg_purple=$bash_purple
+   fg_bold_white=$bash_bold_white
+   fg_background_red=$bash_background_red
+   reset_color=$'\[\e[0m\]'
+
+   SH_name="\u"
+   SH_host="\h"
+   SH_pwd="\w"
+   SH_date="%D"
+   SH_time="\t"
+   SH_priv="\$"
 
    source ~/.commonrc
 fi
@@ -53,6 +63,9 @@ fi
 ##89-other.bashrc
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+
+[ -f ~/.local.bashrc ] && . ~/.local.bashrc
 
 
 # Fix auto-complete with sudo prefix

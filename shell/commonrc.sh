@@ -11,7 +11,6 @@ case $- in
 esac
 
 
-
 ###############################################################################
 # External Files.
 ###############################################################################
@@ -45,7 +44,6 @@ export ANDROID_SDK_HOME=/usr/local/opt/android-sdk
 [ -f ~/.colors ] && . ~/.colors
 [ -f ~/.function ] && . ~/.function
 [ -f ~/.variables ] && . ~/.variables
-[ -f ~/.local.bashrc ] && . ~/.local.bashrc
 
 # Load functions listed in hooks.d
 run_scripts ~/dotfiles/shell/hooks.d
@@ -119,28 +117,21 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH
 # fg_black, fg_red, fg_green, fg_yellow, fg_blue, fg_magenta, fg_cyan, fg_white,
 # reset_color, SH_name, SH_host, SH_pwd, SH_date, SH_time, SH_priv
 
-#SH_name=$'\u'
-#SH_host=$'\H'
-#SH_pwd=$'\w'
-#SH_date=$'`date +"%m-%y-%d"`'
-#SH_time=$'\D{}'
-#SH_priv=$'\$'
-
-#PS1_lbrace="${fg_blue}[${reset_color}"
-#PS1_rbrace="${fg_blue}]${reset_color}"
-#PS1_vbar="${fg_green}|${reset_color}"
-#PS1_at="${fg_white}@${reset_color}"
-#PS1_rangle="${fg_white}>${reset_color}"
-#PS1_name="${fg_yellow}${SH_name}${reset_color}"
-#PS1_host="${fg_white}${SH_host}${reset_color}"
-#PS1_time="${fg_orange}${SH_time}${reset_color}"
-#PS1_date="${fg_magenta}${SH_date}${reset_color}"
-#PS1_pwd="${fg_blue}${SH_pwd}${reset_color}"
-#PS1_priv="${fg_white}${SH_priv}${reset_color}"
+PS1_lbrace="${fg_blue}[${reset_color}"
+PS1_rbrace="${fg_blue}]${reset_color}"
+PS1_vbar="${fg_green}|${reset_color}"
+PS1_at="${fg_white}@${reset_color}"
+PS1_rangle="${fg_white}>${reset_color}"
+PS1_name="${fg_yellow}${SH_name}${reset_color}"
+PS1_host="${fg_white}${SH_host}${reset_color}"
+PS1_time="${fg_orange}${SH_time}${reset_color}"
+PS1_date="${fg_magenta}${SH_date}${reset_color}"
+PS1_pwd="${fg_blue}${SH_pwd}${reset_color}"
+PS1_priv="${fg_white}${SH_priv}${reset_color}"
 
 declare PROMPT_COMMAND="prompt_command"
 
-export PS1="$SH_name$SH_at$SH_host $SH_lbrace$SH_pwd$SH_rbrace $SH_time $SH_at $SH_time
+export PS1="$SH_name$SH_at$SH_host $SH_lbrace$SH_pwd$SH_rbrace $SH_time
  $SH_priv "
 
 prompt_command
