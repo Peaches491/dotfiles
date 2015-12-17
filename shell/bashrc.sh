@@ -17,7 +17,6 @@ if [ -f ~/.commonrc ]; then
    fg_magenta=$bash_magenta
    fg_cyan=$bash_cyan
    fg_white=$bash_white
-   fg_purple=$bash_purple
    fg_bold_white=$bash_bold_white
    fg_background_red=$bash_background_red
    reset_color=$'\[\e[0m\]'

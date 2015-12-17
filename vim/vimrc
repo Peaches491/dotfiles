@@ -86,6 +86,8 @@ nmap <F8> :TagbarToggle<CR>
 Plugin 'Valloric/YouCompleteMe'
 nnoremap <C-g> :YcmCompleter GoTo<CR>
 inoremap <C-g> <Esc>:YcmCompleter GoTo<CR>i
+nnoremap <C-f> :YcmCompleter FixIt<CR>
+inoremap <C-f> <Esc>:YcmCompleter FixIt<CR>i
 
 Plugin 'taketwo/vim-ros'
 let g:ycm_semantic_triggers = {
@@ -207,10 +209,20 @@ filetype plugin on   " Allow plugins to be loaded by file type.
 
 nnoremap Y y$
 
-nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 1.5)<CR>
-nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
+nnoremap <silent> <Leader>J :res +5<CR>
+nnoremap <silent> <Leader>K :res -5<CR>
+nnoremap <silent> <Leader>L :vertical res +15<CR>
+nnoremap <silent> <Leader>H :vertical res -15<CR>
+nnoremap <silent> <Leader>j :res +1<CR>
+nnoremap <silent> <Leader>k :res -1<CR>
+nnoremap <silent> <Leader>l :vertical res +1<CR>
+nnoremap <silent> <Leader>h :vertical res -1<CR>
 
 " Use C-hjkl in to change windows.
+nnoremap <C-J> :res +1<CR>
+nnoremap <C-K> :res -1<CR>
+nnoremap <C-L> :vertical res +1<CR>
+nnoremap <C-H> :vertical res -1<CR>
 nnoremap <C-h> <C-w><Left>
 nnoremap <C-j> <C-w><Down>
 nnoremap <C-k> <C-w><Up>
@@ -218,7 +230,7 @@ nnoremap <C-l> <C-w><Right>
 
 " Toggles for search highlight, line numbers, paste mode, and word wrap.
 nnoremap <silent> <Leader>c :TagbarToggle<CR>
-nnoremap <silent> <Leader>h :set invhlsearch<CR>
+"nnoremap <silent> <Leader>h :set invhlsearch<CR>
 nnoremap <silent> <Leader>n :set invnumber<CR>
 nnoremap <silent> <Leader>p :set invpaste<CR>
 nnoremap <silent> <Leader>w :set invwrap<CR>

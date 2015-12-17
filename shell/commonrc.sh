@@ -135,6 +135,7 @@ export PS1="$SH_name$SH_at$SH_host $SH_lbrace$SH_pwd$SH_rbrace $SH_time
  $SH_priv "
 
 prompt_command
+PROMPT=$PS1
 
 
 ###############################################################################

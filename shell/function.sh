@@ -130,7 +130,7 @@ function git_prompt_vars {
 	else
     SCM_HEAD="$SCM_HEAD${fg_cyan}($SCM_GIT_UPSTREAM_REMOTE/$SCM_GIT_UPSTREAM_BRANCH)"
 	fi
-    SCM_HEAD="$SCM_HEAD${reset_color}:${fg_purple}$SCM_CHANGE"
+    SCM_HEAD="$SCM_HEAD${reset_color}:${fg_magenta}$SCM_CHANGE"
   fi
 }
 

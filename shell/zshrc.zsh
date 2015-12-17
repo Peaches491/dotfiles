@@ -29,7 +29,6 @@ if [ -f ~/.commonrc ]; then
    fg_blue="%{$fg[blue]%}"
    fg_bold_blue="%{$fg_bold[blue]%}"
    fg_magenta="%{$fg[magenta]%}"
-   fg_purple="%{$fg[purple]%}"
    fg_cyan="%{$fg[cyan]%}"
    fg_white="%{$fg[white]%}"
    reset_color="%{$reset_color%}"
