@@ -132,6 +132,9 @@ augroup FileTypeAssociation
    autocmd BufNewFile,BufRead *.make set filetype=make
    autocmd BufNewFile,BufRead *.impl set filetype=cpp
    autocmd BufNewFile,BufRead *.inl set filetype=cpp
+   autocmd BufNewFile,BufRead *.bzl set filetype=python
+   autocmd BufNewFile,BufRead BUILD set filetype=python
+   autocmd BufNewFile,BufRead BUILD.* set filetype=python
    "autocmd BufNewFile,BufRead *.twig set filetype=html
 
 augroup END

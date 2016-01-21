@@ -225,7 +225,7 @@ function prompt_command() {
 function inotifyrun {
   FORMAT=$(echo -e "\033[1;33m%w%f\033[0m written")
   "$@"
-  while inotifywait -qre close_write --format "$FORMAT" --exclude '(/4913|\.sw.)$' .
+  while inotifywait -qre close_write --format "$FORMAT" --exclude '(/4913|\.sw.|index\.lock)$' .
   do
     "$@"
     echo ""
