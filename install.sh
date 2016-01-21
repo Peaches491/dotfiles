@@ -10,7 +10,7 @@ set -e
 
 if [ "$1" == "--full-install" ] 
 then
-  sudo apt-get install build-essential cmake python-dev vim tmux terminator
+  sudo apt-get install build-essential cmake python-dev vim tmux terminator libclang-dev
 else
   echo "--full-install not specified. linking only."
 fi
