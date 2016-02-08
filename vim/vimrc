@@ -55,6 +55,7 @@ call vundle#begin('~/.bundles/')
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
 
+Plugin 'vim-utils/vim-troll-stopper'
 Plugin 'tpope/vim-fugitive'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'bling/vim-bufferline'
@@ -62,20 +63,26 @@ Plugin 'Chiel92/vim-autoformat'
 Plugin 'evidens/vim-twig'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
-Plugin 'easymotion/vim-easymotion'
+Plugin 'ekalinin/Dockerfile.vim'
 Plugin 'wikitopian/hardmode'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'groenewege/vim-less'
-" Plugin 'tpope/vim-commentary'
-"Plugin 'jtratner/vim-flavored-markdown'
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
+
+Plugin 'rhysd/vim-clang-format'
+let g:clang_format#command = 'clang-format-3.6'
+let g:clang_format#detect_style_file = 1
+let g:clang_format#auto_format = 1
+
 Plugin 'nathanaelkane/vim-indent-guides'
 set ts=4 sw=4 et
 let g:indent_guides_start_level = 1
 "let g:indent_guides_guide_size = 1
 "let g:indent_guides_auto_colors = 0
 
+Plugin 'easymotion/vim-easymotion'
+let g:EasyMotion_leader_key=',m'
 
 Plugin 'alvan/vim-closetag'
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.twig,*.launch,*.xml"
@@ -110,6 +117,9 @@ let g:airline_theme             = 'solarized'
 let g:airline_enable_branch     = 1
 let g:airline_enable_syntastic  = 1
 let g:airline#extensions#tabline#enabled = 1
+"
+"Plugin 'tpope/vim-commentary'
+"Plugin 'jtratner/vim-flavored-markdown'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -136,7 +146,10 @@ augroup FileTypeAssociation
    autocmd BufNewFile,BufRead BUILD set filetype=python
    autocmd BufNewFile,BufRead BUILD.* set filetype=python
    "autocmd BufNewFile,BufRead *.twig set filetype=html
+augroup END
 
+augroup TagBarOpen
+   autocmd BufNewFile,BufRead *.cpp :TagbarOpen
 augroup END
 
 " Resize splits on window resize.
@@ -144,6 +157,8 @@ augroup AutoResizeSplits
    autocmd!
    autocmd VimResized * exe "normal! \<c-w>="
 augroup END
+
+autocmd FileType python setlocal foldmethod=indent smartindent shiftwidth=4 ts=4 et cinwords=if,elif,else,for,while,try,except,finally,def,classlk
 
 " automatically start in hard mode. God help me.
 "autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
@@ -179,18 +194,19 @@ endfunction
 nnoremap <silent> <leader><Space> :call <SID>StripTrailingWhitespaces()<CR>
 
 
-function! NumberToggle()
-  if(&relativenumber == 1)
-    set norelativenumber
-    set nonumber
-  else
-    set relativenumber
-    set number
-  endif
+function! NumbersOn()
+  set relativenumber
+  set number
+endfunction
+
+function! NumbersOff()
+  set nonumber
+  set norelativenumber
 endfunction
 
 " Toggle relative line numbers
-nnoremap <silent> <Leader>n :call NumberToggle()<cr>
+nnoremap <silent> <Leader>N :call NumbersOn()<cr>
+nnoremap <silent> <Leader>n :call NumbersOff()<cr>
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -321,6 +337,5 @@ set wildmenu                     " Tab completion navigable menu is enabled.
 set wildmode=list:longest,full   " Tab completion lists matches, then opens wildmenu on next <Tab>.
 set wrapscan                     " Searching wraps to start of file when end is reached.
 
-autocmd FileType python setlocal foldmethod=indent smartindent shiftwidth=4 ts=4 et cinwords=if,elif,else,for,while,try,except,finally,def,classlk
 
 highlight LineNr cterm=NONE ctermfg=Grey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE

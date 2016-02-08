@@ -18,10 +18,12 @@
 	co = checkout
 	cl = clone
 	df = diff 
+	ds = diff --stat
 	dc = diff --cached
 	ci = commit
 	cia = commit -a
 	ciaa = commit -a --amend
+	sm = submodule
 
 
 	tree = log --graph --pretty=simple --abbrev-commit --date=relative

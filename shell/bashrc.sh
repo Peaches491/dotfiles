@@ -52,10 +52,14 @@ HISTFILESIZE=2000
 HISTIGNORE='l:ll:lll:llll:ls:exit'
 
 
-##50-colors.bashrc
-# enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+# Enable git completion in Bash
+if [ -f ~/.git-completion.sh ]; then
+   . ~/.git-completion.sh
+   export GIT_PS1_SHOWDIRTYSTATE="true"
+   export GIT_PS1_SHOWSTASHSTATE=" true"
+   export GIT_PS1_SHOWUNTRACKEDFILES=" true"
+   export GIT_PS1_SHOWUPSTREAM="true"
+   __git_complete g _git
 fi
 
 

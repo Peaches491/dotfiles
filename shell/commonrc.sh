@@ -15,14 +15,9 @@ esac
 # External Files.
 ###############################################################################
 
-if [ -f ~/.git-completion.sh ]; then
-   . ~/.git-completion.sh
-   export GIT_PS1_SHOWDIRTYSTATE="true"
-   export GIT_PS1_SHOWSTASHSTATE=" true"
-   export GIT_PS1_SHOWUNTRACKEDFILES=" true"
-   export GIT_PS1_SHOWUPSTREAM="true"
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
 fi
-
 if [ -d ~/.dircolors ]; then
    dircolors ~/.dircolors
 fi

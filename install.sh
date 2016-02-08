@@ -10,7 +10,7 @@ set -e
 
 if [ "$1" == "--full-install" ] 
 then
-  sudo apt-get install build-essential cmake python-dev vim tmux terminator libclang-dev
+  sudo apt-get install build-essential cmake python-dev vim tmux terminator libclang-dev xclip exuberant-ctags
 else
   echo "--full-install not specified. linking only."
 fi
@@ -79,6 +79,9 @@ mklnk $ROOT_DIR/vim ~/.vim
 mklnk $ROOT_DIR/vim ~/.ideavim
 mklnk $ROOT_DIR/vim/vimrc ~/.vimrc
 mklnk $ROOT_DIR/vim/ycm_extra_conf.py ~/.ycm_extra_conf.py
+
+# TMux
+mklnk $ROOT_DIR/tmux ~/.tmux
 
 # Configs
 for D in $ROOT_DIR/config/config/*; do 

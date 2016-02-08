@@ -19,3 +19,6 @@
 [submodule "config/i3/playerctl"]
 	path = config/i3/playerctl
 	url = git@github.com:acrisci/playerctl.git
+[submodule "tmux/plugins/tpm"]
+	path = tmux/plugins/tpm
+	url = https://github.com/tmux-plugins/tpm

@@ -18,7 +18,7 @@
     use_system_font = False
     cursor_color = "#eee8d5"
     foreground_color = "#eee8d5"
-    font = Ubuntu Mono derivative Powerline 14
+    font = Ubuntu Mono derivative Powerline 12
     background_color = "#002b36"
     scrollback_infinite = True
   [[solarized-light]]
