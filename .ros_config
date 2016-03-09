@@ -1,13 +1,13 @@
-export ROS_WORKSPACE_TMP=/home/daniel/indigo_ws/
-
-
-echo -n Initializing ROS workspace: $ROS_WORKSPACE_TMP
-
-if [[ -n "$ZSH_VERSION" ]]; then
-  source $ROS_WORKSPACE_TMP/devel/setup.zsh
-else
-  source $ROS_WORKSPACE_TMP/devel/setup.bash
-fi
-
-export ROS_WORKSPACE=$ROS_WORKSPACE_TMP
-unset ROS_WORKSPACE_TMP
+#! /bin/bash
+#export ROS_WORKSPACE_TMP=/home/daniel/indigo_ws/
+#
+#echo -n Initializing ROS workspace: $ROS_WORKSPACE_TMP
+#
+#if [[ -n "$ZSH_VERSION" ]]; then
+#  source $ROS_WORKSPACE_TMP/devel/setup.zsh
+#else
+#  source $ROS_WORKSPACE_TMP/devel/setup.bash
+#fi
+#
+#export ROS_WORKSPACE=$ROS_WORKSPACE_TMP
+#unset ROS_WORKSPACE_TMP

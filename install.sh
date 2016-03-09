@@ -11,6 +11,13 @@ set -e
 if [ "$1" == "--full-install" ] 
 then
   sudo apt-get install build-essential cmake python-dev vim tmux terminator libclang-dev xclip exuberant-ctags
+
+  # tmux v2.0 installation steps for Ubuntu 14.04 (Trusty Tahr)
+  sudo apt-get update
+  sudo apt-get install -y python-software-properties software-properties-common
+  sudo add-apt-repository -y ppa:pi-rho/dev
+  sudo apt-get update
+  sudo apt-get install -y tmux
 else
   echo "--full-install not specified. linking only."
 fi

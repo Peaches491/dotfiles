@@ -1,92 +1,92 @@
-# -*- coding: utf-8 -*-
+import itertools
 import os
-#import ycm_core
+import rospkg
+rospack = rospkg.RosPack()
 
+def getDefaultFlags():
+    return [
+        '-Wall',
+        '-Wextra',
+        '-Wno-unused-result',
+        '-Weffc++',
+        '--pipe',
+        '-std=c++11',
+        '-x', 'c++',
+    ]
 
-#def IsHeaderFile(filename):
-#   extension = os.path.splitext(filename)[1]
-#   return extension in ['.hpp', '.hxx', '.hh', '.h', '.inl', '.impl']
- 
-##########################################################################
-# ycm_extra_conf.py for ROS                                              #
-# Author: Gaël Ecorchard (2014)                                          #
-#                                                                        #
-# Place this file in your ROS catkin workspace to use it.                #
-#                                                                        #
-# License: CC0                                                           #
-##########################################################################
- 
- 
-def getRosIncludePaths():
-    import os
-    try:
-        from rospkg import RosPack
-    except ImportError:
-        return []
-    rospack = RosPack()
-    includes = []
-    includes.append(os.path.expandvars('$ROS_WORKSPACE') + '/devel/include')
-    for p in rospack.list():
-        if os.path.exists(rospack.get_path(p) + '/include'):
-            includes.append(rospack.get_path(p) + '/include')
-    if os.path.exists('/opt/ros/indigo/include'):
-        includes.append('/opt/ros/indigo/include')
-    if os.path.exists('/opt/ros/hydro/include'):
-        includes.append('/opt/ros/hydro/include')
-    return includes
- 
- 
+def getSystemIncludeFlags():
+    return getIncludePaths('-isystem', [
+        '/usr/include',
+        '/usr/local/include',
+        '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1',
+        '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/6.0/include',
+        '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include',
+        '/System/Library/Frameworks',
+        '/System/Library/Frameworks/Python.framework/Headers',
+    ])
+
 def getRosIncludeFlags():
-    includes = getRosIncludePaths()
-    flags = []
-    for include in includes:
-        flags.append('-isystem')
-        flags.append(include)
-    return flags
- 
-# some default flags
-# for more information install clang-3.2-doc package and
-# check UsersManual.html
-flags = [
-    '-Wall',
-    '-Werror',
- 
-    # std is required
-    # clang won't know which language to use compiling headers
-    '-std=c++11',
- 
-    # '-x' and 'c++' also required
-    # use 'c' for C projects
-    '-x',
-    'c++',
- 
-    # include third party libraries
-    # '-isystem',
-    # '/some/path/include',
-] + getRosIncludeFlags()
+    paths = []
 
+    # Project workspace
+    ros_workspace = os.path.expandvars('$ROS_WORKSPACE') + '/devel/include'
+    if os.path.isdir(ros_workspace):
+        paths += [ros_workspace]
 
-QtModules = ["QtCLucene", "QtDeclarative", "QtDesignerComponents", "QtHelp", "QtNetwork", "QtScript", "QtSql", "QtTest", "QtUiTools_debug", "QtXml",
-             "QtCore", "QtDesigner", "QtGui", "QtMultimedia", "QtOpenGL", "QtScriptTools", "QtSvg", "QtUiTools", "QtWebKit", "QtXmlPatterns"]
+    # Project packages
+    paths += [rospack.get_path(path) + '/include' for path in rospack.list()]
 
-from subprocess import Popen
-from subprocess import PIPE
-qtflags = []
-# TODO just inject the flags I used but not all of them
-for module in QtModules:
-    new_stuff = [x[2:] for x in Popen(['pkg-config', '--silence-errors', '--cflags-only-I', module], stdout=PIPE).communicate()[0].split()]
-    for include in new_stuff:
-        qtflags.append('-isystem')
-        qtflags.append(include)
+    # System workspace
+    if os.path.isdir('/opt/ros'):
+        paths += [
+            os.path.join(path + 'include')
+            for path in reversed(os.listdir('/opt/ros'))
+            if os.path.isdir(path) and os.path.isdir(path + '/include')
+        ]
 
-flags += qtflags
-#print flags
- 
-# youcompleteme is calling this function to get flags
-# You can also set database for flags. Check: JSONCompilationDatabase.html in
-# clang-3.2-doc package
-def FlagsForFile(filename):
+    return getIncludePaths('-isystem', paths)
+
+def getBazelWorkspace(filename):
+    while len(filename) > 0:
+        filename = os.path.dirname(filename)
+        if os.path.exists(os.path.join(filename, 'WORKSPACE')):
+            return filename
+    return None
+
+def getBazelIncludePaths(filename):
+    workspace = getBazelWorkspace(filename)
+    if workspace is None:
+        return []
+    else:
+        return getIncludePaths('-I', [workspace])
+
+def getLocalIncludeFlags():
+    return getIncludePaths('-I', ['.', './include'])
+
+def getIncludePaths(prefix, paths):
+    for p in set(paths):
+        print p
+    paths = filter(lambda path: os.path.exists(path), set(paths))
+    print set(paths)
+    return list(itertools.chain.from_iterable(
+     itertools.izip([prefix] * len(paths), paths)))
+
+def IsHeaderFile(filename):
+    extension = os.path.splitext(filename)[1]
+    return extension in ['.hpp', '.hxx', '.hh', '.h', '.inl', '.impl']
+
+def FlagsForFile(filename, **kwargs):
     return {
-        'flags': flags,
+        'flags': \
+                getDefaultFlags() + \
+                getSystemIncludeFlags() + \
+                getRosIncludeFlags() + \
+                getBazelIncludePaths(filename) + \
+                getLocalIncludeFlags(),
         'do_cache': True
     }
+
+if __name__ == "__main__":
+    print FlagsForFile("/home/daniel/driving/packages/logging_utilities/log_artifact_parameters/src/LogArtifactParameters.cpp")
+    print getRosIncludeFlags()
+    # print rospack.list()

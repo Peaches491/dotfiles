@@ -1,8 +1,10 @@
 # Add ccache to PATH
-export PATH=/usr/lib/ccache:$PATH
-export VLR_ROOT=/home/daniel/
+export PATH="/usr/lib/ccache:$PATH"
+export VLR_ROOT="/home/daniel/"
 
 export ZOOX_CMAKE_OPTIONS=""
+export ZOOX_WS="/home/daniel/driving"
+[ -f "$ZOOX_WS/scripts/shell/zooxrc.sh" ] && . "$ZOOX_WS/scripts/shell/zooxrc.sh"
 
 # Override roscompile for threading
 function zoox-build(){

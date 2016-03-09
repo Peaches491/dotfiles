@@ -211,13 +211,13 @@ function prompt_command() {
   fi
 
   # set title bar
-  case "$TERM" in
-    xterm*|rxvt*)
-      PS1="\[\e]0;\u@\h: \w\a\]$PS1"
-      ;;
-      *)
-    ;;
-  esac
+#   case "$TERM" in
+#     xterm*|rxvt*)
+#       PS1="\[\e]0;\u@\h: \w\a\]$PS1"
+#       ;;
+#       *)
+#     ;;
+#   esac
   export PS1=$PS1
 }
 

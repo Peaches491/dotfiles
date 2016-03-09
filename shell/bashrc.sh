@@ -62,6 +62,11 @@ if [ -f ~/.git-completion.sh ]; then
    __git_complete g _git
 fi
 
+# Bash-specific functions:
+function bashrc() {
+  source ~/.bashrc
+}
+
 
 ##89-other.bashrc
 # make less more friendly for non-text input files, see lesspipe(1)

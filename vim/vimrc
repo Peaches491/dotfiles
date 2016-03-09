@@ -55,6 +55,7 @@ call vundle#begin('~/.bundles/')
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
 
+"Plugin 'godlygeek/tabular'             " I have yet to use this in practice
 Plugin 'vim-utils/vim-troll-stopper'
 Plugin 'tpope/vim-fugitive'
 Plugin 'airblade/vim-gitgutter'
@@ -67,9 +68,8 @@ Plugin 'ekalinin/Dockerfile.vim'
 Plugin 'wikitopian/hardmode'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'groenewege/vim-less'
-Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
-
+Plugin 'vim-scripts/DoxygenToolkit.vim'
 Plugin 'rhysd/vim-clang-format'
 let g:clang_format#command = 'clang-format-3.6'
 let g:clang_format#detect_style_file = 1
@@ -112,11 +112,13 @@ let g:tmuxline_preset = {
       \'z'    : '#H'}
 
 Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 let g:airline_powerline_fonts   = 1
-let g:airline_theme             = 'solarized'
+let g:airline_theme             = 'tomorrow'
 let g:airline_enable_branch     = 1
 let g:airline_enable_syntastic  = 1
 let g:airline#extensions#tabline#enabled = 1
+let g:airline_inactive_collapse = 1
 "
 "Plugin 'tpope/vim-commentary'
 "Plugin 'jtratner/vim-flavored-markdown'
@@ -208,6 +210,10 @@ endfunction
 nnoremap <silent> <Leader>N :call NumbersOn()<cr>
 nnoremap <silent> <Leader>n :call NumbersOff()<cr>
 
+nnoremap <Leader>s :%s/\<<C-r><C-w>\>/
+
+" Enable :w!! to save a file when you forgot to open with sudo
+cmap w!! w !sudo tee % >/dev/null
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Filetype detection
