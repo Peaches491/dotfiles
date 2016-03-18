@@ -22,3 +22,12 @@
 [submodule "tmux/plugins/tpm"]
 	path = tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm
+[submodule "modules/tilda"]
+	path = modules/tilda
+	url = https://github.com/lanoxx/tilda.git
+[submodule "modules/Mutate"]
+	path = modules/Mutate
+	url = https://github.com/qdore/Mutate.git
+[submodule "modules/albert"]
+	path = modules/albert
+	url = git@github.com:ManuelSchneid3r/albert.git
