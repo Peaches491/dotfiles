@@ -10,3 +10,6 @@ Host webserver
 Host Brix-1
   User daniel
   HostName 172.16.128.45
+Host cortland
+  User daniel
+  HostName 172.16.131.25
