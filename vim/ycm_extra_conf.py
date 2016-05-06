@@ -1,4 +1,4 @@
-import itertools
+
 import os
 import rospkg
 rospack = rospkg.RosPack()
@@ -46,28 +46,43 @@ def getRosIncludeFlags():
 
     return getIncludePaths('-isystem', paths)
 
-def getBazelWorkspace(filename):
-    while len(filename) > 0:
-        filename = os.path.dirname(filename)
-        if os.path.exists(os.path.join(filename, 'WORKSPACE')):
-            return filename
+
+def getDefaultFlags():
+    return [
+        '-Wall',
+        '-Wextra',
+        '-Wno-unused-result',
+        '-Weffc++',
+        '--pipe',
+        '-std=c++11',
+        '-x', 'c++',
+    ]
+
+def getSystemIncludeFlags():
+    return getIncludePaths('-isystem', [
+        '/usr/include',
+        '/usr/local/include',
+        '/usr/include/eigen3',
+        '/opt/ros/indigo/include',
+    ])
+
+def getBazelWorkspace(current):
+    while len(current) > 0: 
+        current = os.path.dirname(current)
+        if os.path.exists(os.path.join(current, 'WORKSPACE')):
+            return current
     return None
 
-def getBazelIncludePaths(filename):
-    workspace = getBazelWorkspace(filename)
-    if workspace is None:
-        return []
-    else:
-        return getIncludePaths('-I', [workspace])
-
-def getLocalIncludeFlags():
-    return getIncludePaths('-I', ['.', './include'])
+def getLocalIncludeFlags(filename):
+    return getIncludePaths('-I', [
+        '.',
+        './include',
+        getBazelWorkspace(filename),
+        os.path.join(getBazelWorkspace(filename), 'bazel-genfiles'),
+    ])
 
 def getIncludePaths(prefix, paths):
-    for p in set(paths):
-        print p
     paths = filter(lambda path: os.path.exists(path), set(paths))
-    print set(paths)
     return list(itertools.chain.from_iterable(
      itertools.izip([prefix] * len(paths), paths)))
 
@@ -80,13 +95,13 @@ def FlagsForFile(filename, **kwargs):
         'flags': \
                 getDefaultFlags() + \
                 getSystemIncludeFlags() + \
-                getRosIncludeFlags() + \
-                getBazelIncludePaths(filename) + \
-                getLocalIncludeFlags(),
+                # getRosIncludeFlags() + \
+                getLocalIncludeFlags(filename),
         'do_cache': True
     }
 
-if __name__ == "__main__":
-    print FlagsForFile("/home/daniel/driving/packages/logging_utilities/log_artifact_parameters/src/LogArtifactParameters.cpp")
-    print getRosIncludeFlags()
+# if __name__ == "__main__":
+    # print FlagsForFile("/home/daniel/driving/packages/logging_utilities/log_artifact_parameters/src/LogArtifactParameters.cpp")
+    # print getRosIncludeFlags()
     # print rospack.list()
+

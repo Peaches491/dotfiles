@@ -80,3 +80,6 @@ function bashrc() {
 if [ "$PS1" ]; then
   complete -cf sudo
 fi
+export ROUTER_HOME=/opt/RTI/RTI_Routing_Service_5.1.1
+export NDDSHOME=/opt/RTI/ndds.5.1.1
+export RTI_LICENSE_FILE=/opt/RTI/rti_license.dat

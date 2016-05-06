@@ -96,11 +96,11 @@ inoremap <C-g> <Esc>:YcmCompleter GoTo<CR>i
 nnoremap <C-f> :YcmCompleter FixIt<CR>
 inoremap <C-f> <Esc>:YcmCompleter FixIt<CR>i
 
-Plugin 'taketwo/vim-ros'
-let g:ycm_semantic_triggers = {
-\   'roslaunch' : ['="', '$(', '/'],
-\   'rosmsg,rossrv,rosaction' : ['re!^', '/'],
-\ }
+"Plugin 'taketwo/vim-ros'
+"let g:ycm_semantic_triggers = {
+"\   'roslaunch' : ['="', '$(', '/'],
+"\   'rosmsg,rossrv,rosaction' : ['re!^', '/'],
+"\ }
 
 Plugin 'edkolev/tmuxline.vim'
 let g:tmuxline_preset = {
@@ -147,7 +147,7 @@ augroup FileTypeAssociation
    autocmd BufNewFile,BufRead *.bzl set filetype=python
    autocmd BufNewFile,BufRead BUILD set filetype=python
    autocmd BufNewFile,BufRead BUILD.* set filetype=python
-   "autocmd BufNewFile,BufRead *.twig set filetype=html
+   autocmd BufNewFile,BufRead *.twig set filetype=html
 augroup END
 
 augroup TagBarOpen

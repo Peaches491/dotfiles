@@ -29,6 +29,7 @@ then
     python-software-properties \
     software-properties-common \
     terminator \
+    tree \
     tmux \
     vim \
     xclip \
@@ -137,7 +138,8 @@ read recomp
 if [ "$recomp" == "y" ] || [ "$recomp" == "Y" ]; then
 (
   cd ~/.bundles/YouCompleteMe
-  ./install.py --clang-completer --system-libclang --system-boost
+  ./install.py --clang-completer
+  #--system-libclang --system-boost
 )
 fi
 
