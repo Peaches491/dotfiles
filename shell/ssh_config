@@ -1,12 +1,18 @@
 Host raspi
   User root
   HostName 192.168.1.122
+Host docker
+  User peaches
+  HostName 192.168.1.103
 Host rancher
   User rancher
   HostName 192.168.1.103
 Host webserver
   User peaches
   HostName 192.168.1.130
+Host pxe
+  User peaches
+  HostName 192.168.1.113
 Host Brix-1
   User daniel
   IdentityFile ~/.ssh/id_rsa
