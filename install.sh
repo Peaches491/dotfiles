@@ -1,35 +1,37 @@
 #!/usr/bin/env bash
 
-set -e
+set -euo pipefail
 
-(
 
 ################################################################################
 # Update repository
 ################################################################################
 
-if [ "$1" == "--full-install" ] 
-then
+if [ "$1" == "--full-install" ]; then
   # Tmux v2.0
   sudo add-apt-repository -y ppa:pi-rho/dev
   sudo apt-get update
 
+  # Graphical programs
+  if [ "$2" -ne "--headless" ]; then
+    sudo apt-get install -y \
+      compiz-plugins \
+      compizconfig-settings-manager \
+      software-properties-common \
+      terminator \
+
+  fi
+
+  # Command-line utilities
   sudo apt-get install -y \
     aptitude \
     build-essential \
     cmake \
-    compiz-plugins \
-    compizconfig-settings-manager \
     exuberant-ctags \
     htop \
     inotify-tools \
-    libboost-all-dev \
-    libclang-dev \
     python-dev \
     python-software-properties \
-    software-properties-common \
-    terminator \
-    tree \
     tmux \
     vim \
     xclip \
@@ -43,8 +45,7 @@ fi
 # Update repository
 ################################################################################
 
-if [ "$1" == "--full-install" ] 
-then
+if [ "$1" == "--full-install" ]; then
   git submodule update --init --recursive
 fi
 
@@ -107,16 +108,16 @@ mklnk $ROOT_DIR/vim/ycm_extra_conf.py ~/.ycm_extra_conf.py
 mklnk $ROOT_DIR/tmux ~/.tmux
 
 # Configs
-for D in $ROOT_DIR/config/config/*; do 
+for D in $ROOT_DIR/config/config/*; do
   echo $D | sed 's/.*\(config\/.*\)/~\/\.\1/g' | xargs $ROOT_DIR/link.py $D
 done
+
 
 mklnk $ROOT_DIR/config/Xmodmap ~/.Xmodmap
 mklnk $ROOT_DIR/config/i3 ~/.i3
 
 
-if [ "$1" != "--full-install" ] 
-then
+if [ "$1" != "--full-install" ]; then
   exit 0
 fi
 
@@ -139,18 +140,25 @@ if [ "$recomp" == "y" ] || [ "$recomp" == "Y" ]; then
 (
   cd ~/.bundles/YouCompleteMe
   ./install.py --clang-completer
+<<<<<<< Updated upstream
   #--system-libclang --system-boost
+=======
+<<<<<<< HEAD
+=======
+  #--system-libclang --system-boost
+>>>>>>> ca0339ed2f76a4aebc3fe935ad025dc1bd27a11d
+>>>>>>> Stashed changes
 )
 fi
 
 # Powerline Fontconfig
+if [ "$2" -ne "--headless" ]; then
 (
-mkdir -p ~/.fonts/
-$ROOT_DIR/themes/powerline-fonts/install.sh
-sudo fc-cache -vf ~/.fonts/
+  mkdir -p ~/.fonts/
+  $ROOT_DIR/themes/powerline-fonts/install.sh
+  sudo fc-cache -vf ~/.fonts/
 )
-
-)
+fi
 
 source ~/.bashrc
 
