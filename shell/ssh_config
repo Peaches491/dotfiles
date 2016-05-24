@@ -7,10 +7,10 @@ Host rancher
 Host webserver
   User peaches
   HostName 192.168.1.130
-Host Brix-1
-  User daniel
+Host brix1
+  User zoox
   IdentityFile ~/.ssh/id_rsa
-  HostName 172.16.128.45
+  HostName 172.16.130.5
 Host balrog
   User bertrand
   HostName 172.16.128.38

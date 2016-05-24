@@ -30,6 +30,7 @@ alias g='git'
 alias gg='git grep'
 alias grep='grep --color=auto'
 alias grep-rec='find . -type f -print0 | xargs -0 grep'
+alias inorun='inotifyrun '
 alias killbg='kill $(jobs -p)'  # kill all background tasks
 alias la='ls -al'
 alias l='ls -F'
