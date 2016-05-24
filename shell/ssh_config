@@ -1,6 +1,9 @@
 Host raspi
   User root
   HostName 192.168.1.122
+Host docker
+  User peaches
+  HostName 192.168.1.103
 Host rancher
   User rancher
   HostName 192.168.1.103
@@ -11,6 +14,9 @@ Host brix1
   User zoox
   IdentityFile ~/.ssh/id_rsa
   HostName 172.16.130.5
+Host pxe
+  User peaches
+  HostName 192.168.1.113
 Host balrog
   User bertrand
   HostName 172.16.128.38
