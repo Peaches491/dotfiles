@@ -1,4 +1,5 @@
-
+#! /usr/bin/env python
+import itertools
 import os
 import rospkg
 rospack = rospkg.RosPack()
