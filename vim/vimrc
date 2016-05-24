@@ -59,7 +59,7 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'vim-utils/vim-troll-stopper'
 Plugin 'tpope/vim-fugitive'
 Plugin 'airblade/vim-gitgutter'
-Plugin 'bling/vim-bufferline'
+"Plugin 'bling/vim-bufferline'
 Plugin 'Chiel92/vim-autoformat'
 Plugin 'evidens/vim-twig'
 Plugin 'scrooloose/nerdtree'
@@ -119,6 +119,7 @@ let g:airline_enable_branch     = 1
 let g:airline_enable_syntastic  = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_inactive_collapse = 1
+let g:airline#extensions#branch#enabled = 0
 "
 "Plugin 'tpope/vim-commentary'
 "Plugin 'jtratner/vim-flavored-markdown'
