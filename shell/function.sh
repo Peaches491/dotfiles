@@ -232,3 +232,11 @@ function inotifyrun {
     echo ""
   done
 }
+
+function docker-pid {
+  docker inspect --format '{{ .State.Pid }}' "$@"
+}
+
+function docker-ip {
+  docker inspect --format '{{ .NetworkSettings.IPAddress }}' "$@"
+}
