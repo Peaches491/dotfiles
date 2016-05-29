@@ -1,4 +1,4 @@
-autocmd BufRead,BufNewFile *.launch setfiletype roslaunch
+autocmd BufRead,BufNewFile *.launch setfiletype xml
 
 let mapleader=','
 
