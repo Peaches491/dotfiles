@@ -1,0 +1,7 @@
+#! /usr/bin/env bash
+
+set -euo pipefail
+
+index="${1:-}"
+shift
+git stash show stash@{$index} "$@"

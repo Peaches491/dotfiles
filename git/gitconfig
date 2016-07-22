@@ -1,54 +1,61 @@
 [core]
-	excludesfile = /home/daniel/.gitignore
+    excludesfile = /home/daniel/.gitignore
 
 [color]
-	status = auto
-	diff = auto
-	branch = auto
-	interactive = auto
+    status = auto
+    diff = auto
+    branch = auto
+    interactive = auto
 
 [pretty]
-	simple = format:%Cred%h%Creset -%C(yellow)%d%Creset %s %C(blue)[%an] %Cgreen(%ar)
-	verbose = format:%Cred%h%Creset -%C(yellow)%d%Creset %s %C(blue)[%an] %Cgreen(%ar) %Creset-- %C(cyan)[%cn] %C(magenta)(%cr)%Creset
+    simple = format:%Cred%h%Creset -%C(yellow)%d%Creset %s %C(blue)[%an] %Cgreen(%ar)
+    verbose = format:%Cred%h%Creset -%C(yellow)%d%Creset %s %C(blue)[%an] %Cgreen(%ar) %Creset-- %C(cyan)[%cn] %C(magenta)(%cr)%Creset
 
 [alias]
-	st = status
-	br = branch
-	cp = cherry-pick
-	co = checkout
-	cl = clone
-	df = diff 
-	ds = diff --stat
-	dc = diff --cached
-	ci = commit
-	cia = commit -a
-	ciaa = commit -a --amend
-	sm = submodule
+    st = status
+    br = branch
+    cp = cherry-pick
+    co = checkout
+    cl = clone
+    df = diff
+    ds = diff --stat
+    dc = diff --cached
+    ci = commit
+    cia = commit -a
+    ciaa = commit -a --amend
+    sm = submodule
+    ss = stash-show
 
 
-	tree = log --graph --pretty=simple --abbrev-commit --date=relative
-	lol = log --graph --pretty=simple --abbrev-commit --date=relative
-	lola = log --graph --pretty=simple --abbrev-commit --date=relative --all
-	# based on https://github.com/mahiro/git-stuff/blob/master/bin/git-log-graph-dump
-	lolaa = !sh -c 'git lola $(git fsck --unreachable --no-reflogs 2>/dev/null | sed -n \"s/^\\w\\w* commit //p\")'
+    tree = log --graph --pretty=simple --abbrev-commit --date=relative
+    lol = log --graph --pretty=simple --abbrev-commit --date=relative
+    lola = log --graph --pretty=simple --abbrev-commit --date=relative --all
+    # based on https://github.com/mahiro/git-stuff/blob/master/bin/git-log-graph-dump
+    lolaa = !sh -c 'git lola $(git fsck --unreachable --no-reflogs 2>/dev/null | sed -n \"s/^\\w\\w* commit //p\")'
 
    # from http://stackoverflow.com/questions/2363197/can-i-get-a-list-of-files-marked-assume-unchanged
    ignored = !git ls-files -v | grep "^[[:lower:]]"
 
-	# from https://git.wiki.kernel.org/index.php/Aliases
-	serve = !git daemon --reuseaddr --verbose  --base-path=. --export-all ./.git
-	unstage = reset HEAD --
-	# pushes a new branch to origin
-	publish = !sh -c 'git push -u origin $(git rev-parse --abbrev-ref HEAD)'
-	# list all commits that have not yet been pushed to the upstream branch
-	pending = !sh -c 'git lol $(git config branch.$(git name-rev --name-only HEAD).remote)/$(git rev-parse --abbrev-ref --symbolic-full-name $(git config branch.$(git name-rev --name-only HEAD).merge))..HEAD'
+    # from https://git.wiki.kernel.org/index.php/Aliases
+    serve = !git daemon --reuseaddr --verbose  --base-path=. --export-all ./.git
+    unstage = reset HEAD --
+    # pushes a new branch to origin
+    publish = !sh -c 'git push -u origin $(git rev-parse --abbrev-ref HEAD)'
+    # list all commits that have not yet been pushed to the upstream branch
+    pending = !sh -c 'git lol $(git config branch.$(git name-rev --name-only HEAD).remote)/$(git rev-parse --abbrev-ref --symbolic-full-name $(git config branch.$(git name-rev --name-only HEAD).merge))..HEAD'
 
 [push]
-	default = current 
+    default = current
 
 [user]
-	email = daniel@zoox.com
-	name = Daniel Miller
+    email = daniel@zoox.com
+    name = Daniel Miller
 
 [http]
-	sslVerify = true
+    sslVerify = true
+
+
+[merge]
+    tool = vimdiff
+[mergetool]
+    keepBackup = false

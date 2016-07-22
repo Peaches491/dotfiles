@@ -63,6 +63,7 @@ OLD_PATH=$PATH
 PATH='.'
 [ -d ~/bin ] && PATH+=:~/bin
 [ -d ~/sbin ] && PATH+=:~/sbin
+[ -d ~/.scripts ] && PATH+=:~/.scripts
 # homebrew bin directories
 [ -d /usr/local/bin ] && PATH+=:/usr/local/bin
 [ -d /usr/local/sbin ] && PATH+=:/usr/local/sbin

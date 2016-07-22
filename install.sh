@@ -11,12 +11,12 @@ home="$HOME"
 # Command line args
 ################################################################################
 
-full_install=false
+full_install=""
 if [[ $# -gt 0 && $1 = --full-install ]]; then
   full_install=true
 fi
 
-headless=false
+headless=""
 if [[ $# -gt 1 && $2 = "--headless" ]]; then
   headless=true
 fi
@@ -26,13 +26,13 @@ fi
 # Update repository
 ################################################################################
 
-if [ "$full_install" ]; then
+if [ -n "$full_install" ]; then
   # Tmux v2.0
   sudo add-apt-repository -y ppa:pi-rho/dev
   sudo apt-get update
 
   # Graphical programs
-  if [ "$headless" ]; then
+  if [ -n "$headless" ]; then
     sudo apt-get install -y \
       compiz-plugins \
       compizconfig-settings-manager \
@@ -64,7 +64,7 @@ fi
 # Update repository
 ################################################################################
 
-if [ "$full_install" ]; then
+if [ -n "$full_install" ]; then
   git submodule update --init --recursive
 fi
 
@@ -109,8 +109,7 @@ mklnk $root_dir/shell/dircolors $home/.dircolors
 mklnk $root_dir/shell/function.sh $home/.function
 mklnk $root_dir/shell/colors.sh $home/.colors
 mklnk $root_dir/shell/ssh_config $home/.ssh/config
-#mklnk $root_dir/shell/variables.sh $home/.variables
-#mklnk $root_dir/dircolors/solarized/dircolors.256dark $home/.dircolors
+mklnk $root_dir/shell/scripts $home/.scripts
 
 # Git
 mklnk $root_dir/git/git-completion.sh $home/.git-completion.sh
@@ -136,7 +135,7 @@ mklnk $root_dir/config/Xmodmap $home/.Xmodmap
 mklnk $root_dir/config/i3 $home/.i3
 
 
-if [ ! "$full_install" ]; then
+if [ -z "$full_install" ]; then
   exit 0
 fi
 
@@ -164,7 +163,7 @@ if [ "$recomp" == "y" ] || [ "$recomp" == "Y" ]; then
 fi
 
 # Powerline Fontconfig
-if [ ! "$headless" ]; then
+if [ -z "$headless" ]; then
 (
   mkdir -p $home/.fonts/
   $root_dir/themes/powerline-fonts/install.sh

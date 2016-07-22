@@ -1,6 +1,6 @@
 autocmd BufRead,BufNewFile *.launch setfiletype xml
 
-let mapleader=','
+let mapleader=' '
 
 
 " tab navigation like firefox
@@ -17,9 +17,6 @@ set splitbelow
 set splitright
 
 set switchbuf="useopen"
-
-let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
-let g:ycm_collect_identifiers_from_tags_files=1
 
 if isdirectory('./include')
    set path+=./include
@@ -58,7 +55,6 @@ Plugin 'gmarik/Vundle.vim'
 "Plugin 'godlygeek/tabular'             " I have yet to use this in practice
 Plugin 'vim-utils/vim-troll-stopper'
 Plugin 'tpope/vim-fugitive'
-Plugin 'airblade/vim-gitgutter'
 "Plugin 'bling/vim-bufferline'
 Plugin 'Chiel92/vim-autoformat'
 Plugin 'evidens/vim-twig'
@@ -70,6 +66,13 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'groenewege/vim-less'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'vim-scripts/DoxygenToolkit.vim'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-abolish'
+Plugin 'PeterRincker/vim-argumentative'
+Plugin 'airblade/vim-gitgutter'
+let g:gitgutter_async = 1
+let g:gitgutter_realtime = 0
+let g:gitgutter_eager = 0
 Plugin 'rhysd/vim-clang-format'
 let g:clang_format#command = 'clang-format-3.6'
 let g:clang_format#detect_style_file = 1
@@ -82,7 +85,7 @@ let g:indent_guides_start_level = 1
 "let g:indent_guides_auto_colors = 0
 
 Plugin 'easymotion/vim-easymotion'
-let g:EasyMotion_leader_key=',m'
+let g:EasyMotion_leader_key=' m'
 
 Plugin 'alvan/vim-closetag'
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.twig,*.launch,*.xml"
@@ -91,6 +94,9 @@ Plugin 'majutsushi/tagbar'
 nmap <F8> :TagbarToggle<CR>
 
 Plugin 'Valloric/YouCompleteMe'
+let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
+"let g:ycm_collect_identifiers_from_tags_files=1
+
 nnoremap <C-g> :YcmCompleter GoTo<CR>
 inoremap <C-g> <Esc>:YcmCompleter GoTo<CR>i
 nnoremap <C-f> :YcmCompleter FixIt<CR>
@@ -223,6 +229,10 @@ filetype on          " Recognize syntax by file extension.
 filetype indent on   " Check for indent file.
 filetype plugin on   " Allow plugins to be loaded by file type.
 
+" diff mode
+if &diff
+    set diffopt+=iwhite
+endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Mappings
