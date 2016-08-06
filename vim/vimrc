@@ -19,16 +19,16 @@ set splitright
 set switchbuf="useopen"
 
 if isdirectory('./include')
-   set path+=./include
+  set path+=./include
 endif
 if isdirectory('~/include')
-   set path+=~/include
+  set path+=~/include
 endif
 if isdirectory('/usr/include')
-   set path+=/usr/include
+  set path+=/usr/include
 endif
 if isdirectory('/usr/local/include')
-   set path+=/usr/local/include
+  set path+=/usr/local/include
 endif
 set path+=.,**
 
@@ -36,8 +36,8 @@ set path+=.,**
 let rosworkspace = $ROS_WORKSPACE
 
 if isdirectory(rosworkspace)
-   let rospath=rosworkspace . 'src/**'
-   set path+=rospath
+  let rospath=rosworkspace . 'src/**'
+  set path+=rospath
 endif
 
 
@@ -56,7 +56,6 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'vim-utils/vim-troll-stopper'
 Plugin 'tpope/vim-fugitive'
 "Plugin 'bling/vim-bufferline'
-Plugin 'Chiel92/vim-autoformat'
 Plugin 'evidens/vim-twig'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
@@ -69,14 +68,20 @@ Plugin 'vim-scripts/DoxygenToolkit.vim'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-abolish'
 Plugin 'PeterRincker/vim-argumentative'
+
 Plugin 'airblade/vim-gitgutter'
 let g:gitgutter_async = 1
 let g:gitgutter_realtime = 0
 let g:gitgutter_eager = 0
+
+Plugin 'Chiel92/vim-autoformat'
+let g:autoformat_verbosemode=0
+let g:formatdef_clangformat = "'clang-format-3.6 -lines='.a:firstline.':'.a:lastline.' --assume-filename=\"'.expand('%:p').'\" -style=file'"
+
 Plugin 'rhysd/vim-clang-format'
 let g:clang_format#command = 'clang-format-3.6'
 let g:clang_format#detect_style_file = 1
-let g:clang_format#auto_format = 1
+"let g:clang_format#auto_format = 0
 
 Plugin 'nathanaelkane/vim-indent-guides'
 set ts=4 sw=4 et
@@ -146,25 +151,25 @@ augroup VimRC
 augroup END
 
 augroup FileTypeAssociation
-   autocmd!
-   autocmd BufNewFile,BufRead *.ejs set filetype=html
-   autocmd BufNewFile,BufRead *.make set filetype=make
-   autocmd BufNewFile,BufRead *.impl set filetype=cpp
-   autocmd BufNewFile,BufRead *.inl set filetype=cpp
-   autocmd BufNewFile,BufRead *.bzl set filetype=python
-   autocmd BufNewFile,BufRead BUILD set filetype=python
-   autocmd BufNewFile,BufRead BUILD.* set filetype=python
-   autocmd BufNewFile,BufRead *.twig set filetype=html
+  autocmd!
+  autocmd BufNewFile,BufRead *.ejs set filetype=html
+  autocmd BufNewFile,BufRead *.make set filetype=make
+  autocmd BufNewFile,BufRead *.impl set filetype=cpp
+  autocmd BufNewFile,BufRead *.inl set filetype=cpp
+  autocmd BufNewFile,BufRead *.bzl set filetype=python
+  autocmd BufNewFile,BufRead BUILD set filetype=python
+  autocmd BufNewFile,BufRead BUILD.* set filetype=python
+  autocmd BufNewFile,BufRead *.twig set filetype=html
 augroup END
 
 augroup TagBarOpen
-   autocmd BufNewFile,BufRead *.cpp :TagbarOpen
+  autocmd BufNewFile,BufRead *.cpp :TagbarOpen
 augroup END
 
 " Resize splits on window resize.
 augroup AutoResizeSplits
-   autocmd!
-   autocmd VimResized * exe "normal! \<c-w>="
+  autocmd!
+  autocmd VimResized * exe "normal! \<c-w>="
 augroup END
 
 autocmd FileType python setlocal foldmethod=indent smartindent shiftwidth=4 ts=4 et cinwords=if,elif,else,for,while,try,except,finally,def,classlk
@@ -191,16 +196,13 @@ colorscheme solarized
 " Functions
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! <SID>StripTrailingWhitespaces()
-   let _s=@/
-   let l=line(".")
-   let c=col(".")
-   %s/\s\+$//e
-   let @/=_s
-   call cursor(l, c)
+  let _s=@/
+  let l=line(".")
+  let c=col(".")
+  %s/\s\+$//e
+  let @/=_s
+  call cursor(l, c)
 endfunction
-
-" strip trailing whitespace.
-nnoremap <silent> <leader><Space> :call <SID>StripTrailingWhitespaces()<CR>
 
 
 function! NumbersOn()
@@ -231,7 +233,7 @@ filetype plugin on   " Allow plugins to be loaded by file type.
 
 " diff mode
 if &diff
-    set diffopt+=iwhite
+  set diffopt+=iwhite
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -271,8 +273,11 @@ nnoremap <silent> <Leader>n :set invnumber<CR>
 nnoremap <silent> <Leader>p :set invpaste<CR>
 nnoremap <silent> <Leader>w :set invwrap<CR>
 
-" Strip trailing whitespace.
-nnoremap <silent> <leader><Space> :call <SID>StripTrailingWhitespaces()<CR>
+" Format function
+"nnoremap <silent> <leader><Space> :call <SID>StripTrailingWhitespaces()<CR>
+nnoremap <silent> <leader><Space> :Autoformat<CR>
+"au BufWrite * :Autoformat
+
 
 " Toggle NERDTree.
 nnoremap <silent> <Leader>t :NERDTreeToggle<CR>
