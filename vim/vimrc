@@ -5,10 +5,9 @@ let mapleader=' '
 
 " tab navigation like firefox
 nnoremap <C-p> :bprevious<CR>
-
 nnoremap <C-n> :bnext<CR>
-inoremap <C-p> <Esc>:bprevious<CR>i
-inoremap <C-n> <Esc>:bnext<CR>i
+"inoremap <C-p> <Esc>:bprevious<CR>i
+"inoremap <C-n> <Esc>:bnext<CR>i
 
 " Disable Ctrl+B
 nnoremap <C-b> <Nop>
@@ -65,8 +64,10 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'groenewege/vim-less'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'vim-scripts/DoxygenToolkit.vim'
+Plugin 'vim-scripts/a.vim'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-abolish'
+Plugin 'tpope/vim-repeat'
 Plugin 'PeterRincker/vim-argumentative'
 
 Plugin 'airblade/vim-gitgutter'
