@@ -101,7 +101,10 @@ nmap <F8> :TagbarToggle<CR>
 
 Plugin 'Valloric/YouCompleteMe'
 let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
-"let g:ycm_collect_identifiers_from_tags_files=1
+let g:ycm_collect_identifiers_from_tags_files = 0
+let g:ycm_complete_in_strings = 1
+"let g:ycm_autoclose_preview_window_after_completion = 1
+"let g:ycm_autoclose_preview_window_after_insertion = 1
 
 nnoremap <C-g> :YcmCompleter GoTo<CR>
 inoremap <C-g> <Esc>:YcmCompleter GoTo<CR>i
@@ -128,10 +131,10 @@ Plugin 'vim-airline/vim-airline-themes'
 let g:airline_powerline_fonts   = 1
 let g:airline_theme             = 'tomorrow'
 let g:airline_enable_branch     = 1
-let g:airline_enable_syntastic  = 1
-let g:airline#extensions#tabline#enabled = 1
 let g:airline_inactive_collapse = 1
 let g:airline#extensions#branch#enabled = 0
+let g:airline#extensions#syntastic#enabled = 1
+let g:airline#extensions#tabline#enabled = 1
 "
 "Plugin 'tpope/vim-commentary'
 "Plugin 'jtratner/vim-flavored-markdown'
@@ -332,7 +335,7 @@ set mouse-=a
 set modeline                     " Check for a modeline.
 set nocompatible                 " No compatibility with vi.
 set nofoldenable                 " Do not open file folded.
-set nowrap                       " Do not open file folded.
+set nowrap                       " Do not open file wrapped.
 set noerrorbells                 " No beeps on errors.
 set noswapfile                   " Don't use swap files.
 set number                       " Display line numbers.

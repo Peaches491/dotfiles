@@ -85,7 +85,7 @@ PATH='.'
 [ -d /bin ] && PATH+=:/bin
 [ -d /sbin ] && PATH+=:/sbin
 # CCache compiler locations
-[ -d /usr/lib/ccache ] && PATH+=:/usr/lib/ccache
+#[ -d /usr/lib/ccache ] && PATH+=:/usr/lib/ccache
 export PATH="$OLD_PATH:$PATH"
 
 

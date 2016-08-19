@@ -1,5 +1,3 @@
-# Add ccache to PATH
-export PATH="/usr/lib/ccache:$PATH"
 export VLR_ROOT="/home/daniel/"
 
 export ZOOX_CMAKE_OPTIONS=""
