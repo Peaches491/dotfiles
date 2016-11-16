@@ -13,7 +13,7 @@ Host webserver
 Host brix1
   User zoox
   IdentityFile ~/.ssh/id_rsa
-  HostName 172.16.131.47
+  HostName 172.16.131.144
 Host pxe
   User peaches
   HostName 192.168.1.113
