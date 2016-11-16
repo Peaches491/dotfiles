@@ -64,11 +64,12 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'groenewege/vim-less'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'vim-scripts/DoxygenToolkit.vim'
-Plugin 'vim-scripts/a.vim'
+Plugin 'nacitar/a.vim'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-abolish'
 Plugin 'tpope/vim-repeat'
 Plugin 'PeterRincker/vim-argumentative'
+Plugin 'vim-scripts/ReplaceWithRegister'
 
 Plugin 'airblade/vim-gitgutter'
 let g:gitgutter_async = 1
@@ -98,6 +99,7 @@ let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.twig,*.launch,*.xml"
 
 Plugin 'majutsushi/tagbar'
 nmap <F8> :TagbarToggle<CR>
+let g:Tlist_Auto_Open = 0
 
 Plugin 'Valloric/YouCompleteMe'
 let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
@@ -164,10 +166,6 @@ augroup FileTypeAssociation
   autocmd BufNewFile,BufRead BUILD set filetype=python
   autocmd BufNewFile,BufRead BUILD.* set filetype=python
   autocmd BufNewFile,BufRead *.twig set filetype=html
-augroup END
-
-augroup TagBarOpen
-  autocmd BufNewFile,BufRead *.cpp :TagbarOpen
 augroup END
 
 " Resize splits on window resize.
@@ -303,6 +301,21 @@ nmap <C-Tab> a<C-t><Esc>
 nmap <C-S-Tab> a<C-d><Esc>
 imap <C-Tab> <C-t>
 imap <C-S-Tab> <C-d>
+
+" Visual mode
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Search for selected text, forwards or backwards.
+vnoremap <silent> * :<C-U>
+  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+  \gvy/<C-R><C-R>=substitute(
+  \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+  \gV:call setreg('"', old_reg, old_regtype)<CR>
+vnoremap <silent> # :<C-U>
+  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+  \gvy?<C-R><C-R>=substitute(
+  \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+  \gV:call setreg('"', old_reg, old_regtype)<CR>
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Settings
