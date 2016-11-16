@@ -33,8 +33,8 @@
     # based on https://github.com/mahiro/git-stuff/blob/master/bin/git-log-graph-dump
     lolaa = !sh -c 'git lola $(git fsck --unreachable --no-reflogs 2>/dev/null | sed -n \"s/^\\w\\w* commit //p\")'
 
-   # from http://stackoverflow.com/questions/2363197/can-i-get-a-list-of-files-marked-assume-unchanged
-   ignored = !git ls-files -v | grep "^[[:lower:]]"
+    # from http://stackoverflow.com/questions/2363197/can-i-get-a-list-of-files-marked-assume-unchanged
+    ignored = !git ls-files -v | grep "^[[:lower:]]"
 
     # from https://git.wiki.kernel.org/index.php/Aliases
     serve = !git daemon --reuseaddr --verbose  --base-path=. --export-all ./.git
@@ -43,6 +43,10 @@
     publish = !sh -c 'git push -u origin $(git rev-parse --abbrev-ref HEAD)'
     # list all commits that have not yet been pushed to the upstream branch
     pending = !sh -c 'git lol $(git config branch.$(git name-rev --name-only HEAD).remote)/$(git rev-parse --abbrev-ref --symbolic-full-name $(git config branch.$(git name-rev --name-only HEAD).merge))..HEAD'
+
+    # Print commits to cwd like GitHub
+    # http://stackoverflow.com/questions/17359370/git-show-last-commit-date-and-message-for-each-file-in-directory-like-github
+    dir = !bash -i -c 'git_dir_view'
 
 [push]
     default = current
