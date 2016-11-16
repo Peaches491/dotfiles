@@ -86,7 +86,17 @@ run_scripts()
     done
 }
 
-
+function git_dir_view() {
+  files="$(git ls-tree --name-only HEAD .)"
+  lines=""
+  for f in $files; do
+      str="$(git log -1 --pretty=tformat:"%C(green)%cr%Creset  %x09  %C(cyan)%h%Creset  %s  %C(yellow)(%cn)%Creset" $f)"
+      printf -v str "%s  --  %s\n" "$f" "$str"
+      lines+="$(echo "$str" | sed 's#[\t ]\{2,\}#\t#g')"
+      lines+=$'\n'
+  done
+  echo "$lines" | column -ts $'\t'
+}
 
 ##85-prompt
 SCM_SYMBOL=$PLUS_MINUS_SYMBOL
