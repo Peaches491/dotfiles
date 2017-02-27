@@ -31,3 +31,6 @@
 [submodule "modules/albert"]
 	path = modules/albert
 	url = git@github.com:ManuelSchneid3r/albert.git
+[submodule "shell/tools/bashProfiler"]
+	path = shell/tools/bashProfiler
+	url = git@github.com:F-Hauri/bashProfiler.git

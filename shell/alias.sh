@@ -55,6 +55,8 @@ alias what=which
 alias when=date
 alias where=which
 alias which='type -a'
+alias vnc_server='x11vnc -display :0 -noxdamage'
+alias vnc_server_root='vnc_server -auth /var/run/lightdm/root/:0'
 alias xssh='ssh -XYC '
 alias ~='cd'
 

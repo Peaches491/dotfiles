@@ -1,6 +1,7 @@
 autocmd BufRead,BufNewFile *.launch setfiletype xml
 
 let mapleader=' '
+set ttimeoutlen=200
 
 
 " tab navigation like firefox
@@ -17,23 +18,9 @@ set splitright
 
 set switchbuf="useopen"
 
-if isdirectory('./include')
-  set path+=./include
-endif
-if isdirectory('~/include')
-  set path+=~/include
-endif
-if isdirectory('/usr/include')
-  set path+=/usr/include
-endif
-if isdirectory('/usr/local/include')
-  set path+=/usr/local/include
-endif
-set path+=.,**
-
+set path=./**
 
 let rosworkspace = $ROS_WORKSPACE
-
 if isdirectory(rosworkspace)
   let rospath=rosworkspace . 'src/**'
   set path+=rospath
@@ -70,6 +57,17 @@ Plugin 'tpope/vim-abolish'
 Plugin 'tpope/vim-repeat'
 Plugin 'PeterRincker/vim-argumentative'
 Plugin 'vim-scripts/ReplaceWithRegister'
+Plugin 'marczych/vim-lose'
+Plugin 'L9' "Required for FuzzyFinder
+Plugin 'FuzzyFinder'
+Plugin 'editorconfig/editorconfig-vim'
+Plugin 'regedarek/ZoomWin'
+nnoremap <silent> <leader>z :ZoomWin<CR>
+
+Plugin 'octol/vim-cpp-enhanced-highlight'
+let g:cpp_class_scope_highlight=1
+let g:cpp_experimental_simple_template_highlight=1
+let g:cpp_concepts_highlight=1
 
 Plugin 'airblade/vim-gitgutter'
 let g:gitgutter_async = 1

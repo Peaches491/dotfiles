@@ -1,3 +1,4 @@
+#! /usr/bin/env bash
 
 ##11-reload.bashrc
 function dotfiles(){
@@ -234,12 +235,13 @@ function prompt_command() {
 
 function inotifyrun {
   FORMAT=$(echo -e "\033[1;33m%w%f\033[0m written")
-  "$@"
-  echo ""
-  while inotifywait -qre close_write --format "$FORMAT" --exclude '(\.ros|\.git)|(/4913|\.sw.|index\.lock)$' .
-  do
+  # Using do-while loop
+  while : ; do
     "$@"
+    echo "Exited: $?"
     echo ""
+    inotifywait -qre close_write --format "$FORMAT" \
+      --exclude '(\.ros|\.git)|(/4913|\.sw.|index\.lock)$' . || break
   done
 }
 

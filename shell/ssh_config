@@ -23,3 +23,12 @@ Host balrog
 Host cortland
   User daniel
   HostName 172.16.131.25
+
+Host zimbeast
+   User zoox
+   HostName kittsim01.zooxlabs.com
+   Port 22
+Host zimbeast2
+   User zoox
+   HostName kittsim02.zooxlabs.com
+   Port 22
