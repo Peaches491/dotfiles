@@ -22,7 +22,7 @@ Host balrog
   HostName 172.16.128.38
 Host cortland
   User daniel
-  HostName 172.16.131.25
+  HostName 172.16.130.6
 
 Host zimbeast
    User zoox
@@ -31,4 +31,13 @@ Host zimbeast
 Host zimbeast2
    User zoox
    HostName kittsim02.zooxlabs.com
+   Port 22
+
+Host firehouse1
+   User zoox
+   HostName firehouse-ingest1.zooxlabs.com
+   Port 22
+Host firehouse2
+   User zoox
+   HostName firehouse-ingest2.zooxlabs.com
    Port 22
