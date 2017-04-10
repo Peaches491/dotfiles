@@ -1,6 +1,7 @@
 [global_config]
   title_transmit_bg_color = "#d30102"
   focus = system
+  inactive_color_offset = 1.0
 [keybindings]
   close_term = None
 [profiles]
