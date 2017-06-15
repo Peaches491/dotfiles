@@ -252,3 +252,5 @@ function docker-pid {
 function docker-ip {
   docker inspect --format '{{ .NetworkSettings.IPAddress }}' "$@"
 }
+
+theme-switch () { echo -e "\033]50;SetProfile=$1\a"; export ITERM_PROFILE=$1; }
