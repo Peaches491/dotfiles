@@ -253,4 +253,9 @@ function docker-ip {
   docker inspect --format '{{ .NetworkSettings.IPAddress }}' "$@"
 }
 
-theme-switch () { echo -e "\033]50;SetProfile=$1\a"; export ITERM_PROFILE=$1; }
+function theme-switch {
+  local short_theme="$1"
+  echo -e "\033]50;SetProfile=$short_theme\a"
+  export TERMINAL_THEME="$short_theme"
+}
+
