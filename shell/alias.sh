@@ -37,7 +37,7 @@ alias ll='l -Al'
 alias lll='ll -a'
 alias llll='lll -i'
 alias lr='ll -R'  # Recursive ls
-alias ls='ls --color=auto -h'
+alias ls='ls -G -h'
 alias mkdir='mkdir -p'  # recursive directory make
 alias o='gnome-open'
 alias rmtmp='rm -f *~;rm -f .*~'  # delete all file ending in ~ in the current directory
@@ -55,6 +55,7 @@ alias what=which
 alias when=date
 alias where=which
 alias which='type -a'
+alias venv='source venv/bin/activate'
 alias vnc_server='x11vnc -display :0 -noxdamage'
 alias vnc_server_root='vnc_server -auth /var/run/lightdm/root/:0'
 alias xssh='ssh -XYC '
