@@ -192,3 +192,9 @@ export TERM=screen-256color
 if [ ! $TMUX ]; then
    tmux #new-session -A -s main
 fi
+
+
+
+if [[ `(cd $DOTFILES_ROOT; git status --porcelain)` ]]; then
+    echo 'SHAME: You have unstaged changes in your Dotfiles repo!'
+fi
