@@ -1,0 +1,15 @@
+driving:
+  root: "/home/daniel/driving"
+  source: "scripts/shell/zooxrc.sh"
+
+driving2:
+  root: "/home/daniel/driving_2"
+  source: "scripts/shell/zooxrc.sh"
+
+driving3:
+  root: "/home/daniel/driving_3"
+  source: "scripts/shell/zooxrc.sh"
+
+driving4:
+  root: "/home/daniel/driving_4"
+  source: "scripts/shell/zooxrc.sh"
