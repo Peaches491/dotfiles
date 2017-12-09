@@ -39,7 +39,7 @@ alias ll='l -Al'
 alias lll='ll -a'
 alias llll='lll -i'
 alias lr='ll -R'  # Recursive ls
-alias ls='ls -G -h'
+alias ls='ls -G -h --color=auto'
 alias mkdir='mkdir -p'  # recursive directory make
 alias o='gnome-open'
 alias rmtmp='rm -f *~;rm -f .*~'  # delete all file ending in ~ in the current directory
