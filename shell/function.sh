@@ -125,9 +125,9 @@ function git_prompt_vars {
   [[ "${status_first_line}" =~ ${upstream_re} ]] && SCM_GIT_UPSTREAM_REMOTE="${BASH_REMATCH[1]}" && SCM_GIT_UPSTREAM_BRANCH="${BASH_REMATCH[2]}"
 
   SCM_GIT_STASH_COUNT="$(git stash list 2> /dev/null | wc -l | tr -d ' ')"
-  SCM_GIT_STAGED_COUNT="$(tail -n +2 <<< "${stat}" | grep -v ^[[:space:]?]  | wc -l | tr -d ' ')"
-  SCM_GIT_UNSTAGED_COUNT="$(tail -n +2 <<< "${stat}" | grep ^.[^[:space:]?]  | wc -l | tr -d ' ')"
-  SCM_GIT_UNTRACKED_COUNT="$(tail -n +2 <<< "${stat}" | grep ^??  | wc -l | tr -d ' ')"
+  SCM_GIT_STAGED_COUNT="$(tail -n +2 <<< "${stat}" | grep -v '^[[:space:]?]'  | wc -l | tr -d ' ')"
+  SCM_GIT_UNSTAGED_COUNT="$(tail -n +2 <<< "${stat}" | grep '^.[^[:space:]?]'  | wc -l | tr -d ' ')"
+  SCM_GIT_UNTRACKED_COUNT="$(tail -n +2 <<< "${stat}" | grep '^??'  | wc -l | tr -d ' ')"
 
 
   if [ -z $SCM_BRANCH ]; then
@@ -254,8 +254,20 @@ function docker-ip {
 }
 
 function theme-switch {
+  local theme_file="$HOME/.terminal_theme"
   local short_theme="$1"
   echo -e "\033]50;SetProfile=$short_theme\a"
   export TERMINAL_THEME="$short_theme"
+  echo "$short_theme" > "$theme_file"
 }
+
+function _theme_switch_completion {
+  cur_word="${COMP_WORDS[COMP_CWORD]}"
+  prev_word="${COMP_WORDS[COMP_CWORD-1]}"
+  options="$(~/bin/dataset_op.py --dump_options)"
+  COMPREPLY=( $( compgen -W "dark light" -- $cur_word ) )
+  return 0
+}
+
+complete -F _theme_switch_completion -o nospace theme-switch
 

@@ -41,6 +41,8 @@ if [ -f ~/.commonrc ]; then
    SH_priv="%(!.#.$)"
 
    source ~/.commonrc
+   zle -N zle-line-init prompt_command
+   zle -N zle-keymap-select prompt_command
 fi
 
 ###############################################################################
@@ -51,6 +53,7 @@ fi
 ###############################################################################
 
 # Incremental search.
+bindkey "^R" history-incremental-search-backward
 bindkey -M vicmd "/" history-incremental-search-backward
 bindkey -M vicmd "?" history-incremental-search-forward
 # Search on text already typed in.
@@ -104,6 +107,7 @@ setopt PUSHD_MINUS      # Reverses 'cd +1' and 'cd -1'.
 setopt PUSHD_SILENT     # So annoying.
 setopt PUSHD_TO_HOME    # Blank pushd goes to home.
 setopt RC_EXPAND_PARAM  # foo${a b c}bar = fooabar foobbar foocbar instead of fooa b cbar.
+setopt PROMPT_SUBST     # Run parameter/command/arithmatic expansion on PS1
 setopt VI               # Vim commands on the command line (instead of emacs).
 
 ###############################################################################

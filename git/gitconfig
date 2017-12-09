@@ -58,8 +58,14 @@
 [http]
     sslVerify = true
 
+[diff]
+    tool = vimdiff
 
 [merge]
     tool = vimdiff
+
 [mergetool]
     keepBackup = false
+
+[rebase]
+    autoStash = true

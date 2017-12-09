@@ -3,7 +3,7 @@ export VLR_ROOT="/home/daniel/"
 export ZOOX_CMAKE_OPTIONS=""
 export ZOOX_WS="/home/daniel/driving"
 
-export ROS_MASTER_URI="http://172.16.131.25:11311"
+export ROS_MASTER_URI="http://172.16.130.6:11311"
 [ -f "$ZOOX_WS/scripts/shell/zooxrc.sh" ] && . "$ZOOX_WS/scripts/shell/zooxrc.sh"
 
 # Override roscompile for threading

@@ -110,6 +110,7 @@ mklnk $root_dir/shell/function.sh $home/.function
 mklnk $root_dir/shell/colors.sh $home/.colors
 mklnk $root_dir/shell/ssh_config $home/.ssh/config
 mklnk $root_dir/shell/scripts $home/.scripts
+mklnk $root_dir/shell/tools/complete-alias/completions/bash_completion.sh $home/.bash_completion
 
 # Git
 mklnk $root_dir/git/git-completion.sh $home/.git-completion.sh
@@ -120,7 +121,11 @@ mklnk $root_dir/git/gitignore $home/.gitignore
 mklnk $root_dir/vim $home/.vim
 mklnk $root_dir/vim $home/.ideavim
 mklnk $root_dir/vim/vimrc $home/.vimrc
-mklnk $root_dir/vim/ycm_extra_conf.py $home/.ycm_extra_conf.py
+#mklnk $root_dir/vim/ycm_extra_conf.py $home/.ycm_extra_conf.py
+zoox_vim_root=$home/current_workspace/scripts/editors/vim
+mklnk $zoox_vim_root/ycm_extra_conf.py $home/.ycm_extra_conf.py
+mklnk $zoox_vim_root/ycm_extra_conf_offline_ycm.py $home/.ycm_extra_conf_offline_ycm.py
+mklnk $zoox_vim_root/generate_compile_commands_from_filename_vim_plugin.py $home/.ycm_compile_commands.py
 
 # TMux
 mklnk $root_dir/tmux $home/.tmux

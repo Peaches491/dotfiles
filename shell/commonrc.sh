@@ -12,6 +12,15 @@ esac
 
 
 ###############################################################################
+# Environment Variables
+###############################################################################
+script_abspath="$(readlink -f ${BASH_SOURCE[0]})"
+script_dir="$( (builtin cd "$(dirname "$script_abspath")" && pwd) )"
+root_dir="$( (builtin cd "$script_dir" && git rev-parse --show-toplevel) )"
+export DOTFILES_ROOT="$root_dir"
+
+
+###############################################################################
 # External Files.
 ###############################################################################
 
@@ -35,6 +44,7 @@ fi
 export ANDROID_HOME=/usr/local/opt/android-sdk
 export ANDROID_SDK_HOME=/usr/local/opt/android-sdk
 
+[ -f ~/.bash_completion ] && . ~/.bash_completion
 [ -f ~/.alias ] && . ~/.alias
 [ -f ~/.colors ] && . ~/.colors
 [ -f ~/.function ] && . ~/.function
@@ -86,6 +96,9 @@ PATH='.'
 [ -d /sbin ] && PATH+=:/sbin
 # CCache compiler locations
 #[ -d /usr/lib/ccache ] && PATH+=:/usr/lib/ccache
+# Submodules of this Dotfiles repo
+[ -d $DOTFILES_ROOT/modules/ssh-agent-canonicalize ] && \
+    PATH+=:$DOTFILES_ROOT/modules/ssh-agent-canonicalize
 export PATH="$OLD_PATH:$PATH"
 
 
@@ -159,6 +172,12 @@ export CHARSET=UTF-8
 # Source command line utils
 ###############################################################################
 
+# Workspaces
+if [ -f $DOTFILES_ROOT/shell/tools/workspaces.sh ]; then
+   . $DOTFILES_ROOT/shell/tools/workspaces.sh
+fi
+
+# ROS
 [ -f ~/.ros_config ] && . ~/.ros_config
 
 export NVM_DIR="/home/daniel/.nvm"

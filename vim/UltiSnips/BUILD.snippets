@@ -1,0 +1,34 @@
+global !p
+import itertools
+bazel_languages = ['cc', 'py', 'sh']
+bazel_target_types = ['library', 'binary', 'test']
+_bazel_combinations = itertools.product(bazel_languages, bazel_target_types)
+bazel_targets = ["%s_%s" % (a, b) for a, b in _bazel_combinations]
+
+def complete(t, opts):
+    if t:
+        opts = [m[len(t):] for m in opts if m.startswith(t)]
+    if len(opts) is 1:
+        return opts[0]
+    elif not opts:
+        return ""
+    return '(' + '|'.join(opts) + ')'
+endglobal
+
+
+snippet target "Rough Bazel target body" b
+$1`!p snip.rv=complete(t[1], bazel_targets)` (
+    name = "${2:target_name}",
+    hdrs = [
+        "${3:$2.h}",
+    ],
+    srcs = [
+        "${4:$2.cpp}",
+    ],
+    deps = [
+        "${5://path/to:target}",
+    ],
+)
+endsnippet
+
+

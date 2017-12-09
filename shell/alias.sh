@@ -2,6 +2,8 @@
 # Cross-shell variables
 #######################
 export EDITOR='vim'
+alias vim='vim'
+
 export PAGER=less
 
 
@@ -41,7 +43,8 @@ alias ls='ls -G -h'
 alias mkdir='mkdir -p'  # recursive directory make
 alias o='gnome-open'
 alias rmtmp='rm -f *~;rm -f .*~'  # delete all file ending in ~ in the current directory
-alias stop-asking='eval `ssh-agent` && ssh-add '
+alias sac='ssh-agent-canonicalize'
+alias stop-asking='echo "ssh-agent" has been superseded by ssh-agent-canonicalize'
 alias sshx='ssh -XYC '
 alias sudo='sudo '
 alias tma='tmux attach -t '
@@ -56,7 +59,7 @@ alias when=date
 alias where=which
 alias which='type -a'
 alias venv='source venv/bin/activate'
-alias vnc_server='x11vnc -display :0 -noxdamage'
+alias vnc_server='x11vnc -display :0 -noxdamage -rfbauth ~/.vnc/passwd'
 alias vnc_server_root='vnc_server -auth /var/run/lightdm/root/:0'
 alias xssh='ssh -XYC '
 alias ~='cd'

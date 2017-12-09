@@ -5,3 +5,4 @@
 .netrwhist
 tmux/plugins
 tmux/resurrect
+modules

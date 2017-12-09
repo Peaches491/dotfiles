@@ -44,5 +44,5 @@ Thumbs.db
 
 # ROS Tempory Ignores #
 #######################
-*.rviz
+#*.rviz
 

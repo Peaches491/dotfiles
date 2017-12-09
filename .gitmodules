@@ -34,3 +34,9 @@
 [submodule "shell/tools/bashProfiler"]
 	path = shell/tools/bashProfiler
 	url = git@github.com:F-Hauri/bashProfiler.git
+[submodule "shell/tools/complete-alias"]
+	path = shell/tools/complete-alias
+	url = git@github.com:cykerway/complete-alias.git
+[submodule "modules/ssh-agent-canonicalize"]
+	path = modules/ssh-agent-canonicalize
+	url = https://github.com/chpatton013/ssh-agent-canonicalize

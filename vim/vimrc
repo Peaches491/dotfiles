@@ -1,7 +1,7 @@
 autocmd BufRead,BufNewFile *.launch setfiletype xml
 
 let mapleader=' '
-set ttimeoutlen=200
+set ttimeoutlen=500
 
 
 " tab navigation like firefox
@@ -57,10 +57,22 @@ Plugin 'tpope/vim-abolish'
 Plugin 'tpope/vim-repeat'
 Plugin 'PeterRincker/vim-argumentative'
 Plugin 'vim-scripts/ReplaceWithRegister'
+Plugin 'file:///home/daniel/GitHub/vim-glog-syntax'
 Plugin 'marczych/vim-lose'
-Plugin 'L9' "Required for FuzzyFinder
-Plugin 'FuzzyFinder'
+Plugin 'cybrown-zoox/vim-pbtxt'
+"Plugin 'L9' "Required for FuzzyFinder
+"Plugin 'FuzzyFinder'
 Plugin 'editorconfig/editorconfig-vim'
+
+"Plugin 'zhou13/vim-easyescape'
+"let g:easyescape_chars = { "j": 1, "k": 1 }
+"let g:easyescape_timeout = 500
+"cnoremap jk <ESC>
+"cnoremap kj <ESC>
+
+Plugin 'tpope/vim-rhubarb'
+let g:github_enterprise_urls = ['https://git.zooxlabs.com']
+
 Plugin 'regedarek/ZoomWin'
 nnoremap <silent> <leader>z :ZoomWin<CR>
 
@@ -76,6 +88,9 @@ let g:gitgutter_eager = 0
 
 Plugin 'Chiel92/vim-autoformat'
 let g:autoformat_verbosemode=0
+let g:autoformat_autoindent = 0
+let g:autoformat_retab = 0
+let g:autoformat_remove_trailing_spaces = 0
 let g:formatdef_clangformat = "'clang-format-3.6 -lines='.a:firstline.':'.a:lastline.' --assume-filename=\"'.expand('%:p').'\" -style=file'"
 
 Plugin 'rhysd/vim-clang-format'
@@ -84,7 +99,7 @@ let g:clang_format#detect_style_file = 1
 "let g:clang_format#auto_format = 0
 
 Plugin 'nathanaelkane/vim-indent-guides'
-set ts=4 sw=4 et
+"set ts=4 sw=4 et
 let g:indent_guides_start_level = 1
 "let g:indent_guides_guide_size = 1
 "let g:indent_guides_auto_colors = 0
@@ -98,18 +113,6 @@ let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.twig,*.launch,*.xml"
 Plugin 'majutsushi/tagbar'
 nmap <F8> :TagbarToggle<CR>
 let g:Tlist_Auto_Open = 0
-
-Plugin 'Valloric/YouCompleteMe'
-let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
-let g:ycm_collect_identifiers_from_tags_files = 0
-let g:ycm_complete_in_strings = 1
-"let g:ycm_autoclose_preview_window_after_completion = 1
-"let g:ycm_autoclose_preview_window_after_insertion = 1
-
-nnoremap <C-g> :YcmCompleter GoTo<CR>
-inoremap <C-g> <Esc>:YcmCompleter GoTo<CR>i
-nnoremap <C-f> :YcmCompleter FixIt<CR>
-inoremap <C-f> <Esc>:YcmCompleter FixIt<CR>i
 
 "Plugin 'taketwo/vim-ros'
 "let g:ycm_semantic_triggers = {
@@ -129,13 +132,65 @@ let g:tmuxline_preset = {
 Plugin 'bling/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 let g:airline_powerline_fonts   = 1
-let g:airline_theme             = 'tomorrow'
+"let g:airline_theme             = 'tomorrow'
 let g:airline_enable_branch     = 1
 let g:airline_inactive_collapse = 1
 let g:airline#extensions#branch#enabled = 0
 let g:airline#extensions#syntastic#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
+
+"Plugin 'ervandew/supertab'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
+
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+let g:UltiSnipsEditSplit="vertical"
+
+Plugin 'Valloric/YouCompleteMe'
+"let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
+let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf_offline_ycm.py'
+let g:ycm_collect_identifiers_from_tags_files = 0
+let g:ycm_complete_in_strings = 1
+let g:ycm_confirm_extra_conf = 0
+
+"let g:ycm_autoclose_preview_window_after_completion = 1
+"let g:ycm_autoclose_preview_window_after_insertion = 1
+
+nnoremap <C-g> :YcmCompleter GoTo<CR>
+inoremap <C-g> <Esc>:YcmCompleter GoTo<CR>i
+nnoremap <Leader>f :YcmCompleter FixIt<CR>
+
+" make YCM compatible with UltiSnips (using supertab)
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+"let g:SuperTabDefaultCompletionType = '<C-n>'
 "
+
+" This allows the user to generate compile commands for the current file with
+" <C-y> key binding.
+" Requires generate_compile_commands_from_filename_vim_plugin to be copied
+" to ~/.vim/generate_compile_commands_from_filename.py
+" And you'll want to use .ycm_extra_conf_offline_ycm.py as your ycm_extra_conf
+function! GenerateCompileCommands()
+  let l:fname=expand('%:p')
+  if has("python")
+    pyf ~/.ycm_compile_commands.py
+  elseif has("python3")
+    py3f ~/.ycm_compile_commands.py
+  endif
+  call input('Press any key to continue')
+  YcmRestartServer
+  redraw!
+endfunction
+map <C-y> :call GenerateCompileCommands()<cr>
+
+Plugin 'wincent/command-t'
+let g:CommandTFileScanner="git"
+nmap <silent> <Leader>t <Plug>(CommandT)
+
 "Plugin 'tpope/vim-commentary'
 "Plugin 'jtratner/vim-flavored-markdown'
 
@@ -149,10 +204,10 @@ filetype plugin indent on    " required
 " Autocommands
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Reread configuration of Vim if .vimrc is saved.
-augroup VimRC
-  autocmd!
-  autocmd BufWritePost .vimrc so ~/.vimrc
-augroup END
+" augroup VimRC
+"   autocmd!
+"   autocmd BufWritePost .vimrc so ~/.vimrc
+" augroup END
 
 augroup FileTypeAssociation
   autocmd!
@@ -161,9 +216,10 @@ augroup FileTypeAssociation
   autocmd BufNewFile,BufRead *.impl set filetype=cpp
   autocmd BufNewFile,BufRead *.inl set filetype=cpp
   autocmd BufNewFile,BufRead *.bzl set filetype=python
-  autocmd BufNewFile,BufRead BUILD set filetype=python
-  autocmd BufNewFile,BufRead BUILD.* set filetype=python
+  autocmd BufNewFile,BufRead BUILD set filetype=BUILD syntax=python
+  autocmd BufNewFile,BufRead BUILD.* set filetype=BUILD syntax=python
   autocmd BufNewFile,BufRead *.twig set filetype=html
+  autocmd BufNewFile,BufRead *.md setlocal filetype=markdown
 augroup END
 
 " Resize splits on window resize.
@@ -176,7 +232,7 @@ autocmd FileType python setlocal foldmethod=indent smartindent shiftwidth=4 ts=4
 
 " automatically start in hard mode. God help me.
 "autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
-nnoremap <leader>h <Esc>:call ToggleHardMode()<CR>
+"nnoremap <leader>h <Esc>:call ToggleHardMode()<CR>
 noremap <Up> <NOP>
 noremap <Down> <NOP>
 noremap <Left> <NOP>
@@ -186,7 +242,28 @@ noremap <Right> <NOP>
 " Themes
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax enable
-set background=dark
+function! ReloadTheme(...)
+  let theme_fn=expand('~/.terminal_theme')
+  if filereadable(theme_fn)
+    let &background=readfile(theme_fn)[0]
+  else
+    if a:0 > 0:
+      set background=a:1
+    else
+      set background="dark"
+    endif
+  endif
+endfunction
+call ReloadTheme("dark")
+
+" TODO: Figure out how to call a goddamned function
+if !empty($TMUX)
+  let tmuxline_fn=expand('~/.tmuxline')
+  "call tmuxline#set_statusline()
+  "call tmuxline#snapshot(tmuxline_fn, 1)
+  "call TmuxlineSnapshot tmuxline_fn
+endif
+
 set t_Co=256                        " force vim to use 256 colors
 "let g:solarized_termcolors=256      " use solarized 256 fallback
 colorscheme solarized
@@ -215,6 +292,11 @@ function! NumbersOff()
   set norelativenumber
 endfunction
 
+function! RepeatAllMatches()
+  :%s///gn
+endfunction
+command! RepeatAllMatches call RepeatAllMatches()
+
 " Toggle relative line numbers
 nnoremap <silent> <Leader>N :call NumbersOn()<cr>
 nnoremap <silent> <Leader>n :call NumbersOff()<cr>
@@ -223,6 +305,68 @@ nnoremap <Leader>s :%s/\<<C-r><C-w>\>/
 
 " Enable :w!! to save a file when you forgot to open with sudo
 cmap w!! w !sudo tee % >/dev/null
+
+command! -nargs=? -range Dec2hex call s:Dec2hex(<line1>, <line2>, '<args>')
+function! s:Dec2hex(line1, line2, arg) range
+  if empty(a:arg)
+    if histget(':', -1) =~# "^'<,'>" && visualmode() !=# 'V'
+      let cmd = 's/\%V\<\d\+\>/\=printf("0x%x",submatch(0)+0)/g'
+    else
+      let cmd = 's/\<\d\+\>/\=printf("0x%x",submatch(0)+0)/g'
+    endif
+    try
+      execute a:line1 . ',' . a:line2 . cmd
+    catch
+      echo 'Error: No decimal number found'
+    endtry
+  else
+    echo printf('%x', a:arg + 0)
+  endif
+endfunction
+
+command! -nargs=? -range Hex2dec call s:Hex2dec(<line1>, <line2>, '<args>')
+function! s:Hex2dec(line1, line2, arg) range
+  if empty(a:arg)
+    if histget(':', -1) =~# "^'<,'>" && visualmode() !=# 'V'
+      let cmd = 's/\%V0x\x\+/\=submatch(0)+0/g'
+    else
+      let cmd = 's/0x\x\+/\=submatch(0)+0/g'
+    endif
+    try
+      execute a:line1 . ',' . a:line2 . cmd
+    catch
+      echo 'Error: No hex number starting "0x" found'
+    endtry
+  else
+    echo (a:arg =~? '^0x') ? a:arg + 0 : ('0x'.a:arg) + 0
+  endif
+endfunction
+
+" Type `gb` to go to the BUILD file for this file.
+function! GoToBuild()
+python3 << EOF
+import vim 
+import os.path
+
+try:
+  fn = vim.current.buffer.name
+  tokens = fn.split('/')
+  basename = tokens[-1]
+  buildfile = None
+  for i in range(len(tokens)-1, 0, -1):
+    buildfile = '/'.join(tokens[:i]) + '/BUILD'
+    if os.path.isfile(buildfile):
+      break
+  if buildfile:
+    print("found!!!",buildfile)
+    vim.command('edit ' + buildfile)
+    vim.command('call search("\\"' + basename + '\\"")')
+except Exception as e:
+   print("Something went wrong: " + str(e))
+EOF
+endfunction
+
+nnoremap gb :call GoToBuild()<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Filetype detection
@@ -280,13 +424,16 @@ nnoremap <silent> <leader><Space> :Autoformat<CR>
 
 
 " Toggle NERDTree.
-nnoremap <silent> <Leader>t :NERDTreeToggle<CR>
+nnoremap <silent> <Leader>T :NERDTreeToggle<CR>
 
 " Insert mode
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Smash Esc.
 inoremap kj <Esc>
+inoremap Kj <Esc>
+inoremap kJ <Esc>
+inoremap KJ <Esc>
 
 " hjkl navigation in insert mode.
 inoremap <C-h> <Left>
@@ -320,10 +467,10 @@ vnoremap <silent> # :<C-U>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set autoindent                   " Turn on ctrl-t and ctrl-d for indenting
 set autowrite                    " Write before executing the 'make' command.
-set background=dark              " Usually prefer dark backgrounds.
 set backspace=indent,eol,start   " Allow <BS> to go over indents, eol, and start of insert.
 set cindent                      " Stricter rules for C files
 set colorcolumn=80               " Highlight the 80th column.
+set conceallevel=0               " Don't hide quites from JSON files
 set cpoptions+=$                 " Show dollar sign at end of text to be changed.
 set cursorline                   " Highlight current line.
 set dictionary+=~/.vim/dictionary/english-freq
@@ -353,7 +500,7 @@ set number                       " Display line numbers.
 set relativenumber               " Use relative line numbering
 set scrolloff=5                  " Keep min of 'n' lines above/below cursor.
 set shellslash                   " Use forward slashes regardless of OS.
-set shiftwidth=2                 " >> and << shift 3 spaces.
+set shiftwidth=4                 " >> and << shift 4 spaces.
 set showcmd                      " Show partial commands in the status line.
 set showmatch                    " Show matching () {} etc..
 set showmode                     " Show current mode.
@@ -364,7 +511,7 @@ set smartindent                  " Maintains most indentation and adds extra lev
 set softtabstop=4                " See spaces as tabs.
 set splitright splitbelow        " Open splits below and to the right.
 set synmaxcol=2000               " Only matches syntax on first 'n' columns of each line.
-set tabstop=4                    " <Tab> move three characters.
+set tabstop=4                    " <Tab> move four characters.
 set ttyfast                      " Smoother redrawing.
 "set textwidth=80                 " Hard wrap at 'n' characters.
 set viminfo='20,\"500,%          " Adjust viminfo contents.
@@ -375,4 +522,40 @@ set wildmode=list:longest,full   " Tab completion lists matches, then opens wild
 set wrapscan                     " Searching wraps to start of file when end is reached.
 
 
-highlight LineNr cterm=NONE ctermfg=Grey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
+" Completion settings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"  Options:
+"     .        scan the current buffer ('wrapscan' is ignored)
+"     w        scan buffers from other windows
+"     b        scan other loaded buffers that are in the buffer list
+"     u        scan the unloaded buffers that are in the buffer list
+"     U        scan the buffers that are not in the buffer list
+"     k        scan the files given with the 'dictionary' option
+"     kspell   use the currently active spell checking |spell|
+"     k{dict}  scan the file {dict}
+"     s        scan the files given with the 'thesaurus' option
+"     s{tsr}   scan the file {tsr}
+"     i        scan current and included files
+"     d        scan current and included files for defined name or macro |i_CTRL-X_CTRL-D|
+"     t        tag completion
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set complete=.,w,b,u,t,i
+
+" Enable dictionary completion and spell mode for prose files.
+set dictionary=/usr/share/dict/words
+autocmd FileType markdown,gitcommit,text setlocal complete+=k spell
+
+
+" Text formatting settings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"  Options:
+"     t  Auto-wrap text using textwidth. (default)
+"     c  Auto-wrap comments; insert comment leader. (default)
+"     q  Allow formatting of comments with "gq". (default)
+"     r  Insert comment leader after hitting <Enter>.
+"     o  Insert comment leader after hitting 'o' or 'O' in command mode.
+"     n  Auto-format lists, wrapping to text *after* the list bullet char.
+"     l  Don't auto-wrap if a line is already longer than textwidth.
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set formatoptions=tcronl
+

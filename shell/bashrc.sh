@@ -5,6 +5,8 @@
 #      *) return;;
 #esac
 
+set -o vi
+
 if [ -f ~/.commonrc ]; then
    [ -f ~/.colors ] && . ~/.colors
 
