@@ -1,0 +1,44 @@
+snippet main "Python Main w/ Argparse" b
+#!/usr/bin/env python2
+
+import argparse
+import logging
+
+
+logger = logging.getLogger(__name__)
+
+
+def parse_args(argv=None):
+    parser = argparse.ArgumentParser(description='Auto-generated description')
+    # parser.add_argument('--foo')
+    # parser.add_argument('--bar', required=False)
+
+    # If `argv` is None, `parse_args` will default to using `sys.argv`
+    return parser.parse_args(args=argv)
+
+def main(argv=None):
+    args = parse_args(argv)
+    # do some work
+
+if __name__ == "__main__":
+    main()
+endsnippet
+
+snippet "(?unit)test" "Python Unittest skeleton" b
+import unittest
+
+import ${2:full.package.path.}$1
+
+class Test${1:Foo}(unittest.TestCase):
+    def setUp(self):
+        pass
+
+    def tearDown(self):
+        pass
+
+    def test_foo(self):
+        self.assertTrue(False)
+
+if __name__ == '__main__':
+    unittest.main()
+endsnippet

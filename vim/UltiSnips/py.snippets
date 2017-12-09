@@ -1,0 +1,20 @@
+snippet main "Python Main w/ Argparse" b
+#!/usr/bin/env python2.7
+
+import argparse
+
+def parse_args(argv=None):
+    parser = argparse.ArgumentParser(description='Auto-generated description')
+    # parser.add_argument('--foo')
+    # parser.add_argument('--bar', required=False)
+
+    # If `argv` is None, `parse_args` will default to using `sys.argv`
+    return parser.parse_args(args=argv)
+
+def main(argv=None):
+    args = parse_args(argv)
+    # do some work
+
+if __name__ == "__main__":
+    main()
+endsnippet
