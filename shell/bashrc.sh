@@ -10,6 +10,7 @@ set -o vi
 if [ -f ~/.commonrc ]; then
    [ -f ~/.colors ] && . ~/.colors
 
+   # Color escape codes WITHOUT bash PS1 non-printing '\[' and '\]' escape codes
    fg_black=$bash_black
    fg_red=$bash_red
    fg_orange=$bash_orange
@@ -21,7 +22,21 @@ if [ -f ~/.commonrc ]; then
    fg_white=$bash_white
    fg_bold_white=$bash_bold_white
    fg_background_red=$bash_background_red
-   reset_color=$'\[\e[0m\]'
+   reset_color=$bash_reset_color
+
+   # Color escape codes WITHOUT bash PS1 non-printing '\[' and '\]' escape codes
+   ps1_fg_black=$(nonprint $fg_black)
+   ps1_fg_red=$(nonprint $fg_red)
+   ps1_fg_orange=$(nonprint $fg_orange)
+   ps1_fg_green=$(nonprint $fg_green)
+   ps1_fg_yellow=$(nonprint $fg_yellow)
+   ps1_fg_blue=$(nonprint $fg_blue)
+   ps1_fg_magenta=$(nonprint $fg_magenta)
+   ps1_fg_cyan=$(nonprint $fg_cyan)
+   ps1_fg_white=$(nonprint $fg_white)
+   ps1_fg_bold_white=$(nonprint $fg_bold_white)
+   ps1_fg_background_red=$(nonprint $fg_background_red)
+   ps1_reset_color=$(nonprint $reset_color)
 
    SH_name="\u"
    SH_host="\h"

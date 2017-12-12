@@ -26,6 +26,20 @@ function _workspace_completion {
 function workspace {
   eval "$($command_gen_script $@)"
 }
+
+function workspace-all {
+  for workspace in $($command_gen_script list_workspaces); do
+    (
+      cd $workspace
+      echo ""
+      echo -e "${fg_green}Workspace: $fg_blue$workspace $reset_color"
+      exec $@
+    )
+  done
+}
+
+alias workspace-branches='workspace-all git rev-parse --abbrev-ref HEAD'
+alias wsb='workspace-branches'
 alias ws='workspace '
 alias wscd='workspace cd'
 alias wss='workspace source '

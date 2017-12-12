@@ -123,20 +123,21 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH
 ###############################################################################
 
 # Defined externally:
-# fg_black, fg_red, fg_green, fg_yellow, fg_blue, fg_magenta, fg_cyan, fg_white,
-# reset_color, SH_name, SH_host, SH_pwd, SH_date, SH_time, SH_priv
+# ps1_fg_black, ps1_fg_red, ps1_fg_green, ps1_fg_yellow, ps1_fg_blue,
+# ps1_fg_magenta, ps1_fg_cyan, ps1_fg_white, ps1_reset_color,
+# SH_name, SH_host, SH_pwd, SH_date, SH_time, SH_priv
 
-PS1_lbrace="${fg_blue}[${reset_color}"
-PS1_rbrace="${fg_blue}]${reset_color}"
-PS1_vbar="${fg_green}|${reset_color}"
-PS1_at="${fg_white}@${reset_color}"
-PS1_rangle="${fg_white}>${reset_color}"
-PS1_name="${fg_yellow}${SH_name}${reset_color}"
-PS1_host="${fg_white}${SH_host}${reset_color}"
-PS1_time="${fg_orange}${SH_time}${reset_color}"
-PS1_date="${fg_magenta}${SH_date}${reset_color}"
-PS1_pwd="${fg_blue}${SH_pwd}${reset_color}"
-PS1_priv="${fg_white}${SH_priv}${reset_color}"
+PS1_lbrace="${ps1_fg_blue}[${ps1_reset_color}"
+PS1_rbrace="${ps1_fg_blue}]${ps1_reset_color}"
+PS1_vbar="${ps1_fg_green}|${ps1_reset_color}"
+PS1_at="${ps1_fg_white}@${ps1_reset_color}"
+PS1_rangle="${ps1_fg_white}>${ps1_reset_color}"
+PS1_name="${ps1_fg_yellow}${SH_name}${ps1_reset_color}"
+PS1_host="${ps1_fg_white}${SH_host}${ps1_reset_color}"
+PS1_time="${ps1_fg_orange}${SH_time}${ps1_reset_color}"
+PS1_date="${ps1_fg_magenta}${SH_date}${ps1_reset_color}"
+PS1_pwd="${ps1_fg_blue}${SH_pwd}${ps1_reset_color}"
+PS1_priv="${ps1_fg_white}${SH_priv}${ps1_reset_color}"
 
 declare PROMPT_COMMAND="prompt_command"
 

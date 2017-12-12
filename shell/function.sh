@@ -101,8 +101,8 @@ function git_dir_view() {
 
 ##85-prompt
 SCM_SYMBOL=$PLUS_MINUS_SYMBOL
-SCM_DIRTY_SYMBOL="${fg_red}$X_SYMBOL"
-SCM_CLEAN_SYMBOL="${fg_green}$CHECK_SYMBOL"
+SCM_DIRTY_SYMBOL="${ps1_fg_red}$X_SYMBOL"
+SCM_CLEAN_SYMBOL="${ps1_fg_green}$CHECK_SYMBOL"
 
 function git_prompt_vars {
   local stat="$(git status -bs --porcelain 2> /dev/null)"
@@ -131,38 +131,38 @@ function git_prompt_vars {
 
 
   if [ -z $SCM_BRANCH ]; then
-    SCM_HEAD="${fg_green}$SCM_CHANGE"
+    SCM_HEAD="${ps1_fg_green}$SCM_CHANGE"
   else
-    SCM_HEAD="${fg_green}$SCM_BRANCH"
+    SCM_HEAD="${ps1_fg_green}$SCM_BRANCH"
 	if [ -z $SCM_GIT_UPSTREAM_REMOTE ]; then
-    SCM_HEAD="$SCM_HEAD${fg_cyan}(~)"
+    SCM_HEAD="$SCM_HEAD${ps1_fg_cyan}(~)"
 	elif [ "$SCM_GIT_UPSTREAM_BRANCH" == "$SCM_BRANCH" ]; then
-    SCM_HEAD="$SCM_HEAD${fg_cyan}($SCM_GIT_UPSTREAM_REMOTE)"
+    SCM_HEAD="$SCM_HEAD${ps1_fg_cyan}($SCM_GIT_UPSTREAM_REMOTE)"
 	else
-    SCM_HEAD="$SCM_HEAD${fg_cyan}($SCM_GIT_UPSTREAM_REMOTE/$SCM_GIT_UPSTREAM_BRANCH)"
+    SCM_HEAD="$SCM_HEAD${ps1_fg_cyan}($SCM_GIT_UPSTREAM_REMOTE/$SCM_GIT_UPSTREAM_BRANCH)"
 	fi
-    SCM_HEAD="$SCM_HEAD${reset_color}:${fg_magenta}$SCM_CHANGE"
+    SCM_HEAD="$SCM_HEAD${ps1_reset_color}:${ps1_fg_magenta}$SCM_CHANGE"
   fi
 }
 
 function scm {
   if which git &> /dev/null && [[ -n "$(git rev-parse HEAD 2> /dev/null)" ]]; then
 	git_prompt_vars
-	SCM="${fg_green}|$SCM_HEAD"
+	SCM="${ps1_fg_green}|$SCM_HEAD"
 	if [[ $SCM_GIT_STAGED_COUNT -gt 0 || $SCM_GIT_UNSTAGED_COUNT -gt 0 || $SCM_GIT_UNTRACKED_COUNT -gt 0 ]]; then
-		SCM="$SCM ${fg_red}("
-		[[ $SCM_GIT_STAGED_COUNT -gt 0 ]] && SCM="$SCM${fg_green}+"
-		[[ $SCM_GIT_UNSTAGED_COUNT -gt 0 ]] && SCM="$SCM${fg_red}*"
-		[[ $SCM_GIT_UNTRACKED_COUNT -gt 0 ]] && SCM="$SCM${fg_cyan}?"
-		SCM="$SCM${fg_red})"
+		SCM="$SCM ${ps1_fg_red}("
+		[[ $SCM_GIT_STAGED_COUNT -gt 0 ]] && SCM="$SCM${ps1_fg_green}+"
+		[[ $SCM_GIT_UNSTAGED_COUNT -gt 0 ]] && SCM="$SCM${ps1_fg_red}*"
+		[[ $SCM_GIT_UNTRACKED_COUNT -gt 0 ]] && SCM="$SCM${ps1_fg_cyan}?"
+		SCM="$SCM${ps1_fg_red})"
 	else
 		SCM="$SCM $SCM_CLEAN_SYMBOL"
 	fi
-	[[ $SCM_GIT_BEHIND -gt 0 ]] && SCM="$SCM ${fg_red}$DOWN_ARROW_SYMBOL$SCM_GIT_BEHIND"
-	[[ $SCM_GIT_AHEAD -gt 0 && $SCM_GIT_BEHIND -eq 0 ]] && SCM="$SCM${fg_cyan}"
+	[[ $SCM_GIT_BEHIND -gt 0 ]] && SCM="$SCM ${ps1_fg_red}$DOWN_ARROW_SYMBOL$SCM_GIT_BEHIND"
+	[[ $SCM_GIT_AHEAD -gt 0 && $SCM_GIT_BEHIND -eq 0 ]] && SCM="$SCM${ps1_fg_cyan}"
 	[[ $SCM_GIT_AHEAD -gt 0 ]] && SCM="$SCM $UP_ARROW_SYMBOL$SCM_GIT_AHEAD"
-	[[ $SCM_GIT_STASH_COUNT -gt 0 ]] && SCM="$SCM ${fg_yellow}(stash: $SCM_GIT_STASH_COUNT)"
-	SCM="$SCM${fg_green}|"
+	[[ $SCM_GIT_STASH_COUNT -gt 0 ]] && SCM="$SCM ${ps1_fg_yellow}(stash: $SCM_GIT_STASH_COUNT)"
+	SCM="$SCM${ps1_fg_green}|"
   else SCM=""
   fi
 }
@@ -177,33 +177,33 @@ function prompt_command() {
   EXIT_CODE=
 
   if [ "$VIRTUAL_ENV" ]; then
-    VENV_PROMPT="${fg_green}|${fg_white}venv ${fg_blue}$VIRTUAL_ENV${fg_green}|"
+    VENV_PROMPT="${ps1_fg_green}|${ps1_fg_white}venv ${ps1_fg_blue}$VIRTUAL_ENV${ps1_fg_green}|"
   fi
 
   if [ "$SSH_CONNECTION" ]; then
-    SSH_PROMPT="${fg_green}|${fg_white}ssh ${fg_blue}$SSH_CONNECTION${fg_green}|"
+    SSH_PROMPT="${ps1_fg_green}|${ps1_fg_white}ssh ${ps1_fg_blue}$SSH_CONNECTION${ps1_fg_green}|"
   fi
 
   JOBS="$(jobs -l | perl -pe 's|(.+)Running\s+|\\[\\e[0;32m\\]\1 |g;' -pe 's|(.+)Stopped\s+|\\[\\e[0;31m\\]\1 |g;' -pe 's|(.+)Killed\s+|\\[\\e[0;35m\\]\1 |g;')"
 
   scm
   if [[ "$(dirs | wc -w)" -gt "1" ]]; then
-    DIR_STACK=" ${fg_cyan}$(dirs | wc -w)"
+    DIR_STACK=" ${ps1_fg_cyan}$(dirs | wc -w)"
   fi
 
   if [[ $EXIT_STATUS != 0 ]]; then
-    EXIT_CODE="${fg_bold_white}${fg_background_red}!!! Exited: $EXIT_STATUS !!!"
+    EXIT_CODE="${ps1_fg_bold_white}${ps1_fg_background_red}!!! Exited: $EXIT_STATUS !!!"
   fi
 
   nl="
 "
   PS1=$nl
-  PS1="$PS1${fg_yellow}${PS1_name}${reset_color}@"
-  PS1="$PS1${PS1_host} ${fg_blue}"
-  PS1="$PS1${PS1_lbrace}${PS1_pwd}${DIR_STACK}${fg_blue}${PS1_rbrace} "
-  PS1="$PS1${fg_bold_red}${PS1_time} "
-  PS1="$PS1$EXIT_CODE${reset_color}$nl"
-  PS1="$PS1 ${reset_color}$PS1_priv "
+  PS1="$PS1${ps1_fg_yellow}${PS1_name}${ps1_reset_color}@"
+  PS1="$PS1${PS1_host} ${ps1_fg_blue}"
+  PS1="$PS1${PS1_lbrace}${PS1_pwd}${DIR_STACK}${ps1_fg_blue}${PS1_rbrace} "
+  PS1="$PS1${ps1_fg_bold_red}${PS1_time} "
+  PS1="$PS1$EXIT_CODE${ps1_reset_color}$nl"
+  PS1="$PS1 ${ps1_reset_color}$PS1_priv "
 
   if [[ ! -z "$VENV_PROMPT" ]]; then
     PS1="$nl$VENV_PROMPT$PS1"

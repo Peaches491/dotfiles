@@ -25,15 +25,19 @@ def parse_args(argv=None):
     parser = argparse.ArgumentParser()
     subparsers = parser.add_subparsers()
 
-    dump_parser = subparsers.add_parser('dump_options')
-    dump_parser.add_argument('--prev', nargs='?', default=None)
-    dump_parser.add_argument('--cur', nargs='?', default=None)
-    dump_parser.set_defaults(func=dump_options)
+    dump_subparser = subparsers.add_parser('dump_options')
+    dump_subparser.add_argument('--prev', nargs='?', default=None)
+    dump_subparser.add_argument('--cur', nargs='?', default=None)
+    dump_subparser.set_defaults(func=dump_options)
+
+    list_subparser = subparsers.add_parser('list_workspaces')
+    list_subparser.set_defaults(func=list_workspaces)
+
     for key, action_fmt in ACTIONS.items():
-        action_parser = subparsers.add_parser(key)
-        action_parser.add_argument('workspace_name', nargs='?',
+        action_subparser = subparsers.add_parser(key)
+        action_subparser.add_argument('workspace_name', nargs='?',
                 default=os.getenv(current_workspace_var))
-        action_parser.set_defaults(action=key, func=build_action)
+        action_subparser.set_defaults(action=key, func=build_action)
 
     return parser.parse_args(args=argv)
 
@@ -43,6 +47,10 @@ def dump_options(args):
         options = load_workspaces().keys()
     else:
         options = ACTIONS.keys()
+    print(' '.join(options))
+
+def list_workspaces(args):
+    options = sorted([ws['root'] for name, ws in load_workspaces().items()])
     print(' '.join(options))
 
 def load_workspaces():
