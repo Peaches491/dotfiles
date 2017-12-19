@@ -155,6 +155,7 @@ let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf_offline_ycm.py'
 let g:ycm_collect_identifiers_from_tags_files = 0
 let g:ycm_complete_in_strings = 1
 let g:ycm_confirm_extra_conf = 0
+let g:ycm_filetype_blacklist = { 'BUILD': 1 }
 
 "let g:ycm_autoclose_preview_window_after_completion = 1
 "let g:ycm_autoclose_preview_window_after_insertion = 1
