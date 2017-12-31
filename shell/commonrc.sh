@@ -11,10 +11,33 @@ case $- in
 esac
 
 
+
+function readlink_f() {
+  TARGET_FILE=$1
+
+  cd `dirname $TARGET_FILE`
+  TARGET_FILE=`basename $TARGET_FILE`
+
+  # Iterate down a (possible) chain of symlinks
+  while [ -L "$TARGET_FILE" ]
+  do
+      TARGET_FILE=`readlink $TARGET_FILE`
+      cd `dirname $TARGET_FILE`
+      TARGET_FILE=`basename $TARGET_FILE`
+  done
+
+  # Compute the canonicalized name by finding the physical path
+  # for the directory we're in and appending the target file.
+  PHYS_DIR=`pwd -P`
+  RESULT=$PHYS_DIR/$TARGET_FILE
+  echo $RESULT
+}
+
+
 ###############################################################################
 # Environment Variables
 ###############################################################################
-script_abspath="$(readlink -f ${BASH_SOURCE[0]})"
+script_abspath="$(readlink_f ${BASH_SOURCE[0]})"
 script_dir="$( (builtin cd "$(dirname "$script_abspath")" && pwd) )"
 root_dir="$( (builtin cd "$script_dir" && git rev-parse --show-toplevel) )"
 export DOTFILES_ROOT="$root_dir"
