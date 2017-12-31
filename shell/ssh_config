@@ -41,3 +41,11 @@ Host firehouse2
    User zoox
    HostName firehouse-ingest2.zooxlabs.com
    Port 22
+
+Host 766-RC
+  HostName 192.168.49.1
+  Port 2222
+
+Host 13101-RC
+  HostName 192.168.49.1
+  Port 2222

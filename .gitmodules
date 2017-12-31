@@ -40,3 +40,6 @@
 [submodule "modules/ssh-agent-canonicalize"]
 	path = modules/ssh-agent-canonicalize
 	url = https://github.com/chpatton013/ssh-agent-canonicalize
+[submodule "themes/monaco-for-powerline"]
+	path = themes/monaco-for-powerline
+	url = git@gist.github.com:1838072.git

@@ -24,6 +24,7 @@ alias claer='clear'
 alias df='df -h'
 alias du='du -h'
 alias e=$EDITOR
+alias cgrep='grep --color=always'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias g='git'

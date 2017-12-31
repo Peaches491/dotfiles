@@ -74,6 +74,8 @@ PATH='.'
 [ -d ~/bin ] && PATH+=:~/bin
 [ -d ~/sbin ] && PATH+=:~/sbin
 [ -d ~/.scripts ] && PATH+=:~/.scripts
+# Rust binaries
+[ -d ~/.cargo/bin ] && PATH+=:~/.cargo/bin
 # homebrew bin directories
 [ -d /usr/local/bin ] && PATH+=:/usr/local/bin
 [ -d /usr/local/sbin ] && PATH+=:/usr/local/sbin
@@ -181,6 +183,10 @@ fi
 # ROS
 [ -f ~/.ros_config ] && . ~/.ros_config
 
+# Bazel completion
+bazel_complete='/usr/local/lib/bazel/bin/bazel-complete.bash'
+[ -f $bazel_complete ] && . $bazel_complete
+
 export NVM_DIR="/home/daniel/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
@@ -188,7 +194,7 @@ export NVM_DIR="/home/daniel/.nvm"
 # Run TMux!
 ###############################################################################
 
-export TERM=screen-256color
+export TERM=xterm-256color
 
 if [ ! $TMUX ]; then
    tmux #new-session -A -s main
