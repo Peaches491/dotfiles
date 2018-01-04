@@ -1,5 +1,6 @@
 [core]
     excludesfile = /home/daniel/.gitignore
+    preloadindex = true
 
 [color]
     status = auto
