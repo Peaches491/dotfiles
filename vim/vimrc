@@ -38,10 +38,8 @@ call vundle#begin('~/.bundles/')
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
 
-"Plugin 'godlygeek/tabular'             " I have yet to use this in practice
 Plugin 'vim-utils/vim-troll-stopper'
 Plugin 'tpope/vim-fugitive'
-"Plugin 'bling/vim-bufferline'
 Plugin 'evidens/vim-twig'
 Plugin 'scrooloose/nerdtree'
 Plugin 'ekalinin/Dockerfile.vim'
@@ -56,20 +54,27 @@ Plugin 'tpope/vim-abolish'
 Plugin 'tpope/vim-repeat'
 Plugin 'PeterRincker/vim-argumentative'
 Plugin 'vim-scripts/ReplaceWithRegister'
-Plugin 'file:///home/daniel/GitHub/vim-glog-syntax'
 Plugin 'marczych/vim-lose'
 Plugin 'cybrown-zoox/vim-pbtxt'
-"Plugin 'L9' "Required for FuzzyFinder
-"Plugin 'FuzzyFinder'
 Plugin 'editorconfig/editorconfig-vim'
 Plugin 'vim-scripts/openscad.vim'
 Plugin 'rust-lang/rust.vim'
+"Plugin 'vim-pandoc/vim-pandoc-syntax'
+"let g:pandoc#syntax#conceal#use = 0
+"augroup pandoc_syntax
+  "au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
+"augroup END
 
-"Plugin 'zhou13/vim-easyescape'
-"let g:easyescape_chars = { "j": 1, "k": 1 }
-"let g:easyescape_timeout = 500
-"cnoremap jk <ESC>
-"cnoremap kj <ESC>
+"Plugin 'vim-pandoc/vim-pandoc' " this thing sucks
+"let g:pandoc#formatting#mode = 'h' " Hard-wrapping
+
+" I have yet to use this in practice
+"Plugin 'L9' "Required for FuzzyFinder
+"Plugin 'FuzzyFinder'
+"Plugin 'godlygeek/tabular'
+"Plugin 'bling/vim-bufferline'
+
+Plugin 'Peaches491/vim-glog-syntax'
 
 Plugin 'tpope/vim-rhubarb'
 let g:github_enterprise_urls = ['https://git.zooxlabs.com']
@@ -91,11 +96,12 @@ let g:gitgutter_realtime = 0
 let g:gitgutter_eager = 0
 
 Plugin 'Chiel92/vim-autoformat'
-let g:autoformat_verbosemode=0
+let g:autoformat_verbosemode = 0
 let g:autoformat_autoindent = 0
 let g:autoformat_retab = 0
 let g:autoformat_remove_trailing_spaces = 0
 let g:formatdef_clangformat = "'clang-format-3.6 -lines='.a:firstline.':'.a:lastline.' --assume-filename=\"'.expand('%:p').'\" -style=file'"
+let g:formatdef_remark_markdown = '"remark --quiet --no-color --setting footnotes:true"'
 
 Plugin 'rhysd/vim-clang-format'
 let g:clang_format#command = 'clang-format-3.6'
@@ -117,12 +123,6 @@ let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.twig,*.launch,*.xml"
 Plugin 'majutsushi/tagbar'
 nmap <F8> :TagbarToggle<CR>
 let g:Tlist_Auto_Open = 0
-
-"Plugin 'taketwo/vim-ros'
-"let g:ycm_semantic_triggers = {
-"\   'roslaunch' : ['="', '$(', '/'],
-"\   'rosmsg,rossrv,rosaction' : ['re!^', '/'],
-"\ }
 
 Plugin 'edkolev/tmuxline.vim'
 let g:tmuxline_preset = {
@@ -148,6 +148,7 @@ Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsUsePythonVersion=2
 let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
@@ -223,6 +224,7 @@ augroup FileTypeAssociation
   autocmd BufNewFile,BufRead *.bzl set filetype=python
   autocmd BufNewFile,BufRead BUILD set filetype=BUILD syntax=python
   autocmd BufNewFile,BufRead BUILD.* set filetype=BUILD syntax=python
+  autocmd BufNewFile,BufRead *.py set filetype=python
   autocmd BufNewFile,BufRead *.twig set filetype=html
   autocmd BufNewFile,BufRead *.md setlocal filetype=markdown
   autocmd BufNewFile,BufRead *.scad set filetype=openscad
@@ -281,16 +283,6 @@ colorscheme solarized
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Functions
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! <SID>StripTrailingWhitespaces()
-  let _s=@/
-  let l=line(".")
-  let c=col(".")
-  %s/\s\+$//e
-  let @/=_s
-  call cursor(l, c)
-endfunction
-
-
 function! NumbersOn()
   set relativenumber
   set number
@@ -427,7 +419,6 @@ nnoremap <silent> <Leader>p :set invpaste<CR>
 nnoremap <silent> <Leader>w :set invwrap<CR>
 
 " Format function
-"nnoremap <silent> <leader><Space> :call <SID>StripTrailingWhitespaces()<CR>
 nnoremap <silent> <leader><Space> :Autoformat<CR>
 "au BufWrite * :Autoformat
 
@@ -498,8 +489,8 @@ set incsearch                    " Immediately highlight search matches.
 set laststatus=2                 " Show status line even where there is only one window.
 set lazyredraw                   " Redraw faster.
 set linespace=0                  " Adjust relative line height.
-set listchars=tab:>-,trail:.,extends:>,precedes:<
-set list                         " Display some whitespace characters.
+set list                        " Enable listchars for undesireable whitespace and non-visible wrapped text.
+set listchars=tab:➤-,trail:·,extends:»,precedes:«
 set mouse-=a
 set modeline                     " Check for a modeline.
 set nocompatible                 " No compatibility with vi.
@@ -524,7 +515,7 @@ set splitright splitbelow        " Open splits below and to the right.
 set synmaxcol=2000               " Only matches syntax on first 'n' columns of each line.
 set tabstop=4                    " <Tab> move four characters.
 set ttyfast                      " Smoother redrawing.
-"set textwidth=80                 " Hard wrap at 'n' characters.
+set textwidth=80                 " Hard wrap at 'n' characters.
 set viminfo='20,\"500,%          " Adjust viminfo contents.
 "set virtualedit=block            " Allow the cursor to go where it should not.
 silent! set wildignorecase       " Tab completion is case-insensitive.
@@ -554,7 +545,10 @@ set complete=.,w,b,u,t,i
 
 " Enable dictionary completion and spell mode for prose files.
 set dictionary=/usr/share/dict/words
-autocmd FileType markdown,gitcommit,text setlocal complete+=k spell
+augroup ProseCompletion
+  autocmd!
+  autocmd FileType markdown,gitcommit,text setlocal complete+=k spell
+augroup END
 
 
 " Text formatting settings
@@ -568,7 +562,7 @@ autocmd FileType markdown,gitcommit,text setlocal complete+=k spell
 "     n  Auto-format lists, wrapping to text *after* the list bullet char.
 "     l  Don't auto-wrap if a line is already longer than textwidth.
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set formatoptions=tcronl
+set formatoptions=tcqronl
 
 "highlight LineNr cterm=NONE ctermfg=Grey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
 
