@@ -11,6 +11,23 @@ case $- in
 esac
 
 
+# http://stackoverflow.com/questions/3466166/how-to-check-if-running-in-cygwin-mac-or-linux
+function detect_system() {
+  # Default all to false
+  export DOTFILES_is_mac=false
+  export DOTFILES_is_linux=false
+  export DOTFILES_is_windows=false
+  if [ "$(uname)" == "Darwin" ]; then
+    # Do something under Mac OS X platform
+    export DOTFILES_is_mac=true
+  elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+    # Do something under GNU/Linux platform
+    export DOTFILES_is_linux=true
+  elif [ "$(expr substr $(uname -s) 1 10)" == "MINGW32_NT" ]; then
+    # Do something under Windows NT platform
+    export DOTFILES_is_windows=true
+  fi
+}
 
 function readlink_f() {
   TARGET_FILE=$1
@@ -41,17 +58,27 @@ script_abspath="$(readlink_f ${BASH_SOURCE[0]})"
 script_dir="$( (builtin cd "$(dirname "$script_abspath")" && pwd) )"
 root_dir="$( (builtin cd "$script_dir" && git rev-parse --show-toplevel) )"
 export DOTFILES_ROOT="$root_dir"
+detect_system
 
 
 ###############################################################################
 # External Files.
 ###############################################################################
 
+[ -f ~/.bash_completion ] && . ~/.bash_completion
+[ -f ~/.alias ] && . ~/.alias
+[ -f ~/.colors ] && . ~/.colors
+[ -f ~/.function ] && . ~/.function
+[ -f ~/.variables ] && . ~/.variables
+
+# Load functions listed in hooks.d
+run_scripts ~/dotfiles/shell/hooks.d
+
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
 fi
-if [ -d ~/.dircolors ]; then
-   dircolors ~/.dircolors
+if [ -f ~/.dircolors ]; then
+    eval $(dircolors ~/.dircolors)
 fi
 
 if [ "$DISPLAY" ]; then
@@ -63,18 +90,6 @@ if [ "$DISPLAY" ]; then
       ~/.themes/konsole-colors-solarized/set_dark.sh
    fi
 fi
-
-export ANDROID_HOME=/usr/local/opt/android-sdk
-export ANDROID_SDK_HOME=/usr/local/opt/android-sdk
-
-[ -f ~/.bash_completion ] && . ~/.bash_completion
-[ -f ~/.alias ] && . ~/.alias
-[ -f ~/.colors ] && . ~/.colors
-[ -f ~/.function ] && . ~/.function
-[ -f ~/.variables ] && . ~/.variables
-
-# Load functions listed in hooks.d
-run_scripts ~/dotfiles/shell/hooks.d
 
 
 ###############################################################################
@@ -223,8 +238,7 @@ if [ ! $TMUX ]; then
    tmux #new-session -A -s main
 fi
 
-
-
 if [[ `(cd $DOTFILES_ROOT; git status --porcelain)` ]]; then
     echo 'SHAME: You have unstaged changes in your Dotfiles repo!'
 fi
+
