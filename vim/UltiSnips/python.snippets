@@ -1,6 +1,10 @@
 snippet main "Python Main w/ Argparse" b
 #!/usr/bin/env python2
 
+'''
+Description - An auto-generated stub description.
+'''
+
 import argparse
 import logging
 
@@ -8,11 +12,11 @@ logger = logging.getLogger(__name__)
 
 
 def parse_args(argv=None):
-    parser = argparse.ArgumentParser(description='Auto-generated description')
+    parser = argparse.ArgumentParser(description=__doc__)
     # parser.add_argument('--foo')
     # parser.add_argument('--bar', required=False)
 
-    # If \`argv\` is None,  will default to using \`sys.argv\`
+    # If \`argv\` is None, \`parse_args\` will default to using \`sys.argv\`
     return parser.parse_args(args=argv)
 
 
@@ -21,7 +25,7 @@ def main(argv=None):
     # do some work
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
 endsnippet
 

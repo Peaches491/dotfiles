@@ -32,6 +32,14 @@ Host zimbeast2
    User zoox
    HostName kittsim02.zooxlabs.com
    Port 22
+Host zimbeast3
+   User zoox
+   HostName kittsim03.zooxlabs.com
+   Port 22
+Host zimbeast4
+   User zoox
+   HostName kittsim04.zooxlabs.com
+   Port 22
 
 Host firehouse1
    User zoox

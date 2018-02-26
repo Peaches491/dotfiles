@@ -51,6 +51,8 @@ alias ll='l -Al'
 alias lll='ll -a'
 alias llll='lll -i'
 alias lr='ll -R'  # Recursive ls
+alias lock='DISPLAY=:0 gnome-screensaver-command --lock --activate'
+alias unlock='DISPLAY=:0 gnome-screensaver-command --deactivate'
 alias mkdir='mkdir -p'  # recursive directory make
 alias o='gnome-open'
 alias rmtmp='rm -f *~;rm -f .*~'  # delete all file ending in ~ in the current directory

@@ -100,6 +100,9 @@ let g:autoformat_verbosemode = 0
 let g:autoformat_autoindent = 0
 let g:autoformat_retab = 0
 let g:autoformat_remove_trailing_spaces = 0
+let g:formatter_yapf_style = '{based_on_style: pep8,'.
+\    'indent_dictionary_value: True,' .
+\    'allow_split_before_dict_value: False}'
 let g:formatdef_clangformat = "'clang-format-3.6 -lines='.a:firstline.':'.a:lastline.' --assume-filename=\"'.expand('%:p').'\" -style=file'"
 let g:formatdef_remark_markdown = '"remark --quiet --no-color --setting footnotes:true"'
 
@@ -148,7 +151,7 @@ Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsUsePythonVersion=2
+"let g:UltiSnipsUsePythonVersion=2
 let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
@@ -236,7 +239,7 @@ augroup AutoResizeSplits
   autocmd VimResized * exe "normal! \<c-w>="
 augroup END
 
-autocmd FileType python setlocal foldmethod=indent smartindent shiftwidth=4 ts=4 et cinwords=if,elif,else,for,while,try,except,finally,def,classlk
+autocmd FileType python setlocal foldmethod=manual smartindent shiftwidth=4 ts=4 et cinwords=if,elif,else,for,while,try,except,finally,def,classlk
 autocmd Filetype openscad setlocal nocindent
 autocmd Filetype openscad inoremap # X<c-h>#
 
@@ -253,19 +256,29 @@ noremap <Right> <NOP>
 " Themes
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax enable
-"function! ReloadTheme(...)
-"  let theme_fn=expand('~/.terminal_theme')
-"  if filereadable(theme_fn)
-"    let &background=readfile(theme_fn)[0]
-"  else
-"    if a:0 > 0:
-"      set background=a:1
-"    else
-"      set background="dark"
-"    endif
-"  endif
-"endfunction
-"call ReloadTheme("dark")
+function! ReloadTheme(...)
+  let theme_fn=expand('~/.terminal_theme')
+  if filereadable(theme_fn)
+    let &background=readfile(theme_fn)[0]
+  else
+    if a:0 > 0:
+      set background=a:1
+    else
+      set background="dark"
+    endif
+  endif
+endfunction
+call ReloadTheme("dark")
+
+function! Dark()
+  set background=dark
+endfunction
+command! Dark call Dark()
+
+function! Light()
+  set background=light
+endfunction
+command! Light call Light()
 
 " TODO: Figure out how to call a goddamned function
 if !empty($TMUX)
@@ -480,7 +493,7 @@ set encoding=utf-8               " Set encoding to utf-8.
 set expandtab                    " Expand tabs with spaces.
 set fileencoding=utf-8           " Set fileencoding to utf-8.
 set foldcolumn=1                 " Add <n> columns to show fold levels and boundaries.
-set foldmethod=indent            " Set fold method (manual,indent,expr,syntax,diff,marker).
+set foldmethod=manual            " Set fold method (manual,indent,expr,syntax,diff,marker).
 set hidden                       " Use hidden buffers so unsaved buffers can go to the background.
 set history=500                  " Set number of lines for vim to remember.
 set hlsearch                     " Highlight all search matches.

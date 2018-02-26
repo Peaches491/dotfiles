@@ -157,7 +157,6 @@ LD_LIBRARY_PATH=./lib
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH
 
 
-
 ###############################################################################
 # Prompt Definition
 ###############################################################################
@@ -191,7 +190,6 @@ PROMPT=$PS1
 ###############################################################################
 # Language
 ###############################################################################
-
 export LANG="en_US.UTF-8"
 export LC_CTYPE="en_US.UTF-8"
 export LC_NUMERIC="en_US.UTF-8"
@@ -207,6 +205,12 @@ export LC_MEASUREMENT="en_US.UTF-8"
 export LC_IDENTIFICATION="en_US.UTF-8"
 export LC_ALL=
 export CHARSET=UTF-8
+
+
+###############################################################################
+# Computer Language
+###############################################################################
+export PYTHONDONTWRITEBYTECODE=1
 
 
 ###############################################################################
@@ -227,6 +231,7 @@ bazel_complete='/usr/local/lib/bazel/bin/bazel-complete.bash'
 
 export NVM_DIR="/home/daniel/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
 
 ###############################################################################
 # Run TMux!
