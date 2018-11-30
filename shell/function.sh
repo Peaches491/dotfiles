@@ -88,7 +88,8 @@ run_scripts()
 }
 
 function git_dir_view() {
-  files="$(git ls-tree --name-only HEAD .)"
+  echo $GIT_PREFIX
+  files="$(git ls-tree --name-only HEAD -- $GIT_PREFIX)"
   lines=""
   for f in $files; do
       str="$(git log -1 --pretty=tformat:"%C(green)%cr%Creset  %x09  %C(cyan)%h%Creset  %s  %C(yellow)(%cn)%Creset" $f)"

@@ -167,3 +167,5 @@ zstyle ':completion:*' completer _expand _complete _approximate _ignored
 zstyle ':completion::complete:*' use-cache 1
 
 ###############################################################################
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

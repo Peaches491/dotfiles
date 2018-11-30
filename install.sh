@@ -50,6 +50,7 @@ if [ -n "$full_install" ]; then
     htop \
     inotify-tools \
     python-dev \
+    python2.7-dev \
     python-software-properties \
     tmux \
     vim \

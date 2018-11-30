@@ -3,3 +3,43 @@ namespace ${1:namespace} {
 ${VISUAL}
 } // namespace $1
 endsnippet
+
+snippet main "Zoox main with GFlags, GLog, and base::init" b
+// `!p snip.rv = snip.basename`
+//
+// TODO
+//
+
+/*
+package(default_visibility = ["//visibility:public"])
+
+cc_binary(
+    name = "`!p snip.rv = snip.basename`",
+    srcs = [
+        "`!p snip.rv = snip.fn`",
+    ],
+    deps = [
+        "//base/initialization:init_zoox",
+        "//third_party/gflags",
+        "//third_party/glog",
+    ],
+)
+*/
+
+#include "base/initialization/init_zoox.h"
+
+#include <gflags/gflags.h>
+#include <glog/logging.h>
+
+namespace zoox {
+int `!p snip.rv = snip.basename`_main() {
+  // Do something...
+  return EXIT_SUCCESS;
+}
+} // namespace zoox
+
+int main(int argc, char* argv[]) {
+  zoox::base::init(argc, argv);
+  return zoox::`!p snip.rv = snip.basename`_main();
+}
+endsnippet

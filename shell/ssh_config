@@ -22,7 +22,7 @@ Host balrog
   HostName 172.16.128.38
 Host cortland
   User daniel
-  HostName 172.16.130.6
+  HostName 10.67.10.67
 
 Host zimbeast
    User zoox

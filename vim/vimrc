@@ -76,6 +76,20 @@ Plugin 'rust-lang/rust.vim'
 
 Plugin 'Peaches491/vim-glog-syntax'
 
+set rtp+=~/.fzf
+Plugin 'junegunn/fzf.vim'
+" Mapping selecting mappings
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
+
+" Insert mode completion
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-l> <plug>(fzf-complete-path)
+imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+"imap <c-x><c-l> <plug>(fzf-complete-line)
+
+
 Plugin 'tpope/vim-rhubarb'
 let g:github_enterprise_urls = ['https://git.zooxlabs.com']
 
@@ -97,12 +111,11 @@ let g:gitgutter_eager = 0
 
 Plugin 'Chiel92/vim-autoformat'
 let g:autoformat_verbosemode = 0
+"let g:autoformat_verbosemode = 1
 let g:autoformat_autoindent = 0
 let g:autoformat_retab = 0
 let g:autoformat_remove_trailing_spaces = 0
-let g:formatter_yapf_style = '{based_on_style: pep8,'.
-\    'indent_dictionary_value: True,' .
-\    'allow_split_before_dict_value: False}'
+let g:formatter_yapf_style = 'pep8'
 let g:formatdef_clangformat = "'clang-format-3.6 -lines='.a:firstline.':'.a:lastline.' --assume-filename=\"'.expand('%:p').'\" -style=file'"
 let g:formatdef_remark_markdown = '"remark --quiet --no-color --setting footnotes:true"'
 
@@ -158,15 +171,30 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 let g:UltiSnipsEditSplit="vertical"
 
 Plugin 'Valloric/YouCompleteMe'
-"let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
-let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf_offline_ycm.py'
+"let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf_offline_ycm.py'
 let g:ycm_collect_identifiers_from_tags_files = 0
 let g:ycm_complete_in_strings = 1
 let g:ycm_confirm_extra_conf = 0
-let g:ycm_filetype_blacklist = { 'BUILD': 1 }
+let g:ycm_filetype_blacklist = {
+    \ 'BUILD': 1,
+    \ 'bzl': 1,
+    \ 'infolog' : 1,
+    \ 'mail' : 1,
+    \ 'markdown' : 1,
+    \ 'notes' : 1,
+    \ 'pandoc' : 1,
+    \ 'pbtxt': 1,
+    \ 'proto': 1,
+    \ 'qf' : 1,
+    \ 'tagbar' : 1,
+    \ 'text' : 1,
+    \ 'unite' : 1,
+    \ 'vim': 1,
+    \ 'vimwiki' : 1
+  \}
 
-"let g:ycm_autoclose_preview_window_after_completion = 1
-"let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_autoclose_preview_window_after_insertion = 1
 
 nnoremap <C-g> :YcmCompleter GoTo<CR>
 inoremap <C-g> <Esc>:YcmCompleter GoTo<CR>i
@@ -176,25 +204,24 @@ nnoremap <Leader>f :YcmCompleter FixIt<CR>
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 "let g:SuperTabDefaultCompletionType = '<C-n>'
-"
 
 " This allows the user to generate compile commands for the current file with
 " <C-y> key binding.
 " Requires generate_compile_commands_from_filename_vim_plugin to be copied
 " to ~/.vim/generate_compile_commands_from_filename.py
 " And you'll want to use .ycm_extra_conf_offline_ycm.py as your ycm_extra_conf
-function! GenerateCompileCommands()
-  let l:fname=expand('%:p')
-  if has("python")
-    pyf ~/.ycm_compile_commands.py
-  elseif has("python3")
-    py3f ~/.ycm_compile_commands.py
-  endif
-  call input('Press any key to continue')
-  YcmRestartServer
-  redraw!
-endfunction
-map <C-y> :call GenerateCompileCommands()<cr>
+" function! GenerateCompileCommands()
+"   let l:fname=expand('%:p')
+"   if has("python")
+"     pyf ~/.ycm_compile_commands.py
+"   elseif has("python3")
+"     py3f ~/.ycm_compile_commands.py
+"   endif
+"   call input('Press any key to continue')
+"   YcmRestartServer
+"   redraw!
+" endfunction
+" map <C-y> :call GenerateCompileCommands()<cr>
 
 Plugin 'wincent/command-t'
 let g:CommandTFileScanner="git"
@@ -224,9 +251,9 @@ augroup FileTypeAssociation
   autocmd BufNewFile,BufRead *.make set filetype=make
   autocmd BufNewFile,BufRead *.impl set filetype=cpp
   autocmd BufNewFile,BufRead *.inl set filetype=cpp
-  autocmd BufNewFile,BufRead *.bzl set filetype=python
-  autocmd BufNewFile,BufRead BUILD set filetype=BUILD syntax=python
-  autocmd BufNewFile,BufRead BUILD.* set filetype=BUILD syntax=python
+  autocmd BufNewFile,BufRead *.bzl set filetype=bzl syntax=python
+  autocmd BufNewFile,BufRead BUILD set filetype=bzl syntax=python
+  autocmd BufNewFile,BufRead BUILD.* set filetype=bzl syntax=python
   autocmd BufNewFile,BufRead *.py set filetype=python
   autocmd BufNewFile,BufRead *.twig set filetype=html
   autocmd BufNewFile,BufRead *.md setlocal filetype=markdown
@@ -311,9 +338,27 @@ function! RepeatAllMatches()
 endfunction
 command! RepeatAllMatches call RepeatAllMatches()
 
+function! WrapOn()
+  set wrap
+  set linebreak
+endfunction
+command! WrapOn call WrapOn()
+
+function! WrapOff()
+  set nowrap
+  set nolinebreak
+endfunction
+command! WrapOff call WrapOff()
+
+function! Wrap()
+  set wrap!
+  set linebreak!
+endfunction
+command! Wrap call Wrap()
+
 " Toggle relative line numbers
-nnoremap <silent> <Leader>N :call NumbersOn()<cr>
-nnoremap <silent> <Leader>n :call NumbersOff()<cr>
+nnoremap <silent> <Leader>N :call NumbersOn()<CR>
+nnoremap <silent> <Leader>n :call NumbersOff()<CR>
 
 nnoremap <Leader>s :%s/\<<C-r><C-w>\>/
 

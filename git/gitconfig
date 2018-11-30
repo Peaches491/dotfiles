@@ -64,6 +64,7 @@
 
 [merge]
     tool = vimdiff
+    renamelimit = 10000
 
 [mergetool]
     keepBackup = false
