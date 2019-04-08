@@ -89,9 +89,10 @@ function bashrc() {
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-
 [ -f ~/.local.bashrc ] && . ~/.local.bashrc
 
+# Enable FZF Bash integration
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 # Fix auto-complete with sudo prefix
 if [ "$PS1" ]; then
@@ -100,5 +101,3 @@ fi
 export ROUTER_HOME=/opt/RTI/RTI_Routing_Service_5.1.1
 export NDDSHOME=/opt/RTI/ndds.5.1.1
 export RTI_LICENSE_FILE=/opt/RTI/rti_license.dat
-
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash

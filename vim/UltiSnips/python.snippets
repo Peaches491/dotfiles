@@ -5,10 +5,13 @@ snippet main "Python Main w/ Argparse" b
 Description - An auto-generated stub description.
 '''
 
+from base.logging import zoox_logger
+# In deps: "//base/logging:zoox_logger_py",
+
 import argparse
 import logging
 
-logger = logging.getLogger(__name__)
+log = logging.getLogger(__name__)
 
 
 def parse_args(argv=None):
@@ -26,6 +29,7 @@ def main(argv=None):
 
 
 if __name__ == '__main__':
+    zoox_logger.configureLogging(__name__)
     main()
 endsnippet
 

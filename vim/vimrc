@@ -101,8 +101,8 @@ nnoremap <silent> <leader>z :ZoomWin<CR>
 
 Plugin 'octol/vim-cpp-enhanced-highlight'
 let g:cpp_class_scope_highlight=1
-let g:cpp_experimental_simple_template_highlight=1
-let g:cpp_concepts_highlight=1
+let g:cpp_experimental_simple_template_highlight=0 " Super slow!
+let g:cpp_experimental_template_highlight=0 " Faster, but still not great
 
 Plugin 'airblade/vim-gitgutter'
 let g:gitgutter_async = 1
@@ -118,6 +118,10 @@ let g:autoformat_remove_trailing_spaces = 0
 let g:formatter_yapf_style = 'pep8'
 let g:formatdef_clangformat = "'clang-format-3.6 -lines='.a:firstline.':'.a:lastline.' --assume-filename=\"'.expand('%:p').'\" -style=file'"
 let g:formatdef_remark_markdown = '"remark --quiet --no-color --setting footnotes:true"'
+let g:formatdef_buildifier = '"buildifier --mode=fix"'
+let g:formatters_python = ['yapf']
+let g:formatters_bzl = ['yapf']
+let g:formatters_build = ['buildifier']
 
 Plugin 'rhysd/vim-clang-format'
 let g:clang_format#command = 'clang-format-3.6'
@@ -170,6 +174,7 @@ let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 let g:UltiSnipsEditSplit="vertical"
 
+if(1)
 Plugin 'Valloric/YouCompleteMe'
 "let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf_offline_ycm.py'
 let g:ycm_collect_identifiers_from_tags_files = 0
@@ -204,6 +209,8 @@ nnoremap <Leader>f :YcmCompleter FixIt<CR>
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 "let g:SuperTabDefaultCompletionType = '<C-n>'
+endif
+
 
 " This allows the user to generate compile commands for the current file with
 " <C-y> key binding.
@@ -252,8 +259,8 @@ augroup FileTypeAssociation
   autocmd BufNewFile,BufRead *.impl set filetype=cpp
   autocmd BufNewFile,BufRead *.inl set filetype=cpp
   autocmd BufNewFile,BufRead *.bzl set filetype=bzl syntax=python
-  autocmd BufNewFile,BufRead BUILD set filetype=bzl syntax=python
-  autocmd BufNewFile,BufRead BUILD.* set filetype=bzl syntax=python
+  autocmd BufNewFile,BufRead BUILD set filetype=build syntax=python
+  autocmd BufNewFile,BufRead BUILD.* set filetype=build syntax=python
   autocmd BufNewFile,BufRead *.py set filetype=python
   autocmd BufNewFile,BufRead *.twig set filetype=html
   autocmd BufNewFile,BufRead *.md setlocal filetype=markdown

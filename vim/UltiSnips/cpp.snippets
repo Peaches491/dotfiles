@@ -43,3 +43,28 @@ int main(int argc, char* argv[]) {
   return zoox::`!p snip.rv = snip.basename`_main();
 }
 endsnippet
+
+snippet test "Zoox test skeleton with gtest_main" b
+#include "gtest/gtest.h"
+
+/*
+package(default_visibility = ["//visibility:public"])
+
+cc_test(
+    name = "`!p snip.rv = snip.basename`",
+    srcs = [
+        "`!p snip.rv = snip.fn`",
+    ],
+    deps = [
+        "//base/test/gtest:gtest_main",
+    ],
+)
+*/
+
+TEST(Test`!p
+import inflection
+snip.rv = inflection.camelize(snip.basename, uppercase_first_letter=True)
+`, works) {
+  EXPECT_TRUE(false);
+}
+endsnippet
