@@ -235,29 +235,42 @@ function prompt_command() {
 
 
 function _ignore_file_regex {
-  echo "\
-  --exclude ~ \
-  --exclude ${INORUN_EXCLUDE:-.git} \
-  --exclude .git \
-  --exclude .ros \
-  --exclude .sw. \
-  --exclude 4913$ \
-  --exclude target \
-  --exclude index.lock"
+  echo -n ".*/~.*"
+  #echo -n "|${INORUN_EXCLUDE:-.git}"
+  echo -n "|./.git/.*$"
+  echo -n "|.*4913$"
+  echo -n "|.*index.lock$"
+  if [ -f .inorun_ignore ]; then
+    while read exclude_line; do
+      echo -n "|$exclude_line "
+    done <.inorun_ignore
+  fi
 }
 
 function _do {
+  echo -e "\033[38;5;64m >>> $@\033[0m"
   "$@"
-  echo "Exited: $?"
-  echo ""
+  exit_code=$?
+  if [[ $exit_code != 0 ]]; then
+    echo -e "\e[41m\e[1;37m!!! Exited: $exit_code !!!\033[0m"
+  else 
+    echo "Exited: $exit_code"
+  fi
+  echo
 }
 
 function _inotifyrun {
+  status_format=$(echo -e "\033[38;5;64m%T %w/%f : %e \033[0m written")
+
   # Using do-while loop
   while : ; do
     _do "$@"
-    inotifywait -qre close_write --format "$FORMAT" \
-      $(_ignore_file_regex) . || break
+
+    inotifywait --quiet --recursive \
+        --event close_write \
+        --format "$status_format" \
+        --timefmt "%T" \
+        --exclude $(_ignore_file_regex) . || break
   done
 }
 
@@ -270,7 +283,6 @@ function _fswatch {
 }
 
 function inotifyrun {
-  FORMAT=$(echo -e "\033[1;33m%w%f\033[0m written")
 
   #set -x
   case $OSTYPE in

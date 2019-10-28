@@ -13,6 +13,8 @@ nnoremap <C-n> :bnext<CR>
 " Disable Ctrl+B
 nnoremap <C-b> <Nop>
 
+nnoremap <leader>bd :bprevious\|bdelete #<CR>
+
 set splitbelow
 set splitright
 
@@ -38,6 +40,7 @@ call vundle#begin('~/.bundles/')
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
 
+Plugin 'cespare/vim-toml'
 Plugin 'vim-utils/vim-troll-stopper'
 Plugin 'tpope/vim-fugitive'
 Plugin 'evidens/vim-twig'
