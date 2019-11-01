@@ -38,6 +38,19 @@ import unittest
 
 import ${2:full.package.path.}$1
 
+'''
+package(default_visibility = ["//visibility:public"])
+
+py_test(
+    name = "`!p snip.rv = snip.basename`",
+    srcs = [
+        "`!p snip.rv = snip.fn`",
+    ],
+    deps = [
+        "//base/test/gtest:test_utilities",
+    ],
+)
+'''
 
 class Test${1:Foo}(unittest.TestCase):
     def setUp(self):

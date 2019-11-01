@@ -7,19 +7,24 @@ import os
 import pprint
 import yaml
 
-WORKSPACES_FILE=os.path.join(os.getenv('DOTFILES_ROOT'), 'shell/workspaces.yaml')
+WORKSPACES_FILE = os.path.join(
+    os.getenv('DOTFILES_ROOT'), 'shell/workspaces.yaml')
 current_workspace_var = 'CURRENT_WORKSPACE'
 
 ACTIONS = {
     'cd': 'echo "cd to [{root}]"; builtin cd {root};',
-    'source': 'echo "Sourcing [{root}/{source}]";' \
-              'set -x;' \
-              'export CURRENT_WORKSPACE={name};' \
-              'ln -sfn {root}/ ~/current_workspace;' \
-              'builtin cd {root};' \
-              'set +x;'
-              'source {root}/{source};' \
+    'source': ';\n'.join([
+        'echo "Sourcing [{root}/{source}]"',
+        'set -x',
+        'export CURRENT_WORKSPACE={name}',
+        'ln -sfn {root}/ ~/current_workspace',
+        'builtin cd {root}',
+        'tmux rename-window "$(git symbolic-ref HEAD | sed \'s#^refs/heads/##\')" | true',
+        'set +x',
+        'source {root}/{source}',
+    ])
 }
+
 
 def parse_args(argv=None):
     parser = argparse.ArgumentParser()
@@ -35,11 +40,14 @@ def parse_args(argv=None):
 
     for key, action_fmt in ACTIONS.items():
         action_subparser = subparsers.add_parser(key)
-        action_subparser.add_argument('workspace_name', nargs='?',
-                default=os.getenv(current_workspace_var))
+        action_subparser.add_argument(
+            'workspace_name',
+            nargs='?',
+            default=os.getenv(current_workspace_var))
         action_subparser.set_defaults(action=key, func=build_action)
 
     return parser.parse_args(args=argv)
+
 
 def dump_options(args):
     options = []
@@ -49,9 +57,11 @@ def dump_options(args):
         options = ACTIONS.keys()
     print(' '.join(options))
 
+
 def list_workspaces(args):
     options = sorted([ws['root'] for name, ws in load_workspaces().items()])
     print(' '.join(options))
+
 
 def load_workspaces():
     with open(WORKSPACES_FILE, 'r') as stream:
@@ -63,15 +73,18 @@ def load_workspaces():
         except yaml.YAMLError as exc:
             print(exc)
 
+
 def build_action(args):
     workspaces = load_workspaces()
     workspace = workspaces[args.workspace_name]
     action_fmt = ACTIONS[args.action]
     print(action_fmt.format(**workspace))
 
+
 def main(argv=None):
     args = parse_args(argv)
     args.func(args)
+
 
 if __name__ == "__main__":
     main()

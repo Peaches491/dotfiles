@@ -208,9 +208,16 @@ export CHARSET=UTF-8
 
 
 ###############################################################################
-# Computer Language
+# Computer Languages
 ###############################################################################
 export PYTHONDONTWRITEBYTECODE=1
+export GOPATH="$HOME/.go/"
+
+
+###############################################################################
+# Shell settings
+###############################################################################
+stty -ixon # Disable flow control
 
 
 ###############################################################################
@@ -229,7 +236,7 @@ fi
 bazel_complete='/usr/local/lib/bazel/bin/bazel-complete.bash'
 [ -f $bazel_complete ] && . $bazel_complete
 
-export NVM_DIR="/home/daniel/.nvm"
+export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
 

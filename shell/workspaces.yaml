@@ -17,3 +17,7 @@ driving4:
 driving5:
   root: "/home/daniel/driving_5"
   source: "scripts/shell/zooxrc.sh"
+
+driving6:
+  root: "/home/daniel/driving_6"
+  source: "scripts/shell/zooxrc.sh"

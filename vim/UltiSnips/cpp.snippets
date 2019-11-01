@@ -4,6 +4,21 @@ ${VISUAL}
 } // namespace $1
 endsnippet
 
+
+snippet nested_namespace "CPP nested namespace with comment" b
+// namespace ${1:namespace}
+`!p
+tokens = t[1].split(' ')
+for tok in tokens:
+  snip.rv += snip.mkline("namespace {} {{\n".format(tok))
+snip.rv += '\n'
+snip.rv += snip.v.text
+for tok in reversed(tokens):
+  snip.rv += snip.mkline("\n}} // namespace {}".format(tok))
+`
+endsnippet
+
+
 snippet main "Zoox main with GFlags, GLog, and base::init" b
 // `!p snip.rv = snip.basename`
 //
@@ -26,10 +41,10 @@ cc_binary(
 )
 */
 
-#include "base/initialization/init_zoox.h"
-
 #include <gflags/gflags.h>
 #include <glog/logging.h>
+
+#include "base/initialization/init_zoox.h"
 
 namespace zoox {
 int `!p snip.rv = snip.basename`_main() {
@@ -44,8 +59,9 @@ int main(int argc, char* argv[]) {
 }
 endsnippet
 
+
 snippet test "Zoox test skeleton with gtest_main" b
-#include "gtest/gtest.h"
+#include <gtest/gtest.h>
 
 /*
 package(default_visibility = ["//visibility:public"])
