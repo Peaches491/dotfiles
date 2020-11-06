@@ -1,0 +1,45 @@
+#!/bin/sh
+# postinst script for mutate
+#
+# see: dh_installdeb(1)
+
+# summary of how this script can be called:
+#        * <postinst> `configure' <most-recently-configured-version>
+#        * <old-postinst> `abort-upgrade' <new version>
+#        * <conflictor's-postinst> `abort-remove' `in-favour' <package>
+#          <new-version>
+#        * <postinst> `abort-remove'
+#        * <deconfigured's-postinst> `abort-deconfigure' `in-favour'
+#          <failed-install-package> <version> `removing'
+#          <conflicting-package> <version>
+# for details, see http://www.debian.org/doc/debian-policy/ or
+# the debian-policy package
+PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
+export PATH
+
+dire="/usr/share/doc/mutate"
+ARCH=`uname -m`
+BIT32=i686
+BIT64=x86_64
+if [ ${ARCH} = ${BIT64} ];then
+qm="/usr/lib/x86_64-linux-gnu/qt5/bin/qmake"
+else
+qm="/usr/lib/i386-linux-gnu/qt5/bin/qmake"
+fi
+
+cd $dire && gunzip *.gz && tar -xf *.tar && cd src && ${qm} . && make && make install
+for i in `ls /home`; do
+mkdir -p /home/$i/.config/Mutate
+cp -a $dire/config/* /home/$i/.config/Mutate
+cat $dire/config/config.ini | sed "s#{home}#`echo /home/$i`#g" > /home/$i/.config/Mutate/config.ini
+chmod -R a+x /home/$i/.config/Mutate/scripts
+chmod -R a+w /home/$i/.config/Mutate
+done
+mkdir -p /root/.config/Mutate
+cp -a $dire/config/* /root/.config/Mutate
+cat $dire/config/config.ini | sed "s#{home}#`echo /root`#g" > /root/.config/Mutate/config.ini
+chmod -R a+x /root/.config/Mutate/scripts
+chmod -R a+w /root/.config/Mutate
+cp $dire/info/mutate.png /usr/share/icons
+cp $dire/info/Mutate.desktop /usr/share/applications
+rm -rf $dire
