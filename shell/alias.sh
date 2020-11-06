@@ -1,8 +1,8 @@
 #######################
 # Cross-shell variables
 #######################
-export EDITOR='vim'
-alias vim='vim'
+export EDITOR='nvim'
+alias vim='nvim'
 
 export PAGER=less
 

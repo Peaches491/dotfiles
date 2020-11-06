@@ -79,7 +79,8 @@ Plugin 'rust-lang/rust.vim'
 
 Plugin 'Peaches491/vim-glog-syntax'
 
-set rtp+=~/.fzf
+"set rtp+=~/.fzf
+Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
 " Mapping selecting mappings
 nmap <leader><tab> <plug>(fzf-maps-n)

@@ -244,7 +244,7 @@ export NVM_DIR="$HOME/.nvm"
 # Run TMux!
 ###############################################################################
 
-export TERM=xterm-256color
+export TERM=screen-256color
 
 if [ ! $TMUX ]; then
    tmux #new-session -A -s main

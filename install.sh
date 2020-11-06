@@ -51,11 +51,13 @@ if [ -n "$full_install" ]; then
     inotify-tools \
     python-dev \
     python2.7-dev \
-    python-software-properties \
+    software-properties-common \
     tmux \
     vim \
     xclip \
 
+  # Graveyard
+  #python-software-properties
 else
   echo "--full-install not specified. linking only."
 fi
