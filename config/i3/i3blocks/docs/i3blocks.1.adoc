@@ -1,0 +1,74 @@
+:progname: i3blocks
+
+= {progname}(1)
+
+== NAME
+
+{progname} - A feed generator for text based status bars
+
+== SYNOPSIS
+
+*{progname}* [_OPTION_]...
+
+== DESCRIPTION
+
+The {progname}(1) command generates a status line for i3bar(1).
+It schedules command lines described in a simple configuration file at specified time intervals, upon signal reception or on clicks.
+
+== OPTIONS
+
+*-h*::
+Show the help message and exit.
+
+*-c* _CONFIGFILE_::
+Specifies an alternate configuration file path.
+
+*-v*::
+Increase log level.
+This option is a cumulative.
+By default only fatal errors are shown in the status bar.
+Passing this option once will show error messages as well.
+Using *-vv* and more will show more debug output on standard error.
+
+== CONFIGURATION
+
+{progname} must be defined as the status line command of the *bar* block described in your i3(1) configuration file:
+
+[source]
+----
+bar {
+  status_command i3blocks
+}
+----
+
+By default, {progname} looks for a configuration file in the following order (note that /etc may be prefixed with /usr/local depending on the compilation flags):
+
+. _$XDG_CONFIG_HOME/i3blocks/config_ (or _~/.config/i3blocks/config_)
+. _~/.i3blocks.conf_
+. _$XDG_CONFIG_DIRS/i3blocks/config_ (or _/etc/xdg/i3blocks/config_)
+. _/etc/i3blocks.conf_
+
+For the content of the configuration file, please refer to the i3blocks website: https://vivien.github.io/i3blocks
+
+== SEE ALSO
+
+i3(1), i3bar(1), i3status(1)
+
+== AUTHORS
+
+{progname} is written by Vivien Didelot and other contributors.
+
+== RESOURCES
+
+*Project web site:* https://vivien.github.io/i3blocks
+
+*Git source repository and issue tracker:* https://github.com/vivien/i3blocks
+
+*Official collection of scripts for {progname}:* https://github.com/vivien/i3blocks-contrib
+
+*i3bar protocol:* http://i3wm.org/docs/i3bar-protocol.html
+
+== COPYING
+
+Copyright (C) Vivien Didelot.
+Free use of this software is granted under the terms of the _GPLv3+_ License.
