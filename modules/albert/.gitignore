@@ -1,0 +1,9 @@
+CMakeLists.txt.user*
+build*
+LicenseTemplate
+packaging
+design
+.albertignore
+*.qmlc
+*.jsc
+
