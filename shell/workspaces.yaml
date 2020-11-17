@@ -1,23 +1,5 @@
-driving:
-  root: "/home/daniel/driving"
-  source: "scripts/shell/zooxrc.sh"
-
-driving2:
-  root: "/home/daniel/driving_2"
-  source: "scripts/shell/zooxrc.sh"
-
-driving3:
-  root: "/home/daniel/driving_3"
-  source: "scripts/shell/zooxrc.sh"
-
-driving4:
-  root: "/home/daniel/driving_4"
-  source: "scripts/shell/zooxrc.sh"
-
-driving5:
-  root: "/home/daniel/driving_5"
-  source: "scripts/shell/zooxrc.sh"
-
-driving6:
-  root: "/home/daniel/driving_6"
-  source: "scripts/shell/zooxrc.sh"
+worktree_dirs:
+ - repo_name: "driving"
+   root: "/home/daniel/driving/"
+   root_checkout: "_root"
+   source: "scripts/shell/zooxrc.sh"
