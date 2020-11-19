@@ -19,24 +19,13 @@ function _workspace_completion {
   cur_word="${COMP_WORDS[COMP_CWORD]}"
   # prev_word="${COMP_WORDS[COMP_CWORD-1]}"
   IFS=\  eval 'all_words="${COMP_WORDS[*]}"'
-  options="$($command_gen_script dump_options --all $all_words)"
+  options="$($command_gen_script autocomplete_options --all $all_words)"
   COMPREPLY=( $( compgen -W "$options" -- $cur_word ) )
   return 0
 }
 
 function workspace {
   eval "$($command_gen_script $@)"
-}
-
-function workspace-all {
-  for workspace in $($command_gen_script list_workspaces); do
-    (
-      cd $workspace
-      echo ""
-      echo -e "${fg_green}Workspace: $fg_blue$workspace $reset_color"
-      exec $@
-    )
-  done
 }
 
 alias workspace-branches='workspace-all git rev-parse --abbrev-ref HEAD'

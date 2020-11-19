@@ -22,14 +22,10 @@ def base_arg_parser():
 
     subparsers = parser.add_subparsers()
 
-    dump_subparser = subparsers.add_parser("dump_options")
-    dump_subparser.add_argument("forest", nargs="?", default=None)
-    dump_subparser.add_argument("--all", nargs="*", default=None)
-    dump_subparser.set_defaults(func=dump_options)
-
-    list_subparser = subparsers.add_parser("list_workspaces")
-    list_subparser.add_argument("forest")
-    list_subparser.set_defaults(func=list_workspaces)
+    autocomplete_subparser = subparsers.add_parser("autocomplete_options")
+    autocomplete_subparser.add_argument("forest", nargs="?", default=None)
+    autocomplete_subparser.add_argument("--all", nargs="*", default=None)
+    autocomplete_subparser.set_defaults(func=autocomplete_options)
 
     return parser, subparsers
 
@@ -46,7 +42,7 @@ class Action(metaclass=abc.ABCMeta):
         Action.action_instances.append(instance)
 
     @classmethod
-    def all_actions(_):
+    def action_names(_):
         return [a.__action_name__ for a in Action.action_instances]
 
     @classmethod
@@ -237,14 +233,7 @@ def load_forest(forest_name):
         log.error(f"Forest not found: {forest_name}")
 
 
-def list_all_forests_and_trees():
-    forests = load_forests()
-    for forest in forests:
-        for tree in forest.worktree_names():
-            yield "/".join([forest.name, tree])
-
-
-def dump_options(args):
+def autocomplete_options(args):
     log.debug(sys.argv)
     log.debug(f"All comp words: {args.all}")
 
@@ -252,30 +241,14 @@ def dump_options(args):
     log.debug(f"stripped: {comp}")
 
     options = []
-    if not comp or comp[0] not in Action.all_actions():
+    if not comp or comp[0] not in Action.action_names():
         log.debug(f"stripped: {comp}")
-        options = Action.all_actions()
+        options = Action.action_names()
     else:
         options = Action.get_action(comp[0]).autocomplete(comp[1:])
 
     log.debug(f"suggestions: {options}")
     return " ".join(options)
-
-
-def list_workspaces(args):
-    forest = load_forest(args)
-    options = sorted(forest.worktree_names())
-    return " ".join(options)
-
-
-def build_action(args):
-    forest = load_forest(args)
-
-    action = Action.get_action(args.action_name)
-
-    cmd = action(args)
-
-    return cmd
 
 
 def main(argv=None):
@@ -284,7 +257,6 @@ def main(argv=None):
 
     parser, subparsers = base_arg_parser()
     Action.add_action_parsers(subparsers)
-
     args = parser.parse_args(argv)
 
     print(args.func(args))
