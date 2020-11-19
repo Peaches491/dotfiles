@@ -17,8 +17,9 @@ function export_print {
 
 function _workspace_completion {
   cur_word="${COMP_WORDS[COMP_CWORD]}"
-  prev_word="${COMP_WORDS[COMP_CWORD-1]}"
-  options="$($command_gen_script dump_options --prev $prev_word --cur $cur_word)"
+  # prev_word="${COMP_WORDS[COMP_CWORD-1]}"
+  IFS=\  eval 'all_words="${COMP_WORDS[*]}"'
+  options="$($command_gen_script dump_options --all $all_words)"
   COMPREPLY=( $( compgen -W "$options" -- $cur_word ) )
   return 0
 }

@@ -1,5 +1,5 @@
-worktree_dirs:
- - repo_name: "driving"
+workforest:
+ - name: "driving"
    root: "/home/daniel/driving/"
-   root_checkout: "_root"
+   root_checkout: ".root"
    source: "scripts/shell/zooxrc.sh"
